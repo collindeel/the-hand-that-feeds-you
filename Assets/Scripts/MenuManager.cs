@@ -3,6 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    void Start()
+    {
+        var dialogManager = GetComponent<DialogManager>();
+        dialogManager.CreateDialog("Notice", "Trigger warning info available at the bottom right of the main menu.");
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("Game");

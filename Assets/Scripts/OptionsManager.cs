@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -28,7 +26,7 @@ public class OptionsManager : MonoBehaviour
             if (value > 0) audioMixer.SetFloat(settingName, Mathf.Log10(value) * 40);
             else audioMixer.SetFloat(settingName, -80);
 
-            slider.onValueChanged.AddListener(delegate {SaveVolumeSetting(slider);});
+            slider.onValueChanged.AddListener(delegate { SaveVolumeSetting(slider); });
         }
     }
 
