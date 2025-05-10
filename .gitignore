@@ -77,3 +77,6 @@ crashlytics-build.properties
 # Editor settings files
 .vsconfig
 .vscode/
+
+# mac doot
+.DS_Store
