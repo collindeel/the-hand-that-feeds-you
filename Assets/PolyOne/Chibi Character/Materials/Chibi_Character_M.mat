@@ -39,10 +39,14 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: a5fe382696437754685a252deeea70e4, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ClearCoatMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -63,7 +67,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a5fe382696437754685a252deeea70e4, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCapMask:
@@ -123,6 +127,7 @@ Material:
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
     - _BumpScale: 1
+    - _ClearCoat: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -139,6 +144,9 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _Glow_Size: 0.14
+    - _Highlight_Intensity: 1
+    - _Highlight_Size: 0.45
     - _IndirectIntensity: 1
     - _IndirectIntensityOutline: 0
     - _MatCapMaskChannel: 0
@@ -157,7 +165,9 @@ Material:
     - _OutlineTextureLOD: 5
     - _OutlineTextureType: 0
     - _OutlineWidth: 1
+    - _Outline_Size: 0.3
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 2
     - _RampBands: 4
     - _RampBandsSmoothing: 0.1
@@ -171,10 +181,14 @@ Material:
     - _ReflectionMapType: 0
     - _ReflectionSmoothness: 0.5
     - _RenderingMode: 0
+    - _RimBlend: 0.5
     - _RimMax: 2
     - _RimMin: 0.06
+    - _RimThreshold: 0.1
     - _SampleGI: 0
     - _ShadowColorLightAtten: 1
+    - _Shadows_Contrast: 1.41
+    - _Shadows_Size: 0.72
     - _SingleIndirectColor: 0
     - _Smoothness: 0.31
     - _SmoothnessTextureChannel: 0
@@ -206,15 +220,20 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _AmbientColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+    - _BaseColor: {r: 0.5294666, g: 0.5235849, b: 1, a: 1}
+    - _Base_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 0.5294666, g: 0.52358484, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Highlight_Color: {r: 0.23652434, g: 1, b: 0, a: 0}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Outline_Color: {r: 0.11764706, g: 0, b: 0.49019605, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _SColor: {r: 0.5943396, g: 0.41211286, b: 0.41211286, a: 1}
+    - _Shadows_Color: {r: 0.116559066, g: 0, b: 0.49056596, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
   m_BuildTextureStacks: []
