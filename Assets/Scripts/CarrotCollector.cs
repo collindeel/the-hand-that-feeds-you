@@ -10,9 +10,7 @@ public class CarrotCollector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            print("e");
             Collider[] hits = Physics.OverlapSphere(transform.position, pickupRadius, carrotLayerMask);
-            print($"hits: {hits.Length}");
 
             if (hits.Length > 0)
             {
