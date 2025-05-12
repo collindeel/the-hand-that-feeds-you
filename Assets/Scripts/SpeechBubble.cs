@@ -10,7 +10,7 @@ public class SpeechBubble : MonoBehaviour
     {
         _textBlock = GetComponentInChildren<TextMeshProUGUI>();
         _player = GameObject.FindWithTag("MainCamera");
-        print("New speech bubble!");
+        //print("New speech bubble!");
     }
 
     void Update()
@@ -18,7 +18,7 @@ public class SpeechBubble : MonoBehaviour
         var playerPosition2d = new Vector2(_player.transform.position.x, _player.transform.position.z);
         var speakerPosition2d = new Vector2(transform.parent.position.x, transform.parent.position.z);
         var angle = Vector2.SignedAngle(Vector2.up,  playerPosition2d - speakerPosition2d);
-        print($"Positions: {playerPosition2d}, {speakerPosition2d} Difference: {playerPosition2d - speakerPosition2d} Angle: {angle}");
+        //print($"Positions: {playerPosition2d}, {speakerPosition2d} Difference: {playerPosition2d - speakerPosition2d} Angle: {angle}");
         transform.eulerAngles = new Vector3(0, 180 - angle, 0);
     }
 

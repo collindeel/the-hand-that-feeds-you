@@ -5,11 +5,14 @@ TagManager:
   serializedVersion: 3
   tags:
   - Floor
+  - Aya
+  - Ura
+  - Oga
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Foliage
   - Water
   - UI
   - 
