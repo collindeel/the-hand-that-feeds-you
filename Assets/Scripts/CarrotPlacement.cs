@@ -62,7 +62,7 @@ public class CarrotPlacement : MonoBehaviour
             Instantiate(carrotPrefab, randomPosition, Quaternion.Euler(-90, Random.Range(0, 360), 0));
         }
 
-        Debug.Log($"Placed {placed} carrots. Max retry due to flatness: {highestAttemptsFlat}; due to collision: {highestAttemptsCollide}.");
+        Debug.Log($"Placed {placed} carrots. Max retry due to flatness: {highestAttemptsFlat}/{maxAttemptsFlat}; due to collision: {highestAttemptsCollide}/{maxAttemptsCollide}.");
     }
 
     Vector3 GetRandomPointOnTerrain()
