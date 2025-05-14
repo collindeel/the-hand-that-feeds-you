@@ -375,6 +375,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5362025121097832189, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1048538231}
+    - targetCorrespondingSourceObject: {fileID: 5362025121097832189, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1048538234}
+    - targetCorrespondingSourceObject: {fileID: 5362025121097832189, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1048538233}
+    - targetCorrespondingSourceObject: {fileID: 5362025121097832189, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1048538232}
   m_SourcePrefab: {fileID: 100100000, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
 --- !u!1 &203668101
 GameObject:
@@ -1525,6 +1534,53 @@ MonoBehaviour:
   speed: 5
   sprintMultiplier: 2
   jumpForce: 5
+--- !u!114 &1048538232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048538225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fe24f05b6684221894a5dce6b6f7a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  feedRadius: 2
+  rabbitLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  inventory: {fileID: 1048538233}
+--- !u!114 &1048538233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048538225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ac0380df48d449f9b7ace5eac1a1fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupController: {fileID: 406954637}
+--- !u!114 &1048538234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048538225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8939439a38f284e42a3448f49b9d0bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRadius: 2
+  carrotLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  inventory: {fileID: 1048538233}
 --- !u!1 &1251822766
 GameObject:
   m_ObjectHideFlags: 0
