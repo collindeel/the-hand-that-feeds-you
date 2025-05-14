@@ -30,11 +30,12 @@ public class RabbitWander : MonoBehaviour
     }
     public static Vector3 RandomNavSphere(Vector3 origin, float dist)
     {
-        Vector3 randomDirection = Random.insideUnitSphere * dist;
+        Vector3 randomDirection = Random.onUnitSphere * dist;
         randomDirection += origin;
         NavMeshHit navHit;
-        NavMesh.SamplePosition(randomDirection, out navHit, dist, NavMesh.AllAreas);
-        return navHit.position;
+        if(NavMesh.SamplePosition(randomDirection, out navHit, dist, NavMesh.AllAreas))
+            return navHit.position;
+        else return origin;
     }
 
     void Update()

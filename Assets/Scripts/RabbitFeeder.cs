@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class RabbitFeeder : MonoBehaviour
@@ -5,10 +6,14 @@ public class RabbitFeeder : MonoBehaviour
     public float feedRadius = 3f;
     public LayerMask rabbitLayer;
     public CarrotInventory inventory;
+    public RabbitAgent[] allRabbits;
+    public GameObject carrotPrefab;
+    public float feedRange = 2f;
+    public float tossForce = 5f;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             TryFeedRabbit();
         }
@@ -21,6 +26,15 @@ public class RabbitFeeder : MonoBehaviour
             Debug.Log("No carrots to feed.");
             return;
         }
+
+        // Limit by range or LOS?
+        foreach (RabbitAgent rabbit in allRabbits)
+        {
+            rabbit.playerIsFeeding = true;
+        }
+
+        // Optionally reset after some time
+        StartCoroutine(ResetFeedingSignalAfterDelay(5f));
 
         Collider[] rabbits = Physics.OverlapSphere(transform.position, feedRadius, rabbitLayer);
 
@@ -37,7 +51,25 @@ public class RabbitFeeder : MonoBehaviour
         }
         else
         {
-            Debug.Log("No rabbits nearby.");
+            Debug.Log("No rabbits nearby... tossing a carrot.");
+            inventory.RemoveCarrot();
+            Vector3 spawnPosition = transform.position + transform.forward * 1.5f + Vector3.up * 0.5f;
+            GameObject carrot = Instantiate(carrotPrefab, spawnPosition, Quaternion.identity);
+            Rigidbody rb = carrot.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddForce(transform.forward * tossForce, ForceMode.VelocityChange);
+            }
+        }
+    }
+
+    IEnumerator ResetFeedingSignalAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        foreach (RabbitAgent rabbit in allRabbits)
+        {
+            rabbit.playerIsFeeding = false;
         }
     }
 
