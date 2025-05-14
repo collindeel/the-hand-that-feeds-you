@@ -7,15 +7,19 @@ public class RabbitReaction : MonoBehaviour
     //public Color glowColor = Color.yellow;
     //public float glowDuration = 0.5f;
     public ParticleSystem heartParticles;
+    public ParticleSystem moguParticles;
 
     private Color originalColor;
 
     void Start()
     {
 
-        if (heartParticles == null)
-        {
-            heartParticles = GetComponentInChildren<ParticleSystem>();
+        if (heartParticles == null) {
+            heartParticles = transform.Find("hearts").GetComponentInChildren<ParticleSystem>();
+        }
+        if (moguParticles == null) {
+            moguParticles = transform.Find("mogu mogu").GetComponentInChildren<ParticleSystem>();
+
         }
 
 
@@ -31,10 +35,13 @@ public class RabbitReaction : MonoBehaviour
     public void ReactToFeeding()
     {
 
-        if (heartParticles != null)
-        {
+        if (heartParticles != null) {
             heartParticles.Play();
         }
+        if (moguParticles != null) {
+            moguParticles.Play();
+        }
+
         //StartCoroutine(GlowRoutine());
     }
 
