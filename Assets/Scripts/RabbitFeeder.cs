@@ -14,7 +14,7 @@ public class RabbitFeeder : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) || Gamepad.current.buttonWest.wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.F) || (Gamepad.current?.buttonWest.wasPressedThisFrame ?? false))
         {
             TryFeedRabbit();
         }
