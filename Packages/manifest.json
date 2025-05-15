@@ -10,7 +10,7 @@
     "com.unity.multiplayer.center": "1.0.0",
     "com.unity.probuilder": "6.0.5",
     "com.unity.render-pipelines.universal": "17.1.0",
-    "com.unity.springbone": "https://github.com/unity3d-jp/UnityChanSpringBone.git",
+    "com.unity.springbone": "Packages/com.unity.springbone",
     "com.unity.test-framework": "1.5.1",
     "com.unity.timeline": "1.8.8",
     "com.unity.toonshader": "0.11.0-preview",
