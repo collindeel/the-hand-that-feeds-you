@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
@@ -43,3 +44,4 @@ public class TerrainGenerator : EditorWindow
         terrain.terrainData.SetHeights(0, 0, heights);
     }
 }
+#endif
