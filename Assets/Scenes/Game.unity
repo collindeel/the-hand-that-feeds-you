@@ -195,6 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 75406037}
+  - component: {fileID: 75406038}
   m_Layer: 0
   m_Name: CameraRig
   m_TagString: MainCamera
@@ -219,6 +220,23 @@ Transform:
   - {fileID: 1599467262}
   m_Father: {fileID: 1048538230}
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+--- !u!114 &75406038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75406036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b21289416af47b1aff359c2109c354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1048538230}
+  distance: 5
+  height: 2.5
+  mouseSensitivity: 3
+  pitchLimits: {x: -30, y: 60}
 --- !u!1 &120541395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1530,10 +1548,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de0208e5bf0c041a081816bfceefaaed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraRig: {fileID: 330585546}
   speed: 5
+  rotationSpeed: 10
   sprintMultiplier: 2
   jumpForce: 5
+  cameraTransform: {fileID: 75406037}
 --- !u!114 &1048538232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1551,6 +1570,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   inventory: {fileID: 1048538233}
+  allRabbits: []
+  carrotPrefab: {fileID: 6638733501349649444, guid: 3e5bf70492bcb44e5bd0a815e6f2400a, type: 3}
+  feedRange: 2
+  tossForce: 5
 --- !u!114 &1048538233
 MonoBehaviour:
   m_ObjectHideFlags: 0

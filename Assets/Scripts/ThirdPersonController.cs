@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class ThirdPersonController : MonoBehaviour
 {
-    public Transform cameraRig;
     public float speed = 5f;
+    public float rotationSpeed = 10f;
     public float sprintMultiplier = 2f;
     public float jumpForce = 5f;
 
     private Rigidbody rb;
     private bool isGrounded = true;
+    public Transform cameraTransform;
 
     private Animator animator;
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
     }
@@ -22,20 +22,28 @@ public class ThirdPersonController : MonoBehaviour
     private bool isJumping = false;
     void Update()
     {
-        float moveV = Input.GetAxis("Vertical");
-        float rotate = Input.GetAxis("Horizontal");
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-        transform.Rotate(Vector3.up, rotate * 100f * Time.deltaTime);
+        // Get camera-relative direction
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
 
-        Vector3 move = transform.forward * moveV;
+        // Flatten the y-axis so movement stays level
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        Vector3 moveDir = camForward * vertical + camRight * horizontal;
 
         float currentSpeed = speed * (Input.GetKey(KeyCode.LeftShift) ? sprintMultiplier : 1f);
-        if (move.magnitude > 0.1f)
+        if (moveDir.magnitude > 0.1f)
         {
-            //transform.position += move * currentSpeed * Time.deltaTime;
-            //float animSpeed = moveV * (Input.GetKey(KeyCode.LeftShift) ? sprintMultiplier : 1f);
-            rb.MovePosition(rb.position + move * currentSpeed * Time.deltaTime);
-            animator.SetFloat("Speed", moveV * currentSpeed);
+            Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            rb.MovePosition(rb.position + moveDir * currentSpeed * Time.deltaTime);
+            animator.SetFloat("Speed", moveDir.magnitude * currentSpeed);
         }
         else
         {
@@ -44,7 +52,7 @@ public class ThirdPersonController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && isGrounded && !isJumping)
         {
-            animator.SetTrigger("Jump");    
+            animator.SetTrigger("Jump");
             StartCoroutine(DelayedJump(0.3f));
         }
     }
