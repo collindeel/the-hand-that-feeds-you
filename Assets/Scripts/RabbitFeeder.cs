@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RabbitFeeder : MonoBehaviour
 {
@@ -10,10 +11,10 @@ public class RabbitFeeder : MonoBehaviour
     public GameObject carrotPrefab;
     public float feedRange = 2f;
     public float tossForce = 5f;
-
+    
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) || Gamepad.current.buttonWest.wasPressedThisFrame)
         {
             TryFeedRabbit();
         }

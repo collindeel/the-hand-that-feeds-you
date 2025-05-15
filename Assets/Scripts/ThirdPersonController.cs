@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ThirdPersonController : MonoBehaviour
 {
@@ -13,13 +14,20 @@ public class ThirdPersonController : MonoBehaviour
     public Transform cameraTransform;
 
     private Animator animator;
+
+    InputAction _sprintAction;
+    InputAction _jumpAction;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        _sprintAction = InputSystem.actions.FindAction("Sprint");
+        _jumpAction = InputSystem.actions.FindAction("Jump");
     }
 
     private bool isJumping = false;
+
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
@@ -37,7 +45,7 @@ public class ThirdPersonController : MonoBehaviour
 
         Vector3 moveDir = camForward * vertical + camRight * horizontal;
 
-        float currentSpeed = speed * (Input.GetKey(KeyCode.LeftShift) ? sprintMultiplier : 1f);
+        float currentSpeed = speed * (_sprintAction.IsPressed() ? sprintMultiplier : 1f);
         if (moveDir.magnitude > 0.1f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
@@ -50,7 +58,7 @@ public class ThirdPersonController : MonoBehaviour
             animator.SetFloat("Speed", 0f);
         }
 
-        if (Input.GetKey(KeyCode.Space) && isGrounded && !isJumping)
+        if (_jumpAction.IsPressed() && isGrounded && !isJumping)
         {
             animator.SetTrigger("Jump");
             StartCoroutine(DelayedJump(0.3f));

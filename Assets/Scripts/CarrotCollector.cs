@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CarrotCollector : MonoBehaviour
 {
@@ -6,9 +7,16 @@ public class CarrotCollector : MonoBehaviour
     public LayerMask carrotLayerMask;
     public CarrotInventory inventory;
 
+    InputAction _interactAction;
+
+    void Start()
+    {
+        _interactAction = InputSystem.actions.FindAction("Interact");
+    }
+    
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (_interactAction.WasPressedThisFrame())
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, pickupRadius, carrotLayerMask);
 
