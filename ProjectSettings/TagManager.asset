@@ -8,6 +8,8 @@ TagManager:
   - Aya
   - Ura
   - Oga
+  - Carrot
+  - ThrownCarrot
   layers:
   - Default
   - TransparentFX
@@ -16,8 +18,8 @@ TagManager:
   - Water
   - UI
   - Rabbit
-  - 
-  - 
+  - ThrownCarrot
+  - Ground
   - 
   - 
   - 

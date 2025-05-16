@@ -1,20 +1,18 @@
 using UnityEngine;
 using UnityEngine.AI;
+
 public static class NavMeshUtils
 {
-
     /// <summary>
-    /// Gets a destination position,
-    /// snapping to the nearest NavMesh point if possible.
+    /// Gets a destination in a direction, snapping to nearest NavMesh if possible.
     /// </summary>
-    /// <param name="from">Tail of vector.</param>
-    /// <param name="to">Head of vector.</param>
-    /// <param name="distance">The range to sample.</param>
-    /// <returns>The nearest valid NavMesh position or if none found, positive infinity.</returns>
-    public static Vector3 GetTargetPosition(Vector3 from, Vector3 to, float distance)
+    /// <param name="origin">Start position.</param>
+    /// <param name="direction">Direction to move (should be normalized).</param>
+    /// <param name="distance">How far to move.</param>
+    /// <returns>NavMesh position or positive infinity if invalid.</returns>
+    public static Vector3 GetDirectionalTarget(Vector3 origin, Vector3 direction, float distance)
     {
-        Vector3 direction = (to - from).normalized;
-        Vector3 destination = from + direction * distance;
+        Vector3 destination = origin + direction * distance;
 
         if (NavMesh.SamplePosition(destination, out NavMeshHit navHit, distance, NavMesh.AllAreas))
         {
@@ -24,5 +22,23 @@ public static class NavMeshUtils
         {
             return Vector3.positiveInfinity;
         }
+    }
+
+    /// <summary>
+    /// Gets a position *toward* a target, snapping to nearest NavMesh.
+    /// </summary>
+    public static Vector3 GetPositionToward(Vector3 from, Vector3 to, float distance)
+    {
+        Vector3 direction = (to - from).normalized;
+        return GetDirectionalTarget(from, direction, distance);
+    }
+
+    /// <summary>
+    /// Gets a position *away from* a target, snapping to nearest NavMesh.
+    /// </summary>
+    public static Vector3 GetPositionAway(Vector3 from, Vector3 to, float distance)
+    {
+        Vector3 direction = (from - to).normalized;
+        return GetDirectionalTarget(from, direction, distance);
     }
 }

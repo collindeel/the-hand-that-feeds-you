@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CarrotPlacement : MonoBehaviour
@@ -9,11 +11,14 @@ public class CarrotPlacement : MonoBehaviour
     public int maxAttemptsCollide = 5;
     public int maxAttemptsFlat = 300;
     public float maxSlopeAngle = 5f;
+    public bool trainingMode = true;
     public LayerMask foliageLayerMask;
     public float buryDepth = 1.2f;
+    public List<Transform> spawnedCarrots = new List<Transform>();
 
     void Start()
     {
+        if (trainingMode) return;
         int placed = 0;
         int iteration = 0;
 
@@ -59,7 +64,8 @@ public class CarrotPlacement : MonoBehaviour
                 highestAttemptsCollide = attemptsCollide;
 
 
-            Instantiate(carrotPrefab, randomPosition, Quaternion.Euler(-90, Random.Range(0, 360), 0));
+            GameObject newCarrot = Instantiate(carrotPrefab, randomPosition, Quaternion.Euler(-90, UnityEngine.Random.Range(0, 360), 0));
+            spawnedCarrots.Add(newCarrot.transform);
         }
 
         Debug.Log($"Placed {placed} carrots. Max retry due to flatness: {highestAttemptsFlat}/{maxAttemptsFlat}; due to collision: {highestAttemptsCollide}/{maxAttemptsCollide}.");
@@ -67,8 +73,8 @@ public class CarrotPlacement : MonoBehaviour
 
     Vector3 GetRandomPointOnTerrain()
     {
-        float x = Random.Range(terrain.transform.position.x, terrain.terrainData.size.x + terrain.transform.position.x);
-        float z = Random.Range(terrain.transform.position.z, terrain.terrainData.size.z + terrain.transform.position.z);
+        float x = UnityEngine.Random.Range(terrain.transform.position.x, terrain.terrainData.size.x + terrain.transform.position.x);
+        float z = UnityEngine.Random.Range(terrain.transform.position.z, terrain.terrainData.size.z + terrain.transform.position.z);
         float y = terrain.SampleHeight(new Vector3(x, 0, z)) + terrain.transform.position.y - buryDepth;
         return new Vector3(x, y, z);
     }

@@ -11,20 +11,34 @@ public class ThirdPersonController : MonoBehaviour
     private Rigidbody rb;
     private bool isGrounded = true;
     public Transform cameraTransform;
+    public PlayerBot bot;
 
     private Animator animator;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        bot = GetComponent<PlayerBot>();
     }
 
     private bool isJumping = false;
     void Update()
     {
+        if (bot.isEnabled) return;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
+        Move(horizontal, vertical, Input.GetKey(KeyCode.LeftShift));
+
+        if (Input.GetKey(KeyCode.Space) && isGrounded && !isJumping)
+        {
+            animator.SetTrigger("Jump");
+            StartCoroutine(DelayedJump(0.3f));
+        }
+    }
+
+    public void Move(float horizontal, float vertical, bool isSprint)
+    {
         // Get camera-relative direction
         Vector3 camForward = cameraTransform.forward;
         Vector3 camRight = cameraTransform.right;
@@ -36,8 +50,7 @@ public class ThirdPersonController : MonoBehaviour
         camRight.Normalize();
 
         Vector3 moveDir = camForward * vertical + camRight * horizontal;
-
-        float currentSpeed = speed * (Input.GetKey(KeyCode.LeftShift) ? sprintMultiplier : 1f);
+        float currentSpeed = speed * (isSprint ? sprintMultiplier : 1f);
         if (moveDir.magnitude > 0.1f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
@@ -50,11 +63,6 @@ public class ThirdPersonController : MonoBehaviour
             animator.SetFloat("Speed", 0f);
         }
 
-        if (Input.GetKey(KeyCode.Space) && isGrounded && !isJumping)
-        {
-            animator.SetTrigger("Jump");
-            StartCoroutine(DelayedJump(0.3f));
-        }
     }
 
     IEnumerator DelayedJump(float delay)
