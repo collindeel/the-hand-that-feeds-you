@@ -36,7 +36,7 @@ public class ThirdPersonController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        Move(horizontal, vertical, _sprintAction.IsPressed);
+        Move(horizontal, vertical, _sprintAction.IsPressed());
 
         if (_jumpAction.IsPressed() && isGrounded && !isJumping)
         {
