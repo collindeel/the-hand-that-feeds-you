@@ -1930,7 +1930,7 @@ MonoBehaviour:
   moveRadius: 50
   moveSpeed: 2
   feedCooldown: 5
-  isEnabled: 1
+  isEnabled: 0
   sprintDuration: 1
 --- !u!1 &1251822766
 GameObject:

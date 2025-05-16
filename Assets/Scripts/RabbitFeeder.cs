@@ -9,10 +9,18 @@ public class RabbitFeeder : MonoBehaviour
     public CarrotInventory inventory;
     public RabbitAgent[] allRabbits;
     public GameObject carrotPrefab;
+    public PlayerBot bot;
+    bool trainingMode = false;
     public float thrownCarrotScale = 0.25f;
     public float feedRange = 2f;
     public float tossForce = 5f;
-    
+
+    void Start()
+    {
+        bot = GetComponent<PlayerBot>();
+        trainingMode = bot.isEnabled;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F) || (Gamepad.current?.buttonWest.wasPressedThisFrame ?? false))
@@ -21,13 +29,11 @@ public class RabbitFeeder : MonoBehaviour
         }
     }
 
-    public bool trainingMode = true;  // Set to false in real gameplay
-
     public void TryFeedRabbit()
     {
         if (!trainingMode && inventory.CarrotCount <= 0)
         {
-            Debug.Log("No carrots to feed.");
+            //Debug.Log("No carrots to feed.");
             return;
         }
 
@@ -44,7 +50,7 @@ public class RabbitFeeder : MonoBehaviour
 
         if (rabbits.Length > 0)
         {
-            print($"in range, length {rabbits.Length}");
+            //print($"in range, length {rabbits.Length}");
             if (!trainingMode) inventory.RemoveCarrot();
             RabbitReaction reaction = rabbits[0].GetComponent<RabbitReaction>();
             if (reaction != null)
@@ -55,7 +61,7 @@ public class RabbitFeeder : MonoBehaviour
         }
         else
         {
-            Debug.Log("No rabbits nearby... tossing a carrot.");
+            //Debug.Log("No rabbits nearby... tossing a carrot.");
             if (!trainingMode) inventory.RemoveCarrot();
             ThrowCarrot();
         }
