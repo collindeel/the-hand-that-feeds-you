@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ThirdPersonController : MonoBehaviour
 {
@@ -14,23 +15,30 @@ public class ThirdPersonController : MonoBehaviour
     public PlayerBot bot;
 
     private Animator animator;
+
+    InputAction _sprintAction;
+    InputAction _jumpAction;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         bot = GetComponent<PlayerBot>();
+        _sprintAction = InputSystem.actions.FindAction("Sprint");
+        _jumpAction = InputSystem.actions.FindAction("Jump");
     }
 
     private bool isJumping = false;
+
     void Update()
     {
         if (bot.isEnabled) return;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        Move(horizontal, vertical, Input.GetKey(KeyCode.LeftShift));
+        Move(horizontal, vertical, _sprintAction.IsPressed);
 
-        if (Input.GetKey(KeyCode.Space) && isGrounded && !isJumping)
+        if (_jumpAction.IsPressed() && isGrounded && !isJumping)
         {
             animator.SetTrigger("Jump");
             StartCoroutine(DelayedJump(0.3f));
@@ -62,7 +70,6 @@ public class ThirdPersonController : MonoBehaviour
         {
             animator.SetFloat("Speed", 0f);
         }
-
     }
 
     IEnumerator DelayedJump(float delay)

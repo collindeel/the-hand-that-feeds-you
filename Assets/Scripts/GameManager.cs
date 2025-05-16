@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -16,13 +16,14 @@ public class GameManager : MonoBehaviour
 
     public Canvas pauseMenu;
     public Canvas optionsMenu;
-    bool _isPaused;
-    
+    public bool isPaused = false;
+    public bool storyMode = false;
 
     public void TogglePauseGame() {
-        _isPaused ^= true;
-        Time.timeScale = _isPaused ? 0f : 1f;
-        pauseMenu.enabled = _isPaused;
+        isPaused ^= true;
+        Time.timeScale = isPaused ? 0f : 1f;
+        pauseMenu.enabled = isPaused;
         optionsMenu.enabled = false;
+        Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }
