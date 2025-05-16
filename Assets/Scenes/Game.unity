@@ -236,6 +236,7 @@ MonoBehaviour:
   distance: 5
   height: 2.5
   mouseSensitivity: 3
+  controllerSensitivity: 3
   pitchLimits: {x: -30, y: 60}
 --- !u!1 &120541395
 GameObject:
@@ -2007,7 +2008,6 @@ GameObject:
   - component: {fileID: 1310173824}
   - component: {fileID: 1310173826}
   - component: {fileID: 1310173827}
-  - component: {fileID: 1310173828}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2029,6 +2029,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 935977621}
   optionsMenu: {fileID: 1445104420}
+  isPaused: 0
+  storyMode: 0
 --- !u!4 &1310173825
 Transform:
   m_ObjectHideFlags: 0
@@ -2072,18 +2074,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skySpeed: 0.5
---- !u!114 &1310173828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310173823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e6b7dec94bac480ca6f9d5ecac0a2a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1423167977
 PrefabInstance:
   m_ObjectHideFlags: 0
