@@ -6,8 +6,12 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         var dialogManager = GetComponent<DialogManager>();
-        dialogManager.CreateDialog("Notice", "Trigger warning info available at the bottom right of the main menu.");
+        if (dialogManager != null)
+        {
+            dialogManager.CreateDialog("Notice", "Trigger warning info available at the bottom right of the main menu.");
+        }
     }
+
 
     public void StartGame()
     {
@@ -16,11 +20,11 @@ public class MenuManager : MonoBehaviour
 
     public void QuitGame()
     {
-        #if UNITY_STANDALONE
-            Application.Quit();
-        #endif
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }

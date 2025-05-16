@@ -3,17 +3,17 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine.AI;
 using UnityEngine;
-using System.Collections;
+using Unity.MLAgents.Policies;
 
 public class RabbitAgent : Agent
 {
-    private int[] counts;
-    private int tick = 0;
     private Transform player;
     private NavMeshAgent agent;
     private Animator animator;
     private Transform nearestCarrot;
     private CarrotPlacement spawner; // yea i called it placement oops
+
+    public bool enableObservations = false;
 
     public bool playerIsFeeding; // set externally when player feeds
     public Transform[] allRabbits;
@@ -26,11 +26,14 @@ public class RabbitAgent : Agent
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-
-        counts = new int[5];
     }
     void Start()
     {
+        if (!enableObservations)
+        {
+            BehaviorParameters behaviorParams = GetComponent<BehaviorParameters>();
+            behaviorParams.BehaviorType = BehaviorType.HeuristicOnly;
+        }
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -51,7 +54,6 @@ public class RabbitAgent : Agent
 
     void Update()
     {
-        tick++;
         timeSinceLastMeal += Time.deltaTime;
         if (satiationTimeRemaining > 0f)
         {
@@ -68,6 +70,28 @@ public class RabbitAgent : Agent
     }
     public override void CollectObservations(VectorSensor sensor)
     {
+        if (!enableObservations)
+        {
+            // Provide dummy data to maintain observation size
+            for (int i = 0; i < 7; i++)
+            {
+                sensor.AddObservation(0f);
+            }
+            return;
+        }
+        if (player == null)
+        {
+            // Provide dummy data to keep observation size consistent
+            sensor.AddObservation(Vector3.zero);  // Dummy direction
+            sensor.AddObservation(999f);          // Arbitrarily large distance
+            sensor.AddObservation(0f);            // Not feeding
+            sensor.AddObservation(0f);            // No rabbits near player
+            sensor.AddObservation(Vector3.zero);  // Dummy carrot direction
+            sensor.AddObservation(999f);          // Arbitrarily large carrot distance
+            sensor.AddObservation(Vector3.forward);  // Current forward direction
+            return;
+        }
+
         // 1. Direction toward player
         // 2. Distance to player
         Vector3 toPlayer = (player.position - transform.position).normalized;
@@ -96,7 +120,7 @@ public class RabbitAgent : Agent
         {
             // Provide dummy data if no carrot is found
             sensor.AddObservation(Vector3.zero);
-            sensor.AddObservation(9999f);
+            sensor.AddObservation(999f);
         }
 
         // 7. Current forward direction
@@ -106,7 +130,7 @@ public class RabbitAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
-        discreteActionsOut[0] = 4; // "StayStill" action
+        discreteActionsOut[0] = 3; // Wander
     }
 
     private float CountRabbitsNearPlayer()
@@ -118,28 +142,23 @@ public class RabbitAgent : Agent
             if (Vector3.Distance(rabbit.position, player.position) < 5f)
                 count++;
         }
-        return count / 10f;  // Normalize if needed
+        return count / 10f;
     }
 
     // Decision requester calls this every N frames
     public override void OnActionReceived(ActionBuffers actions)
     {
+        if (player == null)
+        {
+            return;
+        }
         if (satiationTimeRemaining <= 0f)
         {
             AddReward(hungerPenaltyRate * timeSinceLastMeal);
         }
 
         int action = actions.DiscreteActions[0];
-        //foreach (int a in actions.DiscreteActions)
-        //    print($"Action: {a}");
 
-        /*counts[action]++;
-        print($"Tick: {tick}");
-        print($"To p: {counts[0]}");
-        print($"From p: {counts[1]}");
-        print($"To c: {counts[2]}");
-        print($"Wander: {counts[3]}");
-        print($"Idle: {counts[4]}");*/
         switch (action)
         {
             case 0:

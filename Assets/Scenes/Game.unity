@@ -1879,10 +1879,10 @@ MonoBehaviour:
   inventory: {fileID: 1048538233}
   allRabbits: []
   carrotPrefab: {fileID: 6638733501349649444, guid: 3e5bf70492bcb44e5bd0a815e6f2400a, type: 3}
+  bot: {fileID: 1048538239}
   thrownCarrotScale: 0.25
   feedRange: 2
   tossForce: 5
-  trainingMode: 1
 --- !u!114 &1048538233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2732,7 +2732,7 @@ MonoBehaviour:
   maxAttemptsCollide: 15
   maxAttemptsFlat: 300
   maxSlopeAngle: 10
-  trainingMode: 1
+  bot: {fileID: 1048538239}
   foliageLayerMask:
     serializedVersion: 2
     m_Bits: 8

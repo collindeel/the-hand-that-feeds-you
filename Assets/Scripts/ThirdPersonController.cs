@@ -12,7 +12,7 @@ public class ThirdPersonController : MonoBehaviour
     private Rigidbody rb;
     private bool isGrounded = true;
     public Transform cameraTransform;
-    public PlayerBot bot;
+    private PlayerBot bot;
 
     private Animator animator;
 

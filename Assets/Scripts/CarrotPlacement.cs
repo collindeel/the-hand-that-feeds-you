@@ -11,13 +11,15 @@ public class CarrotPlacement : MonoBehaviour
     public int maxAttemptsCollide = 5;
     public int maxAttemptsFlat = 300;
     public float maxSlopeAngle = 5f;
-    public bool trainingMode = true;
+    public PlayerBot bot;
+    bool trainingMode = false;
     public LayerMask foliageLayerMask;
     public float buryDepth = 1.2f;
     public List<Transform> spawnedCarrots = new List<Transform>();
 
     void Start()
     {
+        trainingMode = bot.isEnabled;
         if (trainingMode) return;
         int placed = 0;
         int iteration = 0;
