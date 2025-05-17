@@ -3,21 +3,27 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    public Canvas pauseMenu;
+    public Canvas optionsMenu;
+    public bool isPaused = false;
+    public bool storyMode = false;
+
+    public GameObject objectivePrefab;
+    public GameObject unityChan;
+    public GameObject speechBubblePrefab;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+
+        var dialogueManager = GetComponent<DialogueManager>();
+        Tutorial.Initialize(objectivePrefab, unityChan, speechBubblePrefab, dialogueManager);
     }
 
     void Update()
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame) TogglePauseGame();
     }
-
-    public Canvas pauseMenu;
-    public Canvas optionsMenu;
-    public bool isPaused = false;
-    public bool storyMode = false;
 
     public void TogglePauseGame() {
         isPaused ^= true;
