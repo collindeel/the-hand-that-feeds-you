@@ -235,7 +235,7 @@ MonoBehaviour:
   target: {fileID: 1048538230}
   distance: 5
   height: 2.5
-  mouseSensitivity: 2
+  mouseSensitivity: 3
   controllerSensitivity: 3
   pitchLimits: {x: -30, y: 60}
 --- !u!1 &120541395
@@ -334,6 +334,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Set Costume_02 SD Misaki
       objectReference: {fileID: 0}
+    - target: {fileID: 5362025121097832189, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5362025121098124061, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 510
@@ -406,6 +410,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5362025121097832189, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1048538239}
+    - targetCorrespondingSourceObject: {fileID: 5362025121097832189, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1048538244}
   m_SourcePrefab: {fileID: 100100000, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
 --- !u!1001 &164367128
 PrefabInstance:
@@ -1045,7 +1052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rabbitPrefab: {fileID: 1588090451174212, guid: c737dd230724d61469e1c672cf47ed9e, type: 3}
-  rabbitCount: 500
+  rabbitCount: 100
   terrain: {fileID: 1645785104}
 --- !u!4 &460238112
 Transform:
@@ -1874,6 +1881,8 @@ MonoBehaviour:
   inventory: {fileID: 1048538233}
   allRabbits: []
   carrotPrefab: {fileID: 6638733501349649444, guid: 3e5bf70492bcb44e5bd0a815e6f2400a, type: 3}
+  bot: {fileID: 1048538239}
+  thrownCarrotScale: 0.25
   feedRange: 2
   tossForce: 5
 --- !u!114 &1048538233
@@ -1915,13 +1924,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1048538225}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007fec829129047ed97d1626a27377bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rabbitFeeder: {fileID: 1048538232}
+  controller: {fileID: 1048538231}
+  moveRadius: 50
+  moveSpeed: 2
+  feedCooldown: 5
+  isEnabled: 0
+  sprintDuration: 1
+--- !u!114 &1048538244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048538225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8013f12cad489d759e0a8f30697a854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   triggerRadius: 2
   objectiveLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 512
 --- !u!1 &1251822766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,7 +1960,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1251822767}
   - component: {fileID: 1251822768}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NavMesh Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2492,7 +2520,7 @@ GameObject:
   - component: {fileID: 1645785105}
   - component: {fileID: 1645785104}
   - component: {fileID: 1645785103}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -2747,10 +2775,12 @@ MonoBehaviour:
   maxAttemptsCollide: 15
   maxAttemptsFlat: 300
   maxSlopeAngle: 10
+  bot: {fileID: 1048538239}
   foliageLayerMask:
     serializedVersion: 2
     m_Bits: 8
   buryDepth: 1.2
+  spawnedCarrots: []
 --- !u!4 &1775046908
 Transform:
   m_ObjectHideFlags: 0

@@ -9,9 +9,18 @@ public class RabbitFeeder : MonoBehaviour
     public CarrotInventory inventory;
     public RabbitAgent[] allRabbits;
     public GameObject carrotPrefab;
+    public PlayerBot bot;
+    bool trainingMode = false;
+    public float thrownCarrotScale = 0.25f;
     public float feedRange = 2f;
     public float tossForce = 5f;
-    
+
+    void Start()
+    {
+        bot = GetComponent<PlayerBot>();
+        trainingMode = bot.isEnabled;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F) || (Gamepad.current?.buttonWest.wasPressedThisFrame ?? false))
@@ -20,11 +29,11 @@ public class RabbitFeeder : MonoBehaviour
         }
     }
 
-    void TryFeedRabbit()
+    public void TryFeedRabbit()
     {
-        if (inventory.CarrotCount <= 0)
+        if (!trainingMode && inventory.CarrotCount <= 0)
         {
-            Debug.Log("No carrots to feed.");
+            //Debug.Log("No carrots to feed.");
             return;
         }
 
@@ -41,8 +50,8 @@ public class RabbitFeeder : MonoBehaviour
 
         if (rabbits.Length > 0)
         {
-            print($"in range, length {rabbits.Length}");
-            inventory.RemoveCarrot();
+            //print($"in range, length {rabbits.Length}");
+            if (!trainingMode) inventory.RemoveCarrot();
             RabbitReaction reaction = rabbits[0].GetComponent<RabbitReaction>();
             if (reaction != null)
             {
@@ -52,17 +61,38 @@ public class RabbitFeeder : MonoBehaviour
         }
         else
         {
-            Debug.Log("No rabbits nearby... tossing a carrot.");
-            inventory.RemoveCarrot();
-            Vector3 spawnPosition = transform.position + transform.forward * 1.5f + Vector3.up * 0.5f;
-            GameObject carrot = Instantiate(carrotPrefab, spawnPosition, Quaternion.identity);
-            Rigidbody rb = carrot.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.AddForce(transform.forward * tossForce, ForceMode.VelocityChange);
-            }
+            //Debug.Log("No rabbits nearby... tossing a carrot.");
+            if (!trainingMode) inventory.RemoveCarrot();
+            ThrowCarrot();
         }
     }
+    void ThrowCarrot()
+    {
+        Vector3 spawnPosition = transform.position + transform.forward * 1.5f + Vector3.up * 1.5f;
+        GameObject carrotInstance = Instantiate(carrotPrefab, spawnPosition, Quaternion.Euler(0f, 0f, 0f));
+        carrotInstance.tag = "ThrownCarrot";
+        carrotInstance.layer = LayerMask.NameToLayer("ThrownCarrot");
+        carrotInstance.transform.localScale *= thrownCarrotScale;
+        Collider col = carrotInstance.GetComponent<Collider>();
+        if (col != null)
+        {
+            col.isTrigger = false;
+        }
+        else
+        {
+            Debug.LogWarning("No collider found on thrown carrot!");
+        }
+        Rigidbody rb = carrotInstance.GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = carrotInstance.AddComponent<Rigidbody>();
+        }
+        rb.useGravity = true;
+        rb.linearDamping = 0.5f;
+        rb.angularDamping = 2.0f;
+        rb.AddForce(transform.forward * tossForce, ForceMode.Impulse);
+    }
+
 
     IEnumerator ResetFeedingSignalAfterDelay(float delay)
     {

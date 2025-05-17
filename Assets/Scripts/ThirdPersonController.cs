@@ -12,6 +12,7 @@ public class ThirdPersonController : MonoBehaviour
     private Rigidbody rb;
     private bool isGrounded = true;
     public Transform cameraTransform;
+    private PlayerBot bot;
 
     private Animator animator;
 
@@ -22,6 +23,7 @@ public class ThirdPersonController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        bot = GetComponent<PlayerBot>();
         _sprintAction = InputSystem.actions.FindAction("Sprint");
         _jumpAction = InputSystem.actions.FindAction("Jump");
     }
@@ -30,9 +32,21 @@ public class ThirdPersonController : MonoBehaviour
 
     void Update()
     {
+        if (bot.isEnabled) return;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
+        Move(horizontal, vertical, _sprintAction.IsPressed());
+
+        if (_jumpAction.IsPressed() && isGrounded && !isJumping)
+        {
+            animator.SetTrigger("Jump");
+            StartCoroutine(DelayedJump(0.3f));
+        }
+    }
+
+    public void Move(float horizontal, float vertical, bool isSprint)
+    {
         // Get camera-relative direction
         Vector3 camForward = cameraTransform.forward;
         Vector3 camRight = cameraTransform.right;
@@ -44,8 +58,7 @@ public class ThirdPersonController : MonoBehaviour
         camRight.Normalize();
 
         Vector3 moveDir = camForward * vertical + camRight * horizontal;
-
-        float currentSpeed = speed * (_sprintAction.IsPressed() ? sprintMultiplier : 1f);
+        float currentSpeed = speed * (isSprint ? sprintMultiplier : 1f);
         if (moveDir.magnitude > 0.1f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
@@ -56,12 +69,6 @@ public class ThirdPersonController : MonoBehaviour
         else
         {
             animator.SetFloat("Speed", 0f);
-        }
-
-        if (_jumpAction.IsPressed() && isGrounded && !isJumping)
-        {
-            animator.SetTrigger("Jump");
-            StartCoroutine(DelayedJump(0.3f));
         }
     }
 
