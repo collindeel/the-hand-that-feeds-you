@@ -909,6 +909,9 @@ MonoBehaviour:
   moveDistance: 30
   hungerPenaltyRate: -0.01
   satiationDuration: 5
+  stationaryPenaltyRate: -0.01
+  maxStationaryTime: 5
+  hardPenalty: -1
   commitDuration: 10
 --- !u!54 &413612722703055492
 Rigidbody:

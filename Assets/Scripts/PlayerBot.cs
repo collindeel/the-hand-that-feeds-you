@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class PlayerBot : MonoBehaviour
 {
@@ -85,7 +84,8 @@ public class PlayerBot : MonoBehaviour
         if (feedTimer <= 0f)
         {
             rabbitFeeder.TryFeedRabbit();
-            feedTimer = feedCooldown;
+            feedTimer = Random.Range(feedCooldown - 1f, feedCooldown + 1f);
+            if (feedTimer <= 0f) feedTimer = 1f;
         }
     }
     private Vector3 lastPosition;
@@ -107,7 +107,7 @@ public class PlayerBot : MonoBehaviour
 
         if (stuckTimer > 1f)  // Stuck for 1 second
         {
-            Debug.Log("Detected stuck state, picking new target.");
+            //Debug.Log("Detected stuck state, picking new target.");
             PickNewTarget();
             stuckTimer = 0f;
         }
@@ -133,9 +133,6 @@ public class PlayerBot : MonoBehaviour
         SnapToGround();
     }
 
-
-
-
     Vector2 GetRandomInputAxes()
     {
         // Random direction on X/Z plane, simulating Horizontal/Vertical input
@@ -156,13 +153,6 @@ public class PlayerBot : MonoBehaviour
             /*print($"Generated randomDirection {randomDirection}.");
             print($"Edge point at {edgePoint}.");
             print($"Candidate is {candidate}.");*/
-
-            /*if (NavMesh.SamplePosition(candidate, out NavMeshHit navHit, moveRadius, NavMesh.AllAreas))
-            {
-                targetPosition = navHit.position;
-                hasTarget = true;
-                return;
-            }*/
 
             Vector3 rayOrigin = new(candidate.x, 100f, candidate.z);
             //print($"Trying candidate destination: {rayOrigin}");

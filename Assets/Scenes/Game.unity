@@ -1931,7 +1931,7 @@ MonoBehaviour:
   controller: {fileID: 1048538231}
   moveRadius: 50
   moveSpeed: 2
-  feedCooldown: 5
+  feedCooldown: 25
   isEnabled: 0
   sprintDuration: 1
 --- !u!114 &1048538244
