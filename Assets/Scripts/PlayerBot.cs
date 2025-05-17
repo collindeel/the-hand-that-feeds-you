@@ -61,6 +61,7 @@ public class PlayerBot : MonoBehaviour
             vertical = localDir.z;
 
             controller.Move(horizontal, vertical, isSprinting);
+            CheckStuck();
 
             return;
         }
@@ -71,6 +72,7 @@ public class PlayerBot : MonoBehaviour
         vertical = localDir.z;
 
         controller.Move(horizontal, vertical, isSprinting);
+        CheckStuck();
 
         float distance = Vector3.Distance(transform.position, targetPosition);
         //print($"Distance between current pos {transform.position} and target pos {targetPosition} is {distance}");
@@ -86,6 +88,52 @@ public class PlayerBot : MonoBehaviour
             feedTimer = feedCooldown;
         }
     }
+    private Vector3 lastPosition;
+    private float stuckTimer = 0f;
+
+    private void CheckStuck()
+    {
+        float distanceMoved = Vector3.Distance(transform.position, lastPosition);
+        lastPosition = transform.position;
+
+        if (distanceMoved < 0.1f)
+        {
+            stuckTimer += Time.deltaTime;
+        }
+        else
+        {
+            stuckTimer = 0f;
+        }
+
+        if (stuckTimer > 1f)  // Stuck for 1 second
+        {
+            Debug.Log("Detected stuck state, picking new target.");
+            PickNewTarget();
+            stuckTimer = 0f;
+        }
+    }
+    private void SnapToGround()
+    {
+        Ray ray = new Ray(transform.position + Vector3.up * 0.5f, Vector3.down);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 2f))
+        {
+            float groundY = hit.point.y;
+
+            // Only correct if falling _below_ the ground
+            if (transform.position.y < groundY - 0.1f)
+            {
+                Vector3 correctedPosition = new Vector3(transform.position.x, groundY, transform.position.z);
+                transform.position = correctedPosition;
+            }
+        }
+    }
+    void LateUpdate()
+    {
+        SnapToGround();
+    }
+
+
 
 
     Vector2 GetRandomInputAxes()
