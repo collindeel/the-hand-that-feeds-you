@@ -4,9 +4,6 @@ using Unity.MLAgents.Sensors;
 using UnityEngine.AI;
 using UnityEngine;
 using Unity.MLAgents.Policies;
-using System;
-using System.Security.Cryptography;
-using UnityEngine.UIElements;
 
 public class RabbitAgent : Agent
 {
@@ -64,7 +61,7 @@ public class RabbitAgent : Agent
         }
         if (animator != null)
         {
-            bool isMoving = agent.velocity.magnitude > 1.0f;
+            bool isMoving = agent.velocity.magnitude > 0.5f;
             animator.SetBool("IsMoving", isMoving);
         }
         //float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -76,7 +73,7 @@ public class RabbitAgent : Agent
         if (!enableObservations)
         {
             // Provide dummy data to maintain observation size
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 13; i++)
             {
                 sensor.AddObservation(0f);
             }
@@ -161,25 +158,25 @@ public class RabbitAgent : Agent
         }
 
         int action = actions.DiscreteActions[0];
-
-        switch (action)
-        {
-            case 0:
-                MoveTowardPlayer();
-                break;
-            case 1:
-                FleeFromPlayer();
-                break;
-            case 2:
-                MoveTowardCarrot();
-                break;
-            case 3:
-                WanderRandomly();
-                break;
-            case 4:
-                StayStill();
-                break;
-        }
+        print($"Action: {action}");
+                switch (action)
+                {
+                    case 0:
+                        MoveTowardPlayer();
+                        break;
+                    case 1:
+                        FleeFromPlayer();
+                        break;
+                    case 2:
+                        MoveTowardCarrot();
+                        break;
+                    case 3:
+                        WanderRandomly();
+                        break;
+                    case 4:
+                        StayStill();
+                        break;
+                }
 
         if (satiationDuration > 0f)
         {
@@ -223,22 +220,24 @@ public class RabbitAgent : Agent
             }
         }
     }
-    public LayerMask carrotLayer;
 
     private Transform GetNearestCarrot()
     {
+
         Transform nearest = null;
         float minDistance = Mathf.Infinity;
 
-        foreach (var carrot in spawner.spawnedCarrots)
+        GameObject[] thrownCarrots = GameObject.FindGameObjectsWithTag("ThrownCarrot");
+        foreach (var carrotObj in thrownCarrots)
         {
-            float distance = Vector3.Distance(transform.position, carrot.position);
+            float distance = Vector3.Distance(transform.position, carrotObj.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                nearest = carrot;
+                nearest = carrotObj.transform;
             }
         }
+
         return nearest;
     }
 
@@ -247,6 +246,12 @@ public class RabbitAgent : Agent
         if (IsVectorValid(dest))
         {
             agent.SetDestination(dest);
+            if (agent.velocity.sqrMagnitude > 0.1f)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(agent.velocity.normalized);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, agent.angularSpeed * Time.deltaTime);
+            }
+
         }
     }
 
@@ -263,27 +268,60 @@ public class RabbitAgent : Agent
             Move(dest);
         }
     }
+    private bool isFrozen = false;
+
+    public void StopAllMovement()
+    {
+        if (isFrozen)
+            return; 
+
+        if (agent.hasPath)
+            agent.ResetPath();
+
+        agent.isStopped = true;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
+
+        isFrozen = true;
+    }
+
+    public void ResumeMovement()
+    {
+        if (isFrozen)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.isKinematic = false;
+
+            agent.isStopped = false;
+            isFrozen = false;
+        }
+    }
 
     public void StayStill()
     {
-        if (agent.hasPath)
-            agent.ResetPath();
+        StopAllMovement();
     }
 
     public void MoveTowardPlayer()
     {
+        ResumeMovement();
         Vector3 dest = NavMeshUtils.GetPositionToward(transform.position, player.position, moveDistance);
         Move(dest);
     }
 
     public void FleeFromPlayer()
     {
+        ResumeMovement();
         Vector3 dest = NavMeshUtils.GetPositionAway(transform.position, player.position, moveDistance);
         Move(dest);
     }
 
     public void WanderRandomly()
     {
+        ResumeMovement();
         Vector2 randomCircle = UnityEngine.Random.insideUnitCircle.normalized; // Scale for good measure, parity w dist for now        
         Vector3 randomOffset = new Vector3(randomCircle.x, 0f, randomCircle.y);
         //print($"Random offset is {randomOffset}");
@@ -317,7 +355,6 @@ public class RabbitAgent : Agent
         {
             print("A rabbit got a *thrown* carrot!");
             AddReward(1.0f);
-            spawner.spawnedCarrots.Remove(other.transform);
             Destroy(other.gameObject);
             timeSinceLastMeal = 0f;
             satiationTimeRemaining = satiationDuration;

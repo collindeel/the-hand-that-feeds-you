@@ -15,7 +15,7 @@ public class CarrotPlacement : MonoBehaviour
     bool trainingMode = false;
     public LayerMask foliageLayerMask;
     public float buryDepth = 1.2f;
-    public List<Transform> spawnedCarrots = new List<Transform>();
+    //public List<Transform> spawnedCarrots = new List<Transform>();
 
     void Start()
     {
@@ -67,7 +67,7 @@ public class CarrotPlacement : MonoBehaviour
 
 
             GameObject newCarrot = Instantiate(carrotPrefab, randomPosition, Quaternion.Euler(-90, UnityEngine.Random.Range(0, 360), 0));
-            spawnedCarrots.Add(newCarrot.transform);
+            //spawnedCarrots.Add(newCarrot.transform);
         }
 
         Debug.Log($"Placed {placed} carrots. Max retry due to flatness: {highestAttemptsFlat}/{maxAttemptsFlat}; due to collision: {highestAttemptsCollide}/{maxAttemptsCollide}.");

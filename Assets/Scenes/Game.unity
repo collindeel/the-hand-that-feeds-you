@@ -2736,7 +2736,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   buryDepth: 1.2
-  spawnedCarrots: []
 --- !u!4 &1775046908
 Transform:
   m_ObjectHideFlags: 0
