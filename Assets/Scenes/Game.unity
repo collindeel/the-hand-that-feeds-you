@@ -410,6 +410,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5362025121097832189, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1048538239}
+    - targetCorrespondingSourceObject: {fileID: 5362025121097832189, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1048538244}
   m_SourcePrefab: {fileID: 100100000, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
 --- !u!1001 &164367128
 PrefabInstance:
@@ -1929,8 +1932,24 @@ MonoBehaviour:
   moveRadius: 50
   moveSpeed: 2
   feedCooldown: 5
-  isEnabled: 1
+  isEnabled: 0
   sprintDuration: 1
+--- !u!114 &1048538244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048538225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8013f12cad489d759e0a8f30697a854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerRadius: 2
+  objectiveLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &1251822766
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,6 +2026,7 @@ GameObject:
   - component: {fileID: 1310173824}
   - component: {fileID: 1310173826}
   - component: {fileID: 1310173827}
+  - component: {fileID: 1310173828}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2030,6 +2050,9 @@ MonoBehaviour:
   optionsMenu: {fileID: 1445104420}
   isPaused: 0
   storyMode: 0
+  objectivePrefab: {fileID: 2203034062297781641, guid: 2d87c8e87e156a75ea89a9e16c84ccc2, type: 3}
+  unityChan: {fileID: 1805318816}
+  speechBubblePrefab: {fileID: 9025243718374139723, guid: 967accf3097f5b26babf41e1880f0124, type: 3}
 --- !u!4 &1310173825
 Transform:
   m_ObjectHideFlags: 0
@@ -2073,6 +2096,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skySpeed: 0.5
+--- !u!114 &1310173828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310173823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac96c619b5d7c383cbaa3f8fcc9420db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueBox: {fileID: 1004936259}
 --- !u!1001 &1423167977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2455,6 +2491,14 @@ PrefabInstance:
     - target: {fileID: 8260461845972174480, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8829204621658716801, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 390546345}
+    - target: {fileID: 8829204621658716801, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
