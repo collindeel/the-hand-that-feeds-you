@@ -160,24 +160,26 @@ public class RabbitAgent : Agent
 
         int action = actions.DiscreteActions[0];
         //print($"Action: {action}");
-                switch (action)
-                {
-                    case 0:
-                        MoveTowardPlayer();
-                        break;
-                    case 1:
-                        FleeFromPlayer();
-                        break;
-                    case 2:
-                        MoveTowardCarrot();
-                        break;
-                    case 3:
-                        WanderRandomly();
-                        break;
-                    case 4:
-                        StayStill();
-                        break;
-                }
+        switch (action)
+        {
+            case 0:
+                MoveTowardPlayer();
+                break;
+            case 1:
+                FleeFromPlayer();
+                break;
+            case 2:
+                MoveTowardCarrot();
+                break;
+            case 3:
+                WanderRandomly();
+                break;
+            case 4:
+                StayStill();
+                break;
+        }
+
+        ApplyStationaryPenalty();
 
         if (satiationDuration > 0f)
         {
@@ -221,6 +223,32 @@ public class RabbitAgent : Agent
             }
         }
     }
+
+    private float stationaryTime = 0f;
+    public float stationaryPenaltyRate = -0.01f;  // Penalty per second idle
+    public float maxStationaryTime = 5f;          // Max allowed stationary time
+    public float hardPenalty = -1.0f;
+
+    private void ApplyStationaryPenalty()
+    {
+        if (agent.velocity.magnitude < 0.1f)
+        {
+            stationaryTime += Time.deltaTime;
+            AddReward(stationaryPenaltyRate * Time.deltaTime);
+
+            if (stationaryTime >= maxStationaryTime)
+            {
+                AddReward(hardPenalty);
+                //EndEpisode();  // Optional
+                stationaryTime = 0f;  // Reset to prevent repeat penalties
+            }
+        }
+        else
+        {
+            stationaryTime = 0f;  // Reset if the agent moves
+        }
+    }
+
 
     private Transform GetNearestCarrot()
     {
@@ -274,7 +302,7 @@ public class RabbitAgent : Agent
     public void StopAllMovement()
     {
         if (isFrozen)
-            return; 
+            return;
 
         if (agent.hasPath)
             agent.ResetPath();
