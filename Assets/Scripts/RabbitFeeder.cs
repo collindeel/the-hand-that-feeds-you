@@ -69,7 +69,7 @@ public class RabbitFeeder : MonoBehaviour
     void ThrowCarrot()
     {
         Vector3 spawnPosition = transform.position + transform.forward * 1.5f + Vector3.up * 1.5f;
-        GameObject carrotInstance = Instantiate(carrotPrefab, spawnPosition, Quaternion.Euler(0f, 0f, 0f));
+        GameObject carrotInstance = Instantiate(carrotPrefab, spawnPosition, Quaternion.identity);
         carrotInstance.tag = "ThrownCarrot";
         carrotInstance.layer = LayerMask.NameToLayer("ThrownCarrot");
         carrotInstance.transform.localScale *= thrownCarrotScale;

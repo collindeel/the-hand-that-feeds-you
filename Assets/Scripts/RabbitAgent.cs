@@ -4,6 +4,7 @@ using Unity.MLAgents.Sensors;
 using UnityEngine.AI;
 using UnityEngine;
 using Unity.MLAgents.Policies;
+using Unity.VisualScripting;
 
 public class RabbitAgent : Agent
 {
@@ -353,7 +354,7 @@ public class RabbitAgent : Agent
     {
         if (other.CompareTag("ThrownCarrot"))
         {
-            print("A rabbit got a *thrown* carrot!");
+            //print("A rabbit got a *thrown* carrot!");
             AddReward(1.0f);
             Destroy(other.gameObject);
             timeSinceLastMeal = 0f;

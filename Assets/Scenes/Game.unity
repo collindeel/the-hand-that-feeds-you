@@ -2770,7 +2770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carrotPrefab: {fileID: 6638733501349649444, guid: 3e5bf70492bcb44e5bd0a815e6f2400a, type: 3}
   terrain: {fileID: 1645785104}
-  numberOfCarrots: 2000
+  numberOfCarrots: 500
   placementRadius: 0.1
   maxAttemptsCollide: 15
   maxAttemptsFlat: 300
