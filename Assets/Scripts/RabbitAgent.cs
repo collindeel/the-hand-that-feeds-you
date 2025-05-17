@@ -4,6 +4,9 @@ using Unity.MLAgents.Sensors;
 using UnityEngine.AI;
 using UnityEngine;
 using Unity.MLAgents.Policies;
+using System;
+using System.Security.Cryptography;
+using UnityEngine.UIElements;
 
 public class RabbitAgent : Agent
 {
@@ -17,7 +20,7 @@ public class RabbitAgent : Agent
 
     public bool playerIsFeeding; // set externally when player feeds
     public Transform[] allRabbits;
-    public float moveDistance = 2f;
+    public float moveDistance = 30f;
     private float timeSinceLastMeal = 0f;
     public float hungerPenaltyRate = -0.005f;
 
@@ -61,7 +64,7 @@ public class RabbitAgent : Agent
         }
         if (animator != null)
         {
-            bool isMoving = agent.velocity.magnitude > 0.1f;
+            bool isMoving = agent.velocity.magnitude > 1.0f;
             animator.SetBool("IsMoving", isMoving);
         }
         //float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -281,10 +284,32 @@ public class RabbitAgent : Agent
 
     public void WanderRandomly()
     {
-        Vector3 randomTargetPoint = Random.onUnitSphere + transform.position;
-        Vector3 dest = NavMeshUtils.GetPositionToward(transform.position, randomTargetPoint, moveDistance);
-        Move(dest);
+        Vector2 randomCircle = UnityEngine.Random.insideUnitCircle.normalized; // Scale for good measure, parity w dist for now        
+        Vector3 randomOffset = new Vector3(randomCircle.x, 0f, randomCircle.y);
+        //print($"Random offset is {randomOffset}");
+        Vector3 candidate = transform.position + randomOffset;
+        //print($"Position rabbit: {transform.position}, position toward: {candidate}");
+        Vector3 dest = NavMeshUtils.GetPositionToward(transform.position, candidate, moveDistance);
+        //print($"dest: {dest}");
+        CommitTo(dest);
     }
+
+    private Vector3? committedTarget = null;
+    private float commitTimer = 0f;
+    public float commitDuration = 5f;
+
+    private void CommitTo(Vector3 target)
+    {
+        if (commitTimer <= 0f || committedTarget == null)
+        {
+            committedTarget = target;
+            commitTimer = commitDuration;
+            Move(committedTarget.Value);
+        }
+        else
+            commitTimer -= Time.deltaTime;
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

@@ -1859,7 +1859,6 @@ MonoBehaviour:
   sprintMultiplier: 2
   jumpForce: 5
   cameraTransform: {fileID: 75406037}
-  bot: {fileID: 0}
 --- !u!114 &1048538232
 MonoBehaviour:
   m_ObjectHideFlags: 0

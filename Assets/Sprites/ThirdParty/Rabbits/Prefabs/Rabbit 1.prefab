@@ -771,12 +771,12 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0962bdca27eaca34aaa15f7fdf608faf, type: 3}
   m_Controller: {fileID: 9100000, guid: c4cc8da40eab14704aa5f57cabfb67df, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -815,7 +815,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -334000983
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 8
   m_Acceleration: 6
   avoidancePriority: 50
   m_AngularSpeed: 720
@@ -905,12 +905,13 @@ MonoBehaviour:
   enableObservations: 0
   playerIsFeeding: 0
   allRabbits: []
-  moveDistance: 2
+  moveDistance: 30
   hungerPenaltyRate: -0.01
   satiationDuration: 5
   carrotLayer:
     serializedVersion: 2
     m_Bits: 8
+  commitDuration: 10
 --- !u!54 &413612722703055492
 Rigidbody:
   m_ObjectHideFlags: 0
