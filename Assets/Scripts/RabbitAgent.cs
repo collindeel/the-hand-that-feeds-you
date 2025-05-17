@@ -158,7 +158,7 @@ public class RabbitAgent : Agent
         }
 
         int action = actions.DiscreteActions[0];
-        print($"Action: {action}");
+        //print($"Action: {action}");
                 switch (action)
                 {
                     case 0:

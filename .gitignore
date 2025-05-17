@@ -13,7 +13,7 @@
 *.log
 
 /results/
-/Assets/ML-Agents/Timers/Game_timers.json
+Assets/ML-Agents/Timers/Game_timers.json
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
