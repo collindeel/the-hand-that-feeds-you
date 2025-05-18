@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public float immunityDuration = 2f;  // 2 seconds of invincibility
     private float immunityTimer = 0f;
     public HealthBarController hbc;
+    public CameraShake cs;
     public Image fillImage;
 
     void Start()
@@ -29,6 +30,9 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth = Mathf.Max(0, currentHealth - damage);
             hbc.SetHealth(currentHealth);
+            float dur = 0.1f + (90 - currentHealth) * 0.01f;
+            float mag = 0.2f + (90 - currentHealth) * 0.01f;
+            cs.Shake(dur, mag);
             Debug.Log($"Player took {damage} damage. Remaining health: {currentHealth}");
 
             // Trigger immunity window

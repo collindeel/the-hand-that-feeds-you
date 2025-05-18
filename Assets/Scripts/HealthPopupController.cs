@@ -6,7 +6,8 @@ public class HealthPopupController : MonoBehaviour
     private Coroutine currentFadeRoutine;
     public CanvasGroup canvasGroup;
     public float displayTime = 2f;
-    public float fadeDuration = 1f;
+    public float fadeOutDuration = 1f;
+    public float fadeInDuration = .2f;
 
     void Start()
     {
@@ -23,14 +24,20 @@ public class HealthPopupController : MonoBehaviour
 
     private IEnumerator ShowAndFade()
     {
-        canvasGroup.alpha = 1f;
+        float elapsed = 0f;
+        while (elapsed < fadeInDuration)
+        {
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, elapsed / fadeInDuration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
 
         yield return new WaitForSeconds(displayTime);
 
-        float elapsed = 0f;
-        while (elapsed < fadeDuration)
+        elapsed = 0f;
+        while (elapsed < fadeOutDuration)
         {
-            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeOutDuration);
             elapsed += Time.deltaTime;
             yield return null;
         }
