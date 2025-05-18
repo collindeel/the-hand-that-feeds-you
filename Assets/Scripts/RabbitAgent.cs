@@ -4,7 +4,6 @@ using Unity.MLAgents.Sensors;
 using UnityEngine.AI;
 using UnityEngine;
 using Unity.MLAgents.Policies;
-using Unity.VisualScripting;
 
 public class RabbitAgent : Agent
 {
@@ -131,7 +130,8 @@ public class RabbitAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
-        discreteActionsOut[0] = 3; // Wander
+        int choice = Random.Range(0, 1);
+        discreteActionsOut[0] = choice == 0 ? 3 : 4;
     }
 
     private float CountRabbitsNearPlayer()
@@ -146,42 +146,76 @@ public class RabbitAgent : Agent
         return count / 10f;
     }
 
-    // Decision requester calls this every N frames
-    public override void OnActionReceived(ActionBuffers actions)
+    public void ActionAggressive(int action)
     {
-        if (player == null)
-        {
-            return;
-        }
+        ApplyStationaryPenalty();
+
         if (satiationTimeRemaining <= 0f)
         {
             AddReward(hungerPenaltyRate * timeSinceLastMeal);
         }
-
-        int action = actions.DiscreteActions[0];
-        //print($"Action: {action}");
-        switch (action)
+        else
         {
-            case 0:
-                MoveTowardPlayer();
-                break;
-            case 1:
-                FleeFromPlayer();
-                break;
-            case 2:
-                MoveTowardCarrot();
-                break;
-            case 3:
-                WanderRandomly();
-                break;
-            case 4:
-                StayStill();
-                break;
+            if (action == 4 || action == 1) // Can flee or hold still, without this they'd be rabid
+                AddReward(0.2f);
+            else
+                AddReward(-0.05f);
         }
 
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        if (playerIsFeeding)
+        {
+            if (distanceToPlayer > 50f)
+            {
+                AddReward(-0.2f); // They're too far from the player
+            }
+            else if (distanceToPlayer <= 10f)
+            {
+                AddReward(1.0f);
+            }
+        }
+        else
+        {
+            if (distanceToPlayer < 100f && distanceToPlayer > 50f) // Reasonably within sight or smell range, but too far away for reward
+            {
+                float reward = Mathf.Clamp01(1f - (distanceToPlayer / 100f)) * 0.1f;
+                AddReward(-reward);
+            }
+            else if (distanceToPlayer <= 50f && distanceToPlayer > 2f)
+            {
+                float normalized = Mathf.InverseLerp(50f, 2f, distanceToPlayer);
+                AddReward(normalized);
+            }
+            else if (distanceToPlayer <= 2f) // And this should coincidence with collider
+            {
+                AddReward(3f);
+            }
+        }
+
+        if (nearestCarrot != null)
+        {
+            Vector3 dirToCarrot = (nearestCarrot.position - transform.position).normalized;
+            float alignment = Vector3.Dot(transform.forward.normalized, dirToCarrot);
+            AddReward(alignment * 0.0025f);
+
+            float distance = Vector3.Distance(transform.position, nearestCarrot.position);
+            if (distance < 50f)
+            {
+                float reward = Mathf.Clamp01(1f - (distance / 20f)) * 0.025f;
+                AddReward(reward);
+            }
+        }
+
+    }
+    public void ActionTimid(int action)
+    {
         ApplyStationaryPenalty();
 
-        if (satiationDuration > 0f)
+        if (satiationTimeRemaining <= 0f)
+        {
+            AddReward(hungerPenaltyRate * timeSinceLastMeal);
+        }
+        else
         {
             if (action == 4)
                 AddReward(0.05f);
@@ -192,9 +226,9 @@ public class RabbitAgent : Agent
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         if (playerIsFeeding)
         {
-            if (distanceToPlayer > 1.5f && distanceToPlayer < 4f)
+            if (distanceToPlayer > 1.5f && distanceToPlayer < 6f)
             {
-                AddReward(-0.005f);  // Reward cautious approach
+                AddReward(0.05f);  // Reward cautious approach
             }
             else if (distanceToPlayer <= 1.5f)
             {
@@ -222,6 +256,41 @@ public class RabbitAgent : Agent
                 AddReward(reward);
             }
         }
+
+    }
+
+    // Decision requester calls this every N frames
+    public override void OnActionReceived(ActionBuffers actions)
+    {
+        // This should all be common across all models
+        if (player == null)
+        {
+            return;
+        }
+
+        int action = actions.DiscreteActions[0];
+        print($"Action: {action}");
+        switch (action)
+        {
+            case 0:
+                MoveTowardPlayer();
+                break;
+            case 1:
+                FleeFromPlayer();
+                break;
+            case 2:
+                MoveTowardCarrot();
+                break;
+            case 3:
+                WanderRandomly();
+                break;
+            case 4:
+                StayStill();
+                break;
+        }
+
+        //ActionTimid(action); // Drive this in code
+        ActionAggressive(action);
     }
 
     private float stationaryTime = 0f;
@@ -248,7 +317,6 @@ public class RabbitAgent : Agent
             stationaryTime = 0f;  // Reset if the agent moves
         }
     }
-
 
     private Transform GetNearestCarrot()
     {
