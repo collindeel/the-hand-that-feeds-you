@@ -18,34 +18,48 @@ public class PlayerBot : MonoBehaviour
         if (!isEnabled) return;
         PickNewTarget();
     }
-
-    bool IsTrueNPercentOfTime(int n)
+    bool RollChance(float chance)
     {
-        return Random.Range(0, 100) < n;
+        return Random.value < chance;
     }
 
-
     private bool isSprinting = false;
-    private float sprintTimer = 0f;
-    public float sprintDuration = 1f;  // Sprint lasts for 1 second
+    private bool isHolding = false;
+    private float holdTimer = 0f;
+    public float holdChance = .005f;
+    public float sprintChance = .01f;
+    public float minHoldTime = .5f;
+    public float maxHoldTime = 2f;
 
     void FixedUpdate()
     {
         if (!isEnabled) return;
-        if (sprintTimer <= 0f && IsTrueNPercentOfTime(5))
+
+        if (isHolding)
         {
-            isSprinting = true;
-            sprintTimer = sprintDuration;
+            holdTimer -= Time.fixedDeltaTime;
+            if (holdTimer <= 0f)
+            {
+                isHolding = false;
+                PickNewTarget();
+            }
+            else
+            {
+                controller.Move(0f, 0f, false);  // Stand still
+                return;
+            }
         }
 
-        if (sprintTimer > 0f)
+        // Occasionally decide to hold still
+        if (RollChance(holdChance))
         {
-            sprintTimer -= Time.fixedDeltaTime;
+            isHolding = true;
+            holdTimer = Random.Range(minHoldTime, maxHoldTime);
+            return;
         }
-        else
-        {
-            isSprinting = false;
-        }
+
+        isSprinting = RollChance(sprintChance);
+
         Vector3 direction;
         Vector3 localDir;
         float horizontal;

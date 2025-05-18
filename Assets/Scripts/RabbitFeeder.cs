@@ -31,10 +31,15 @@ public class RabbitFeeder : MonoBehaviour
 
     public void TryFeedRabbit()
     {
+        TryFeedRabbit(true);
+    }
+
+    public bool TryFeedRabbit(bool doThrow)
+    {
         if (!trainingMode && inventory.CarrotCount <= 0)
         {
             //Debug.Log("No carrots to feed.");
-            return;
+            return false;
         }
 
         // Limit by range or LOS?
@@ -58,13 +63,16 @@ public class RabbitFeeder : MonoBehaviour
                 reaction.ReactToFeeding();
             }
             // Later: Trigger rabbit reaction here, e.g. rabbits[0].GetComponent<RabbitAI>().ReactToFeeding();
+            return true;
         }
-        else
+        else if (doThrow)
         {
             //Debug.Log("No rabbits nearby... tossing a carrot.");
             if (!trainingMode) inventory.RemoveCarrot();
             ThrowCarrot();
+            return false;
         }
+        return false;
     }
     void ThrowCarrot()
     {

@@ -819,7 +819,7 @@ NavMeshAgent:
   m_Acceleration: 6
   avoidancePriority: 50
   m_AngularSpeed: 720
-  m_StoppingDistance: 0.1
+  m_StoppingDistance: 0.2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -863,9 +863,9 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 3d1aaa8a36c8f4b28a7526247e5606c4, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 2
+  m_BehaviorType: 0
   m_BehaviorName: RabbitBehavior
   TeamId: 0
   m_UseChildSensors: 1
@@ -906,14 +906,33 @@ MonoBehaviour:
   enableObservations: 1
   playerIsFeeding: 0
   allRabbits: []
-  moveDistance: 30
+  moveDistance: 100
   hungerPenaltyRate: -0.01
+  behaviorLevel: 1
+  timidStats:
+    acceleration: 6
+    moveDistance: 30
+    stoppingDistance: 0.2
+    speed: 8
+  mediumStats:
+    acceleration: 50
+    moveDistance: 60
+    stoppingDistance: 0.1
+    speed: 14
+  aggressiveStats:
+    acceleration: 100
+    moveDistance: 200
+    stoppingDistance: 0
+    speed: 48
+  timidModel: {fileID: 5022602860645237092, guid: 4f7382fed705d49bfa6743947eedcc5b, type: 3}
+  mediumModel: {fileID: 5022602860645237092, guid: 429cc6aa724184ca1b31703896a24a78, type: 3}
+  aggressiveModel: {fileID: 5022602860645237092, guid: 3d1aaa8a36c8f4b28a7526247e5606c4, type: 3}
   satiationDuration: 5
   stationaryPenaltyRate: -0.01
+  stationaryPenaltyRateAggressive: -0.1
   maxStationaryTime: 5
   hardPenalty: -1
   commitDuration: 10
-  isAggressive: 1
 --- !u!54 &413612722703055492
 Rigidbody:
   m_ObjectHideFlags: 0

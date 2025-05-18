@@ -26,14 +26,18 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (immunityTimer <= 0f)
+        if (damage == 0) // No damage, but controlled here
+        {
+            cs.Shake(0.05f, 0.1f);
+        }
+        else if (immunityTimer <= 0f)
         {
             currentHealth = Mathf.Max(0, currentHealth - damage);
             hbc.SetHealth(currentHealth);
             float dur = 0.1f + (90 - currentHealth) * 0.01f;
             float mag = 0.2f + (90 - currentHealth) * 0.01f;
             cs.Shake(dur, mag);
-            Debug.Log($"Player took {damage} damage. Remaining health: {currentHealth}");
+            //Debug.Log($"Player took {damage} damage. Remaining health: {currentHealth}");
 
             // Trigger immunity window
             immunityTimer = immunityDuration;

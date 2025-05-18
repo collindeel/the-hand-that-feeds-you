@@ -4,7 +4,17 @@ using Unity.MLAgents.Sensors;
 using UnityEngine.AI;
 using UnityEngine;
 using Unity.MLAgents.Policies;
+using Unity.Sentis;
 
+[System.Serializable]
+public class RabbitStats
+{
+    public float acceleration = 6f;
+    public float moveDistance = 30f;
+    public float stoppingDistance = .2f;
+    public float speed = 8f;
+}
+public enum RabbitBehaviorLevel { Timid, Medium, Aggressive }
 public class RabbitAgent : Agent
 {
     private Transform player;
@@ -20,18 +30,54 @@ public class RabbitAgent : Agent
     public float moveDistance = 30f;
     private float timeSinceLastMeal = 0f;
     public float hungerPenaltyRate = -0.005f;
+    private PlayerBot playerBot;
+    public RabbitBehaviorLevel behaviorLevel = RabbitBehaviorLevel.Timid;
+    public RabbitStats timidStats;
+    public RabbitStats mediumStats;
+    public RabbitStats aggressiveStats;
+    public ModelAsset timidModel;
+    public ModelAsset mediumModel;
+    public ModelAsset aggressiveModel;
+    private BehaviorParameters behaviorParams;
+
 
     // Start is too late for grabbing the NMA
     public override void Initialize()
     {
+        base.Initialize();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
     void Start()
     {
+        behaviorParams = GetComponent<BehaviorParameters>();
+        ApplyModel();
+        RabbitStats currentStats = timidStats;
+        switch (behaviorLevel)
+        {
+            case RabbitBehaviorLevel.Medium:
+                currentStats = mediumStats;
+                break;
+            case RabbitBehaviorLevel.Aggressive:
+                currentStats = aggressiveStats;
+                break;
+        }
+        agent.acceleration = currentStats.acceleration;
+        agent.speed = currentStats.speed;
+        agent.stoppingDistance = currentStats.stoppingDistance;
+        moveDistance = currentStats.moveDistance;
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            playerBot = playerObject.GetComponent<PlayerBot>();
+        }
+        else
+        {
+            Debug.LogError("Player object with PlayerBot not found in the scene.");
+        }
         if (!enableObservations)
         {
-            BehaviorParameters behaviorParams = GetComponent<BehaviorParameters>();
             behaviorParams.BehaviorType = BehaviorType.HeuristicOnly;
         }
         if (player == null)
@@ -46,11 +92,6 @@ public class RabbitAgent : Agent
             {
                 Debug.LogError("RabbitAgent could not find a CarrotSpawner in the scene.");
             }
-        }
-        if (isAggressive)
-        {
-            agent.speed = 12f;
-            animator.speed = 3f;
         }
 
     }
@@ -77,6 +118,33 @@ public class RabbitAgent : Agent
         //float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         //Debug.Log($"Step {StepCount} | Distance to Player: {distanceToPlayer}");
 
+    }
+    public void SetBehaviorLevel(RabbitBehaviorLevel newLevel)
+    {
+        if (behaviorLevel == newLevel) return;
+        behaviorLevel = newLevel;
+        ApplyModel();
+    }
+
+    private void ApplyModel()
+    {
+        ModelAsset chosen = timidModel;
+        switch (behaviorLevel)
+        {
+            case RabbitBehaviorLevel.Medium:
+                chosen = mediumModel;
+                name = "RabbitMedium";
+                break;
+            case RabbitBehaviorLevel.Aggressive:
+                chosen = aggressiveModel;
+                name = "RabbitAggressive";
+                break;
+        }
+        behaviorParams.Model = chosen;
+        behaviorParams.BehaviorName = name;
+#if !UNITY_EDITOR
+        behaviorParams.BehaviorType = BehaviorType.InferenceOnly;
+#endif
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -140,7 +208,7 @@ public class RabbitAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
-        int choice = Random.Range(0, 1);
+        int choice = UnityEngine.Random.Range(0, 1);
         discreteActionsOut[0] = choice == 0 ? 3 : 4;
     }
 
@@ -156,9 +224,66 @@ public class RabbitAgent : Agent
         return count / 10f;
     }
 
+    public void ActionMedium(int action)
+    {
+        ApplyStationaryPenalty(0.5f);
+
+        if (satiationTimeRemaining <= 0f)
+        {
+            AddReward(hungerPenaltyRate * timeSinceLastMeal);
+        }
+        else
+        {
+            if (action == 1) // After taking carrot, really encouraging fleeing here
+                AddReward(1.0f);
+            else
+                AddReward(-0.1f);
+        }
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        if (playerIsFeeding)
+        {
+            if (distanceToPlayer > 50f)
+            {
+                AddReward(-0.2f); // They're too far from the player
+            }
+            else if (distanceToPlayer <= 10f)
+            {
+                AddReward(1.0f);
+            }
+        }
+        else
+        {
+            if (distanceToPlayer < 400f && distanceToPlayer > 50f) // Reasonably within sight or smell range, but too far away for reward
+            {
+                float reward = Mathf.Clamp01(1f - (distanceToPlayer / 400f)) * 0.1f;
+                AddReward(-reward);
+            }
+            else if (distanceToPlayer <= 50f && distanceToPlayer > 10f)
+            {
+                float normalized = Mathf.InverseLerp(50f, 2f, distanceToPlayer);
+                AddReward(normalized * 1f);
+            }
+        }
+
+        if (nearestCarrot != null)
+        {
+            Vector3 dirToCarrot = (nearestCarrot.position - transform.position).normalized;
+            float alignment = Vector3.Dot(transform.forward.normalized, dirToCarrot);
+            AddReward(alignment * 0.0025f);
+
+            float distance = Vector3.Distance(transform.position, nearestCarrot.position);
+            if (distance < 50f)
+            {
+                float reward = Mathf.Clamp01(1f - (distance / 20f)) * 0.025f;
+                AddReward(reward);
+            }
+        }
+
+    }
     public void ActionAggressive(int action)
     {
-        ApplyStationaryPenalty();
+        ApplyStationaryPenalty(1.0f);
 
         if (satiationTimeRemaining <= 0f)
         {
@@ -186,19 +311,15 @@ public class RabbitAgent : Agent
         }
         else
         {
-            if (distanceToPlayer < 100f && distanceToPlayer > 50f) // Reasonably within sight or smell range, but too far away for reward
+            if (distanceToPlayer < 400f && distanceToPlayer > 50f) // Reasonably within sight or smell range, but too far away for reward
             {
-                float reward = Mathf.Clamp01(1f - (distanceToPlayer / 100f)) * 0.1f;
+                float reward = Mathf.Clamp01(1f - (distanceToPlayer / 400f)) * 0.1f;
                 AddReward(-reward);
             }
-            else if (distanceToPlayer <= 50f && distanceToPlayer > 2f)
+            else if (distanceToPlayer <= 50f && distanceToPlayer > 10f)
             {
                 float normalized = Mathf.InverseLerp(50f, 2f, distanceToPlayer);
-                AddReward(normalized);
-            }
-            else if (distanceToPlayer <= 2f) // And this should coincidence with collider
-            {
-                AddReward(3f);
+                AddReward(normalized * 1f);
             }
         }
 
@@ -219,7 +340,7 @@ public class RabbitAgent : Agent
     }
     public void ActionTimid(int action)
     {
-        ApplyStationaryPenalty();
+        ApplyStationaryPenalty(0.1f);
 
         if (satiationTimeRemaining <= 0f)
         {
@@ -299,16 +420,27 @@ public class RabbitAgent : Agent
                 break;
         }
 
-        //ActionTimid(action); // Drive this in code
-        ActionAggressive(action);
+        switch (behaviorLevel)
+        {
+            case RabbitBehaviorLevel.Timid:
+                ActionTimid(action);
+                break;
+            case RabbitBehaviorLevel.Medium:
+                ActionMedium(action);
+                break;
+            case RabbitBehaviorLevel.Aggressive:
+                ActionAggressive(action);
+                break;
+        }
     }
 
     private float stationaryTime = 0f;
     public float stationaryPenaltyRate = -0.01f;  // Penalty per second idle
+    public float stationaryPenaltyRateAggressive = -0.10f;  // Penalty per second idle
     public float maxStationaryTime = 5f;          // Max allowed stationary time
     public float hardPenalty = -1.0f;
 
-    private void ApplyStationaryPenalty()
+    private void ApplyStationaryPenalty(float minMag)
     {
         if (agent.velocity.magnitude < 0.1f)
         {
@@ -472,13 +604,14 @@ public class RabbitAgent : Agent
         else
             commitTimer -= Time.deltaTime;
     }
-
-    public bool isAggressive = false;
-
     private void SatiateRabbit()
     {
         timeSinceLastMeal = 0f;
         satiationTimeRemaining = satiationDuration;
+    }
+    private bool TakeCarrot(RabbitFeeder rf)
+    {
+        return rf.TryFeedRabbit(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -490,15 +623,39 @@ public class RabbitAgent : Agent
             Destroy(other.gameObject);
             SatiateRabbit();
         }
-        else if (isAggressive && other.CompareTag("Player"))
+        else if (other.CompareTag("Player"))
         {
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            if (playerHealth != null && !playerHealth.IsImmune())
+            if (behaviorLevel == RabbitBehaviorLevel.Aggressive)
             {
-                playerHealth.TakeDamage(10);
-                SatiateRabbit();
+                AddReward(10f);
+                PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+                if (playerHealth != null && !playerHealth.IsImmune() && !playerBot.isEnabled)
+                {
+                    playerHealth.TakeDamage(10);
+                    SatiateRabbit();
+                }
             }
-
+            else if (behaviorLevel == RabbitBehaviorLevel.Medium)
+            {
+                AddReward(2f);
+                PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+                playerHealth.TakeDamage(0);
+                bool wasCarrotTaken = TakeCarrot(other.GetComponent<RabbitFeeder>());
+                if (wasCarrotTaken)
+                {
+                    GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+                    Transform playerHudTransform = playerObj.transform.Find("CameraRig/PlayerHUD");
+                    if (playerHudTransform != null)
+                    {
+                        TookCarrotPopupController popupController = playerHudTransform.GetComponent<TookCarrotPopupController>();
+                        if (popupController != null)
+                        {
+                            popupController.ShowPopup();
+                        }
+                    }
+                    SatiateRabbit();
+                }
+            }
         }
     }
 
