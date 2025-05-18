@@ -66,8 +66,7 @@ public class CarrotPlacement : MonoBehaviour
                 highestAttemptsCollide = attemptsCollide;
 
 
-            GameObject newCarrot = Instantiate(carrotPrefab, randomPosition, Quaternion.Euler(-90, UnityEngine.Random.Range(0, 360), 0));
-            //spawnedCarrots.Add(newCarrot.transform);
+            Instantiate(carrotPrefab, randomPosition, Quaternion.Euler(-90, UnityEngine.Random.Range(0, 360), 0));
         }
 
         Debug.Log($"Placed {placed} carrots. Max retry due to flatness: {highestAttemptsFlat}/{maxAttemptsFlat}; due to collision: {highestAttemptsCollide}/{maxAttemptsCollide}.");

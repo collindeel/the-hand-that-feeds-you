@@ -88,4 +88,12 @@ public class ThirdPersonController : MonoBehaviour
             isGrounded = true;
         }
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Foliage"))
+        {
+            Collider playerCollider = GetComponent<Collider>();
+            Physics.IgnoreCollision(playerCollider, other, true);
+        }
+    }
 }

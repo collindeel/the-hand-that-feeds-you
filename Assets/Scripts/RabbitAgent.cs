@@ -47,6 +47,12 @@ public class RabbitAgent : Agent
                 Debug.LogError("RabbitAgent could not find a CarrotSpawner in the scene.");
             }
         }
+        if (isAggressive)
+        {
+            agent.speed = 12f;
+            animator.speed = 3f;
+        }
+
     }
 
     private float satiationTimeRemaining = 0f;
@@ -61,8 +67,12 @@ public class RabbitAgent : Agent
         }
         if (animator != null)
         {
-            bool isMoving = agent.velocity.magnitude > 0.5f;
+            bool isMoving = agent.velocity.magnitude > .3f;
             animator.SetBool("IsMoving", isMoving);
+            if (isMoving)
+            {
+                animator.speed = Mathf.Max(agent.velocity.magnitude / 4.0f, 1f);
+            }
         }
         //float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         //Debug.Log($"Step {StepCount} | Distance to Player: {distanceToPlayer}");
@@ -338,15 +348,32 @@ public class RabbitAgent : Agent
         return nearest;
     }
 
+    public void CancelSmallDestination()
+    {
+        float minMoveDistance = 1.5f;
+        Vector3 targetPosition = agent.destination;
+
+        float distanceToTarget = Vector3.Distance(agent.transform.position, targetPosition);
+
+        if (distanceToTarget < minMoveDistance)
+        {
+            agent.ResetPath();
+            animator.SetBool("IsMoving", false);
+        }
+    }
+
     public void Move(Vector3 dest)
     {
         if (IsVectorValid(dest))
         {
             agent.SetDestination(dest);
+            CancelSmallDestination();
+
             if (agent.velocity.sqrMagnitude > 0.1f)
             {
                 Quaternion lookRotation = Quaternion.LookRotation(agent.velocity.normalized);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, agent.angularSpeed * Time.deltaTime);
+                float maxRotationPerFrame = agent.angularSpeed * Time.deltaTime;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, maxRotationPerFrame);
             }
 
         }
@@ -369,6 +396,7 @@ public class RabbitAgent : Agent
 
     public void StopAllMovement()
     {
+        animator.SetBool("IsMoving", false);
         if (isFrozen)
             return;
 
@@ -377,10 +405,10 @@ public class RabbitAgent : Agent
 
         agent.isStopped = true;
 
-        Rigidbody rb = GetComponent<Rigidbody>();
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.isKinematic = true;
+        //Rigidbody rb = GetComponent<Rigidbody>();
+        //rb.linearVelocity = Vector3.zero;
+        //rb.angularVelocity = Vector3.zero;
+        //rb.isKinematic = true;
 
         isFrozen = true;
     }

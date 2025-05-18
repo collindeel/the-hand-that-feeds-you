@@ -13,19 +13,21 @@ public class CarrotCollector : MonoBehaviour
     {
         _interactAction = InputSystem.actions.FindAction("Interact");
     }
-    
+
     void Update()
     {
         if (_interactAction.WasPressedThisFrame())
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, pickupRadius, carrotLayerMask);
+            GameObject[] carrots = GameObject.FindGameObjectsWithTag("Carrot");
 
-            if (hits.Length > 0)
+            foreach (GameObject carrot in carrots)
             {
-                // Pick the first found carrot
-                GameObject carrot = hits[0].gameObject;
-                inventory.AddCarrot();
-                Destroy(carrot);
+                float distance = Vector3.Distance(transform.position, carrot.transform.position);
+                if (distance <= pickupRadius)
+                {
+                    inventory.AddCarrot();
+                    Destroy(carrot);
+                }
             }
         }
     }

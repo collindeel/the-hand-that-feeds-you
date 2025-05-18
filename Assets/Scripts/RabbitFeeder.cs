@@ -73,14 +73,17 @@ public class RabbitFeeder : MonoBehaviour
         carrotInstance.tag = "ThrownCarrot";
         carrotInstance.layer = LayerMask.NameToLayer("ThrownCarrot");
         carrotInstance.transform.localScale *= thrownCarrotScale;
-        Collider col = carrotInstance.GetComponent<Collider>();
+        SphereCollider col = carrotInstance.GetComponent<SphereCollider>();
         if (col != null)
         {
             col.isTrigger = false;
         }
         else
         {
-            Debug.LogWarning("No collider found on thrown carrot!");
+            col = carrotInstance.AddComponent<SphereCollider>();
+            col.radius = 0.085f;
+            col.isTrigger = false;
+            col.center = Vector3.zero;
         }
         Rigidbody rb = carrotInstance.GetComponent<Rigidbody>();
         if (rb == null)
@@ -90,6 +93,7 @@ public class RabbitFeeder : MonoBehaviour
         rb.useGravity = true;
         rb.linearDamping = 0.5f;
         rb.angularDamping = 2.0f;
+        rb.isKinematic = false;
         rb.AddForce(transform.forward * tossForce, ForceMode.Impulse);
     }
 
