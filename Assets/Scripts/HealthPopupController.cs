@@ -1,19 +1,20 @@
 using UnityEngine;
-using TMPro;
 using System.Collections;
 
-public class CarrotPopupController : MonoBehaviour
+public class HealthPopupController : MonoBehaviour
 {
+    private Coroutine currentFadeRoutine;
     public CanvasGroup canvasGroup;
-    public TMP_Text countText;
     public float displayTime = 2f;
     public float fadeDuration = 1f;
 
-    private Coroutine currentFadeRoutine;
-
-    public void ShowPopup(int carrotCount)
+    void Start()
     {
-        countText.text = "x" + carrotCount;
+        canvasGroup.alpha = 0f;
+    }
+
+    public void ShowPopup()
+    {
         if (currentFadeRoutine != null)
             StopCoroutine(currentFadeRoutine);
 

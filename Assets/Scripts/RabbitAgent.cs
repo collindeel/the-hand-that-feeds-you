@@ -269,7 +269,7 @@ public class RabbitAgent : Agent
         }
 
         int action = actions.DiscreteActions[0];
-        print($"Action: {action}");
+        //print($"Action: {action}");
         switch (action)
         {
             case 0:
@@ -445,6 +445,13 @@ public class RabbitAgent : Agent
             commitTimer -= Time.deltaTime;
     }
 
+    public bool isAggressive = false;
+
+    private void SatiateRabbit()
+    {
+        timeSinceLastMeal = 0f;
+        satiationTimeRemaining = satiationDuration;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -453,8 +460,17 @@ public class RabbitAgent : Agent
             //print("A rabbit got a *thrown* carrot!");
             AddReward(1.0f);
             Destroy(other.gameObject);
-            timeSinceLastMeal = 0f;
-            satiationTimeRemaining = satiationDuration;
+            SatiateRabbit();
+        }
+        else if (isAggressive && other.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null && !playerHealth.IsImmune())
+            {
+                playerHealth.TakeDamage(10);
+                SatiateRabbit();
+            }
+
         }
     }
 

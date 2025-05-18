@@ -913,6 +913,7 @@ MonoBehaviour:
   maxStationaryTime: 5
   hardPenalty: -1
   commitDuration: 10
+  isAggressive: 1
 --- !u!54 &413612722703055492
 Rigidbody:
   m_ObjectHideFlags: 0
