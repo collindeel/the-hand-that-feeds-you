@@ -14,7 +14,7 @@ public class RabbitStats
     public float stoppingDistance = .2f;
     public float speed = 8f;
 }
-public enum RabbitBehaviorLevel { Timid, Medium, Aggressive }
+
 public class RabbitAgent : Agent
 {
     private Transform player;
@@ -31,15 +31,10 @@ public class RabbitAgent : Agent
     private float timeSinceLastMeal = 0f;
     public float hungerPenaltyRate = -0.005f;
     private PlayerBot playerBot;
-    public RabbitBehaviorLevel behaviorLevel = RabbitBehaviorLevel.Timid;
     public RabbitStats timidStats;
     public RabbitStats mediumStats;
     public RabbitStats aggressiveStats;
-    public ModelAsset timidModel;
-    public ModelAsset mediumModel;
-    public ModelAsset aggressiveModel;
-    private BehaviorParameters behaviorParams;
-
+    public RabbitModelSwitcher rms;
 
     // Start is too late for grabbing the NMA
     public override void Initialize()
@@ -48,12 +43,15 @@ public class RabbitAgent : Agent
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
+    protected override void Awake()
+    {
+        base.Awake();
+        rms = GetComponent<RabbitModelSwitcher>();
+    }
     void Start()
     {
-        behaviorParams = GetComponent<BehaviorParameters>();
-        ApplyModel();
         RabbitStats currentStats = timidStats;
-        switch (behaviorLevel)
+        switch (rms.level)
         {
             case RabbitBehaviorLevel.Medium:
                 currentStats = mediumStats;
@@ -78,7 +76,7 @@ public class RabbitAgent : Agent
         }
         if (!enableObservations)
         {
-            behaviorParams.BehaviorType = BehaviorType.HeuristicOnly;
+            rms.HeuristicOnly();
         }
         if (player == null)
         {
@@ -118,33 +116,6 @@ public class RabbitAgent : Agent
         //float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         //Debug.Log($"Step {StepCount} | Distance to Player: {distanceToPlayer}");
 
-    }
-    public void SetBehaviorLevel(RabbitBehaviorLevel newLevel)
-    {
-        if (behaviorLevel == newLevel) return;
-        behaviorLevel = newLevel;
-        ApplyModel();
-    }
-
-    private void ApplyModel()
-    {
-        ModelAsset chosen = timidModel;
-        switch (behaviorLevel)
-        {
-            case RabbitBehaviorLevel.Medium:
-                chosen = mediumModel;
-                name = "RabbitMedium";
-                break;
-            case RabbitBehaviorLevel.Aggressive:
-                chosen = aggressiveModel;
-                name = "RabbitAggressive";
-                break;
-        }
-        behaviorParams.Model = chosen;
-        behaviorParams.BehaviorName = name;
-#if !UNITY_EDITOR
-        behaviorParams.BehaviorType = BehaviorType.InferenceOnly;
-#endif
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -420,7 +391,7 @@ public class RabbitAgent : Agent
                 break;
         }
 
-        switch (behaviorLevel)
+        switch (rms.level)
         {
             case RabbitBehaviorLevel.Timid:
                 ActionTimid(action);
@@ -625,7 +596,7 @@ public class RabbitAgent : Agent
         }
         else if (other.CompareTag("Player"))
         {
-            if (behaviorLevel == RabbitBehaviorLevel.Aggressive)
+            if (rms.level == RabbitBehaviorLevel.Aggressive)
             {
                 AddReward(10f);
                 PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
@@ -635,7 +606,7 @@ public class RabbitAgent : Agent
                     SatiateRabbit();
                 }
             }
-            else if (behaviorLevel == RabbitBehaviorLevel.Medium)
+            else if (rms.level == RabbitBehaviorLevel.Medium)
             {
                 AddReward(2f);
                 PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
@@ -652,6 +623,9 @@ public class RabbitAgent : Agent
                         {
                             popupController.ShowPopup();
                         }
+                        ScorePopupController scorePC = playerHudTransform.GetComponent<ScorePopupController>();
+                        ScoreTracker.Score -= 50;
+                        scorePC.ShowPopup(ScoreTracker.Score);
                     }
                     SatiateRabbit();
                 }

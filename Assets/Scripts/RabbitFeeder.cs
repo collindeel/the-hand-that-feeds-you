@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,7 @@ public class RabbitFeeder : MonoBehaviour
     public RabbitAgent[] allRabbits;
     public GameObject carrotPrefab;
     public PlayerBot bot;
+    public ScorePopupController scorePC;
     bool trainingMode = false;
     public float thrownCarrotScale = 0.25f;
     public float feedRange = 2f;
@@ -25,13 +27,18 @@ public class RabbitFeeder : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F) || (Gamepad.current?.buttonWest.wasPressedThisFrame ?? false))
         {
-            TryFeedRabbit();
+            bool wasFed = TryFeedRabbit();
+            if (wasFed)
+            {
+                ScoreTracker.Score += 50;
+                scorePC.ShowPopup(ScoreTracker.Score);
+            }
         }
     }
 
-    public void TryFeedRabbit()
+    public bool TryFeedRabbit()
     {
-        TryFeedRabbit(true);
+        return TryFeedRabbit(true);
     }
 
     public bool TryFeedRabbit(bool doThrow)
@@ -62,7 +69,6 @@ public class RabbitFeeder : MonoBehaviour
             {
                 reaction.ReactToFeeding();
             }
-            // Later: Trigger rabbit reaction here, e.g. rabbits[0].GetComponent<RabbitAI>().ReactToFeeding();
             return true;
         }
         else if (doThrow)

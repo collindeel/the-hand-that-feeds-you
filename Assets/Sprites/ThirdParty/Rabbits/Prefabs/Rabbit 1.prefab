@@ -733,6 +733,7 @@ GameObject:
   - component: {fileID: 7578928670438785539}
   - component: {fileID: 3097926266290792393}
   - component: {fileID: 413612722703055492}
+  - component: {fileID: 1605611087331199228}
   m_Layer: 6
   m_Name: Rabbit 1
   m_TagString: Untagged
@@ -908,7 +909,7 @@ MonoBehaviour:
   allRabbits: []
   moveDistance: 100
   hungerPenaltyRate: -0.01
-  behaviorLevel: 1
+  behaviorLevel: 0
   timidStats:
     acceleration: 6
     moveDistance: 30
@@ -924,9 +925,7 @@ MonoBehaviour:
     moveDistance: 200
     stoppingDistance: 0
     speed: 48
-  timidModel: {fileID: 5022602860645237092, guid: 4f7382fed705d49bfa6743947eedcc5b, type: 3}
-  mediumModel: {fileID: 5022602860645237092, guid: 429cc6aa724184ca1b31703896a24a78, type: 3}
-  aggressiveModel: {fileID: 5022602860645237092, guid: 3d1aaa8a36c8f4b28a7526247e5606c4, type: 3}
+  rms: {fileID: 1605611087331199228}
   satiationDuration: 5
   stationaryPenaltyRate: -0.01
   stationaryPenaltyRateAggressive: -0.1
@@ -960,6 +959,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1605611087331199228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588090451174212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871fb8c4e21ed4943a83350c82e4b978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timidModel: {fileID: 5022602860645237092, guid: 4f7382fed705d49bfa6743947eedcc5b, type: 3}
+  mediumModel: {fileID: 5022602860645237092, guid: 429cc6aa724184ca1b31703896a24a78, type: 3}
+  aggressiveModel: {fileID: 5022602860645237092, guid: 3d1aaa8a36c8f4b28a7526247e5606c4, type: 3}
+  level: 0
 --- !u!1 &1593323770353162
 GameObject:
   m_ObjectHideFlags: 0
