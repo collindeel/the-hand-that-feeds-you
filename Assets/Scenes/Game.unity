@@ -2290,7 +2290,7 @@ MonoBehaviour:
   allRabbits: []
   carrotPrefab: {fileID: 6638733501349649444, guid: 3e5bf70492bcb44e5bd0a815e6f2400a, type: 3}
   bot: {fileID: 1048538239}
-  scorePC: {fileID: 0}
+  scorePC: {fileID: 1599467268}
   thrownCarrotScale: 0.25
   feedRange: 2
   tossForce: 5
