@@ -3,8 +3,6 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine.AI;
 using UnityEngine;
-using Unity.MLAgents.Policies;
-using Unity.Sentis;
 
 [System.Serializable]
 public class RabbitStats
@@ -50,20 +48,7 @@ public class RabbitAgent : Agent
     }
     void Start()
     {
-        RabbitStats currentStats = timidStats;
-        switch (rms.level)
-        {
-            case RabbitBehaviorLevel.Medium:
-                currentStats = mediumStats;
-                break;
-            case RabbitBehaviorLevel.Aggressive:
-                currentStats = aggressiveStats;
-                break;
-        }
-        agent.acceleration = currentStats.acceleration;
-        agent.speed = currentStats.speed;
-        agent.stoppingDistance = currentStats.stoppingDistance;
-        moveDistance = currentStats.moveDistance;
+        ApplyStats(rms.level);
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
@@ -116,6 +101,17 @@ public class RabbitAgent : Agent
         //float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         //Debug.Log($"Step {StepCount} | Distance to Player: {distanceToPlayer}");
 
+    }
+    public void ApplyStats(RabbitBehaviorLevel level)
+    {
+        RabbitStats s = timidStats;
+        if (level == RabbitBehaviorLevel.Medium) s = mediumStats;
+        else if (level == RabbitBehaviorLevel.Aggressive) s = aggressiveStats;
+
+        agent.acceleration = s.acceleration;
+        agent.speed = s.speed;
+        agent.stoppingDistance = s.stoppingDistance;
+        moveDistance = s.moveDistance;
     }
     public override void CollectObservations(VectorSensor sensor)
     {

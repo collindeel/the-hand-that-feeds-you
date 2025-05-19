@@ -28,6 +28,7 @@ public class RabbitModelSwitcher : MonoBehaviour
         if (level == newLevel) return;   // already using that brain
         level = newLevel;
         ApplyModel();
+        GetComponent<RabbitAgent>()?.ApplyStats(newLevel);
     }
 
     public void HeuristicOnly()
