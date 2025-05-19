@@ -1,53 +1,25 @@
-using System.Collections;
 using UnityEngine;
 
-public class Footstep : MonoBehaviour
+public class FootSteps : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public AudioSource footstep, sprint;
+    [SerializeField]
+    private AudioClip[] clips;
 
-    private Coroutine stopSound;
+    private AudioSource audioSource;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
-        {
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                footstep.enabled = false;
-                sprint.enabled = true;
-            }
-
-            else
-            {
-                footstep.enabled = true;
-                sprint.enabled = false;
-            }
-
-            if (stopSound != null)
-            {
-                StopCoroutine(stopSound);
-                stopSound = null;
-            }
-        }
-        else
-        {
-            if (stopSound == null)
-            {
-                stopSound = StartCoroutine(StopSoundsAfterDelay());
-            }
-        }
+        audioSource = GetComponent<AudioSource>();
     }
 
-
-    private IEnumerator StopSoundsAfterDelay()
+    private void Step()
     {
-        yield return new WaitForSeconds(0.5f); // Delay after stopping movement
+        AudioClip clip = GetRandomClip();
+        audioSource.PlayOneShot(clip);
+    }
 
-        footstep.enabled = false;
-        sprint.enabled = false;
-        stopSound = null;
+    private AudioClip GetRandomClip()
+    {
+        return clips[Random.RandomRange(0, clips.Length)]; 
     }
 }
-
