@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,8 @@ public class PlayerHealth : MonoBehaviour
     public HealthBarController hbc;
     public CameraShake cs;
     public Image fillImage;
+    public MenuManager mm;
+    public CanvasGroup cg;
 
     void Start()
     {
@@ -44,10 +47,17 @@ public class PlayerHealth : MonoBehaviour
 
             if (currentHealth <= 0)
             {
-                Debug.Log("Player is dead!");
-                // Handle player death here
+                StartCoroutine(DoQuit());
             }
         }
+    }
+
+    public IEnumerator DoQuit()
+    {
+        Time.timeScale = 0f;
+        cg.alpha = 1;
+        yield return new WaitForSecondsRealtime(3);
+        mm.QuitGame();
     }
 
     public bool IsImmune()
