@@ -20,6 +20,6 @@ public class FootSteps : MonoBehaviour
 
     private AudioClip GetRandomClip()
     {
-        return clips[Random.RandomRange(0, clips.Length)]; 
+        return clips[Random.Range(0, clips.Length)]; 
     }
 }
