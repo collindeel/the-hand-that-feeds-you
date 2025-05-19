@@ -1860,8 +1860,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4284ec7b83734d55b3cdcc6fa33ef0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overlay: {fileID: 1109931820}
+  overlay: {fileID: 1109931824}
   label: {fileID: 995837944}
+  fadeInDuration: 3
+  fadeOutDuration: 2
+  holdDuration: 2
+  preholdDuration: 2
+  postholdDuration: 2
 --- !u!4 &866432623
 Transform:
   m_ObjectHideFlags: 0
@@ -1948,8 +1953,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2465,6 +2470,7 @@ GameObject:
   - component: {fileID: 1109931821}
   - component: {fileID: 1109931823}
   - component: {fileID: 1109931822}
+  - component: {fileID: 1109931824}
   m_Layer: 5
   m_Name: EpisodeOverlay
   m_TagString: Untagged
@@ -2530,6 +2536,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1109931820}
   m_CullTransparentMesh: 1
+--- !u!225 &1109931824
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109931820}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1151850042
 GameObject:
   m_ObjectHideFlags: 0

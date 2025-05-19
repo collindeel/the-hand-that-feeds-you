@@ -1,62 +1,54 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.InputSystem;   // if you use the new Input System
-using TMPro;                     // if you use TextMeshPro
+using UnityEngine.InputSystem;
+using TMPro;
+using UnityEditor.UI;
 
 public enum RabbitBehaviorLevel { Timid, Medium, Aggressive }
 public class EpisodeController : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] GameObject overlay;          // EpisodeOverlay
-    [SerializeField] TMP_Text label;            // EpisodeLabel
+    [SerializeField] CanvasGroup overlay;
+    [SerializeField] TMP_Text label;
+    [Header("Fade timings (seconds)")]
+    [SerializeField] float fadeInDuration = 4f;
+    [SerializeField] float fadeOutTextDuration = 2f;
+    [SerializeField] float fadeOutCanvasDuration = 3f;
+    [SerializeField] float holdDuration = 3f;
+    [SerializeField] float preholdDuration = 1f;
+    [SerializeField] float postholdDuration = 1.5f;
 
     [Header("Rabbit Switching")]
 
     int episode = 1;
+    bool busy = false;
 
-    /* --- keys --- */
-    const Key showKey = Key.Period;      // trigger next episode
-    const Key resumeKey = Key.Space;  // dismiss overlay
-    void Start()
-    {
-        ShowOverlay();
-    }
+    const Key nextKey = Key.Period; 
+    void Start() => StartCoroutine(EpisodeRoutine());
     void Update()
     {
         var kb = Keyboard.current;
-        if (kb == null) return;
+        if (kb == null || busy) return;
 
-        // Trigger next episode
-        if (kb[showKey].wasPressedThisFrame && !overlay.activeSelf)
-            StartNextEpisode();
-
-        // Resume play
-        if (kb[resumeKey].wasPressedThisFrame && overlay.activeSelf)
-            HideOverlay();
+        if (kb[nextKey].wasPressedThisFrame)
+        {
+            episode++;
+            StartCoroutine(EpisodeRoutine());
+        }
     }
-
-    /* ====================== */
-
-    void StartNextEpisode()
+    System.Collections.IEnumerator EpisodeRoutine()
     {
-        episode++;
+        busy = true;
 
-        // Decide target rabbit level
         RabbitBehaviorLevel level = RabbitBehaviorLevel.Timid;
         if (episode == 2) level = RabbitBehaviorLevel.Medium;
         else if (episode >= 3) level = RabbitBehaviorLevel.Aggressive;
 
-        var rabbits =
-            Object.FindObjectsByType<RabbitModelSwitcher>(FindObjectsSortMode.None);
+        var rabbits = FindObjectsByType<RabbitModelSwitcher>(FindObjectsSortMode.None);
 
         foreach (var r in rabbits)
             r.SetLevel(level);
 
-        ShowOverlay();
-    }
-    void ShowOverlay()
-    {
-        string ft = "";
+        string ft;
         switch (episode)
         {
             case 1:
@@ -71,12 +63,57 @@ public class EpisodeController : MonoBehaviour
                 break;
         }
         label.text = $"Episode {episode}\n\n{ft}";
-        overlay.SetActive(true);
-        Time.timeScale = 0f;
+
+        yield return FadeInText();
+        yield return new WaitForSecondsRealtime(holdDuration);
+        yield return FadeOutText();
+        yield return new WaitForSecondsRealtime(postholdDuration);
+        yield return FadeOutCanvas();
+
+        busy = false;
     }
-    void HideOverlay()
+
+    System.Collections.IEnumerator FadeOutText()
     {
-        overlay.SetActive(false);
+        label.alpha = 1f;
+        float t = 0f;
+        while (t < fadeOutTextDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            label.alpha = Mathf.InverseLerp(1f, 0f, t / fadeOutTextDuration);
+            yield return null;
+        }
+        label.alpha = 0f;
+    }
+    System.Collections.IEnumerator FadeOutCanvas()
+    {
         Time.timeScale = 1f;
+        overlay.alpha = 1f;
+        float t = 0f;
+        while (t < fadeOutCanvasDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            overlay.alpha = Mathf.InverseLerp(1f, 0f, t / fadeOutCanvasDuration);
+            yield return null;
+        }
+        overlay.alpha = 0f;
+        overlay.gameObject.SetActive(false);
+    }
+    System.Collections.IEnumerator FadeInText()
+    {
+        label.alpha = 0f;
+        overlay.gameObject.SetActive(true);
+        overlay.alpha = 1f;
+        yield return new WaitForSecondsRealtime(preholdDuration);
+        Time.timeScale = 0f;
+        
+        float t = 0f;
+        while (t < fadeInDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            label.alpha = Mathf.Lerp(0f, 1f, t / fadeInDuration);
+            yield return null;
+        }
+        label.alpha = 1f;
     }
 }
