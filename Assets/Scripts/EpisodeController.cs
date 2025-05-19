@@ -67,7 +67,7 @@ public class EpisodeController : MonoBehaviour
                 break;
             case 3:
             default:
-                ft = "F*cking run";
+                ft = "Fucking run";
                 break;
         }
         label.text = $"Episode {episode}\n\n{ft}";
