@@ -1863,9 +1863,10 @@ MonoBehaviour:
   overlay: {fileID: 1109931824}
   label: {fileID: 995837944}
   fadeInDuration: 3
-  fadeOutDuration: 2
+  fadeOutTextDuration: 2
+  fadeOutCanvasDuration: 3
   holdDuration: 2
-  preholdDuration: 2
+  preholdDuration: 1
   postholdDuration: 2
 --- !u!4 &866432623
 Transform:
