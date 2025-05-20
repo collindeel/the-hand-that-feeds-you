@@ -22,18 +22,39 @@ public class EpisodeController : MonoBehaviour
     int episode = 1;
     bool busy = false;
 
-    const Key nextKey = Key.Period; 
-    void Start() => StartCoroutine(EpisodeRoutine());
+    const Key nextKey = Key.Period;
+    const Key skipKey = Key.Space;
+    Coroutine currentRoutine;
+    void Start() => currentRoutine = StartCoroutine(EpisodeRoutine());
     void Update()
     {
         var kb = Keyboard.current;
-        if (kb == null || busy) return;
+        if (kb == null) return;
+        if (kb[skipKey].wasPressedThisFrame && overlay.gameObject.activeSelf)
+        {
+            SkipOverlay();
+            return;
+        }
+        if (busy) return;
 
         if (kb[nextKey].wasPressedThisFrame)
         {
             episode++;
             StartCoroutine(EpisodeRoutine());
         }
+    }
+    void SkipOverlay()
+    {
+        if (currentRoutine != null)
+            StopCoroutine(currentRoutine);
+
+        Time.timeScale = 1f;
+
+        label.alpha = 0f;
+        overlay.alpha = 0f;
+        overlay.gameObject.SetActive(false);
+
+        busy = false;
     }
     System.Collections.IEnumerator EpisodeRoutine()
     {
@@ -106,7 +127,7 @@ public class EpisodeController : MonoBehaviour
         overlay.alpha = 1f;
         yield return new WaitForSecondsRealtime(preholdDuration);
         Time.timeScale = 0f;
-        
+
         float t = 0f;
         while (t < fadeInDuration)
         {
