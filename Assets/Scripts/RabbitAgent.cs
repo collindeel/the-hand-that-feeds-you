@@ -104,7 +104,7 @@ public class RabbitAgent : Agent
     }
     public void ApplyStats(RabbitBehaviorLevel level)
     {
-        RabbitStats s = timidStats;
+        RabbitStats s = timidStats; // Also works for "heuristic"
         if (level == RabbitBehaviorLevel.Medium) s = mediumStats;
         else if (level == RabbitBehaviorLevel.Aggressive) s = aggressiveStats;
 

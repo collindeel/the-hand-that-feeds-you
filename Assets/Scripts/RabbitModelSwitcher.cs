@@ -33,7 +33,12 @@ public class RabbitModelSwitcher : MonoBehaviour
 
     public void HeuristicOnly()
     {
-        bp.BehaviorType = BehaviorType.HeuristicOnly;
+        HeuristicOnly(true);
+    }
+    public void HeuristicOnly(bool isHeuristic)
+    {
+        if (isHeuristic) bp.BehaviorType = BehaviorType.HeuristicOnly;
+        else bp.BehaviorType = BehaviorType.InferenceOnly;
     }
 
     void ApplyModel()

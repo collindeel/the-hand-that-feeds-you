@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-using UnityEditor.UI;
 
-public enum RabbitBehaviorLevel { Timid, Medium, Aggressive }
+public enum RabbitBehaviorLevel { Heuristic, Timid, Medium, Aggressive }
 public class EpisodeController : MonoBehaviour
 {
     [Header("UI")]
@@ -19,7 +18,7 @@ public class EpisodeController : MonoBehaviour
 
     [Header("Rabbit Switching")]
 
-    int episode = 1;
+    int episode = 0;
     bool busy = false;
 
     const Key nextKey = Key.Period;
@@ -32,42 +31,62 @@ public class EpisodeController : MonoBehaviour
         if (kb == null) return;
         if (kb[skipKey].wasPressedThisFrame && overlay.gameObject.activeSelf)
         {
-            SkipOverlay();
+            KillOverlayRoutine();
+            HideOverlayInstant();
+            busy = false;
             return;
         }
         if (busy) return;
 
-        if (kb[nextKey].wasPressedThisFrame)
+        if (!busy && kb[nextKey].wasPressedThisFrame)
         {
             episode++;
-            StartCoroutine(EpisodeRoutine());
+            KillOverlayRoutine();
+            currentRoutine = StartCoroutine(EpisodeRoutine());
         }
     }
-    void SkipOverlay()
+    void HideOverlayInstant()
     {
-        if (currentRoutine != null)
-            StopCoroutine(currentRoutine);
-
         Time.timeScale = 1f;
 
         label.alpha = 0f;
         overlay.alpha = 0f;
         overlay.gameObject.SetActive(false);
-
-        busy = false;
+    }
+    void KillOverlayRoutine()
+    {
+        if (currentRoutine != null)
+            StopCoroutine(currentRoutine);
+        StopCoroutine(nameof(FadeInText));
+        StopCoroutine(nameof(FadeOutText));
+        StopCoroutine(nameof(FadeOutCanvas));
     }
     System.Collections.IEnumerator EpisodeRoutine()
     {
         busy = true;
 
-        RabbitBehaviorLevel level = RabbitBehaviorLevel.Timid;
-        if (episode == 2) level = RabbitBehaviorLevel.Medium;
+        RabbitBehaviorLevel level = RabbitBehaviorLevel.Heuristic;
+        if (episode == 1) level = RabbitBehaviorLevel.Timid;
+        else if (episode == 2) level = RabbitBehaviorLevel.Medium;
         else if (episode >= 3) level = RabbitBehaviorLevel.Aggressive;
 
         var rabbits = FindObjectsByType<RabbitModelSwitcher>(FindObjectsSortMode.None);
 
         foreach (var r in rabbits)
+        {
+            if (level == RabbitBehaviorLevel.Heuristic)
+                r.HeuristicOnly();
+            else
+                r.HeuristicOnly(false);
             r.SetLevel(level);
+        }
+
+        if (level == RabbitBehaviorLevel.Heuristic)
+        {
+            HideOverlayInstant();
+            busy = false;
+            yield break;
+        }
 
         string ft;
         switch (episode)

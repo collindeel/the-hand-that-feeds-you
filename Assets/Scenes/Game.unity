@@ -2506,7 +2506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6629d85f411bf4d69b8cb1d6e83eb06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 100
   immunityDuration: 2
   hbc: {fileID: 1599467266}
   cs: {fileID: 330585549}
@@ -3326,7 +3326,7 @@ Canvas:
   m_GameObject: {fileID: 1599467261}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 330585545}
   m_PlaneDistance: 1
   m_PixelPerfect: 0
