@@ -31,7 +31,7 @@ public class RigidbodyRespawn : MonoBehaviour
         return Physics.SphereCast(transform.position + Vector3.up * 0.05f,
                                   radius,
                                   Vector3.down,
-                                  out _,
+                                  out _,    
                                   0.1f,
                                   groundLayers,
                                   QueryTriggerInteraction.Ignore);

@@ -9,7 +9,9 @@ public class PlayerHealth : MonoBehaviour
     public float immunityDuration = 2f;  // 2 seconds of invincibility
     private float immunityTimer = 0f;
     public HealthBarController hbc;
+    public AudioClip damageSound;
     public CameraShake cs;
+    private AudioSource audioSource;
     public Image fillImage;
     public MenuManager mm;
     public CanvasGroup cg;
@@ -17,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -40,6 +43,8 @@ public class PlayerHealth : MonoBehaviour
             float dur = 0.1f + (90 - currentHealth) * 0.01f;
             float mag = 0.2f + (90 - currentHealth) * 0.01f;
             cs.Shake(dur, mag);
+            audioSource.clip = damageSound;
+            audioSource.Play();
             //Debug.Log($"Player took {damage} damage. Remaining health: {currentHealth}");
 
             // Trigger immunity window

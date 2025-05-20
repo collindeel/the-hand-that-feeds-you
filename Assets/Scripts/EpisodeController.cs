@@ -81,6 +81,8 @@ public class EpisodeController : MonoBehaviour
             r.SetLevel(level);
         }
 
+        EpisodeEvents.RaiseEpisodeChanged(episode, level);
+
         if (level == RabbitBehaviorLevel.Heuristic)
         {
             HideOverlayInstant();
