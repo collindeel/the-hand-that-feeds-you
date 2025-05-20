@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject objectivePrefab;
     public GameObject unityChan;
     public GameObject speechBubblePrefab;
+    public bool doesEscapeTriggerMenu = true;
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame) TogglePauseGame();
+        if (doesEscapeTriggerMenu && Keyboard.current.escapeKey.wasPressedThisFrame) TogglePauseGame();
     }
 
     public void TogglePauseGame() {
