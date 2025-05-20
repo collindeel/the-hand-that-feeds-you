@@ -62,8 +62,8 @@ public class ThirdPersonController : MonoBehaviour
         if (moveDir.magnitude > 0.1f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            rb.MovePosition(rb.position + moveDir * currentSpeed * Time.deltaTime);
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
+            rb.MovePosition(rb.position + moveDir * currentSpeed * Time.fixedDeltaTime);
             animator.SetFloat("Speed", moveDir.magnitude * currentSpeed);
         }
         else
