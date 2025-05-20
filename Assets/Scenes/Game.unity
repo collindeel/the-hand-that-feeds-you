@@ -2503,13 +2503,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6629d85f411bf4d69b8cb1d6e83eb06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
   immunityDuration: 2
   hbc: {fileID: 1599467266}
   cs: {fileID: 330585549}
   fillImage: {fileID: 1087819765}
-  mm: {fileID: 0}
-  cg: {fileID: 0}
+  mm: {fileID: 390546345}
+  cg: {fileID: 1109931824}
 --- !u!114 &1048538254
 MonoBehaviour:
   m_ObjectHideFlags: 0
