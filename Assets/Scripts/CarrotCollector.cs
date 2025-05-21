@@ -6,12 +6,15 @@ public class CarrotCollector : MonoBehaviour
     public float pickupRadius = 2f;
     public LayerMask carrotLayerMask;
     public CarrotInventory inventory;
+    public AudioClip collectClip;
+    AudioSource audioSource;
 
     InputAction _interactAction;
 
     void Start()
     {
         _interactAction = InputSystem.actions.FindAction("Interact");
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -26,6 +29,8 @@ public class CarrotCollector : MonoBehaviour
                 if (distance <= pickupRadius)
                 {
                     inventory.AddCarrot();
+                    audioSource.clip = collectClip;
+                    audioSource.Play();
                     Destroy(carrot);
                 }
             }

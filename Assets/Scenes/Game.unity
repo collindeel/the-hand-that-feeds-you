@@ -3083,6 +3083,8 @@ MonoBehaviour:
   carrotPrefab: {fileID: 6638733501349649444, guid: 3e5bf70492bcb44e5bd0a815e6f2400a, type: 3}
   bot: {fileID: 1048538239}
   scorePC: {fileID: 1599467268}
+  tossClip: {fileID: 8300000, guid: b0fc79a56c2d84c619316c5eb47c033e, type: 3}
+  twinkleClip: {fileID: 8300000, guid: ecce20ef771044969ae247e20af9667a, type: 3}
   thrownCarrotScale: 0.25
   feedRange: 2
   tossForce: 5
@@ -3116,6 +3118,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   inventory: {fileID: 1048538233}
+  collectClip: {fileID: 8300000, guid: 31defa291ab394ecf8d6ec210245b786, type: 3}
 --- !u!114 &1048538239
 MonoBehaviour:
   m_ObjectHideFlags: 0

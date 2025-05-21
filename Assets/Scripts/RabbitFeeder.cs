@@ -12,6 +12,9 @@ public class RabbitFeeder : MonoBehaviour
     public GameObject carrotPrefab;
     public PlayerBot bot;
     public ScorePopupController scorePC;
+    private AudioSource audioSource;
+    public AudioClip tossClip;
+    public AudioClip twinkleClip;
     bool trainingMode = false;
     public float thrownCarrotScale = 0.25f;
     public float feedRange = 2f;
@@ -20,6 +23,7 @@ public class RabbitFeeder : MonoBehaviour
     void Start()
     {
         bot = GetComponent<PlayerBot>();
+        audioSource = GetComponent<AudioSource>();
         trainingMode = bot.isEnabled;
     }
 
@@ -64,6 +68,8 @@ public class RabbitFeeder : MonoBehaviour
         {
             //print($"in range, length {rabbits.Length}");
             if (!trainingMode) inventory.RemoveCarrot();
+            audioSource.clip = twinkleClip;
+            audioSource.Play();
             RabbitReaction reaction = rabbits[0].GetComponent<RabbitReaction>();
             if (reaction != null)
             {
@@ -76,6 +82,8 @@ public class RabbitFeeder : MonoBehaviour
             //Debug.Log("No rabbits nearby... tossing a carrot.");
             if (!trainingMode) inventory.RemoveCarrot();
             ThrowCarrot();
+            audioSource.clip = tossClip;
+            audioSource.Play();
             return false;
         }
         return false;
