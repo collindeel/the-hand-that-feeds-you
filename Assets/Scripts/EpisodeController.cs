@@ -17,7 +17,6 @@ public class EpisodeController : MonoBehaviour
     [SerializeField] float postholdDuration = 1.5f;
 
     [Header("Rabbit Switching")]
-
     int episode = 0;
     bool busy = false;
 
@@ -38,7 +37,14 @@ public class EpisodeController : MonoBehaviour
         }
         if (busy) return;
 
-        if (!busy && kb[nextKey].wasPressedThisFrame)
+        if (kb[nextKey].wasPressedThisFrame)
+        {
+            StartNextEpisode();
+        }
+    }
+    public void StartNextEpisode()
+    {
+        if (!busy)
         {
             episode++;
             KillOverlayRoutine();
@@ -87,6 +93,7 @@ public class EpisodeController : MonoBehaviour
         {
             HideOverlayInstant();
             busy = false;
+            EpisodeEvents.RaiseEpisodeChangeComplete(episode, level);
             yield break;
         }
 
@@ -111,7 +118,7 @@ public class EpisodeController : MonoBehaviour
         yield return FadeOutText();
         yield return new WaitForSecondsRealtime(postholdDuration);
         yield return FadeOutCanvas();
-
+        EpisodeEvents.RaiseEpisodeChangeComplete(episode, level);
         busy = false;
     }
 

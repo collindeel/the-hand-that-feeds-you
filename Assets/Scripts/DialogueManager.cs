@@ -3,6 +3,7 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour
 {
     public DialogueBox dialogueBox;
+    public EpisodeController episodeController;
 
     GameManager _gameManager;
     int _currentLine = -1;
@@ -25,6 +26,7 @@ public class DialogueManager : MonoBehaviour
             {
                 dialogueBox.Hide();
                 _gameManager.storyMode = false;
+                episodeController.StartNextEpisode();
             }
     }
 

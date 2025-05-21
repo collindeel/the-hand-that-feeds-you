@@ -3,11 +3,16 @@ using System;
 public static class EpisodeEvents
 {
     public static event Action<EpisodeChangedArgs> OnEpisodeChanged;
+    public static event Action<EpisodeChangedArgs> OnEpisodeChangeComplete;
 
     public static void RaiseEpisodeChanged(int episode,
                                            RabbitBehaviorLevel level)
     {
         OnEpisodeChanged?.Invoke(new EpisodeChangedArgs(episode, level));
+    }
+    public static void RaiseEpisodeChangeComplete(int episode, RabbitBehaviorLevel level)
+    {
+        OnEpisodeChangeComplete?.Invoke(new EpisodeChangedArgs(episode, level));
     }
 }
 
