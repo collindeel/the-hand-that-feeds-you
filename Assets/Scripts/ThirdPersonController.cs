@@ -65,7 +65,6 @@ public class ThirdPersonController : MonoBehaviour
 
         isGrounded = hitGround;
         groundNormal = hitGround ? hit.normal : Vector3.up;
-        print(isGrounded);
         animator.SetBool("Grounded", isGrounded);
 
         Move(cachedH, cachedV, cachedSprint);
