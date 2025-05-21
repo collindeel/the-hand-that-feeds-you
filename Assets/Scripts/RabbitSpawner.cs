@@ -17,8 +17,8 @@ public class RabbitSpawner : MonoBehaviour
 
     Vector3 GetRandomPointOnTerrain()
     {
-        float x = Random.Range(terrain.transform.position.x, terrain.terrainData.size.x + terrain.transform.position.x);
-        float z = Random.Range(terrain.transform.position.z, terrain.terrainData.size.z + terrain.transform.position.z);
+        float x = Random.Range(terrain.transform.position.x + 150, 750 + terrain.transform.position.x);
+        float z = Random.Range(terrain.transform.position.z + 150, 750 + terrain.transform.position.z);
         float y = terrain.SampleHeight(new Vector3(x, 0, z)) + terrain.transform.position.y;
         return new Vector3(x, y, z);
     }

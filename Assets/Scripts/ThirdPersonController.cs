@@ -4,20 +4,32 @@ using UnityEngine.InputSystem;
 
 public class ThirdPersonController : MonoBehaviour
 {
+    [Header("Motion")]
     public float speed = 5f;
     public float rotationSpeed = 10f;
     public float sprintMultiplier = 2f;
     public float jumpForce = 5f;
 
-    private Rigidbody rb;
-    private bool isGrounded = true;
+    [Header("Refs")]
     public Transform cameraTransform;
-    private PlayerBot bot;
 
-    private Animator animator;
+    Rigidbody rb;
+    PlayerBot bot;
+
+    Animator animator;
 
     InputAction _sprintAction;
     InputAction _jumpAction;
+    // Cached input
+    float cachedH, cachedV;
+    bool cachedSprint;
+    bool jumpRequested;
+
+    bool isGrounded = true;
+    bool isJumping = false;
+    Vector3 groundNormal = Vector3.up;
+    [SerializeField] float maxAcceptableDistToGround = 1.5f;
+    [SerializeField] LayerMask groundLayer = 1 << 8;
 
     void Start()
     {
@@ -28,22 +40,43 @@ public class ThirdPersonController : MonoBehaviour
         _jumpAction = InputSystem.actions.FindAction("Jump");
     }
 
-    private bool isJumping = false;
-
     void Update()
     {
         if (bot.isEnabled) return;
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
 
-        Move(horizontal, vertical, _sprintAction.IsPressed());
+        cachedH = Input.GetAxisRaw("Horizontal");
+        cachedV = Input.GetAxisRaw("Vertical");
+        cachedSprint = _sprintAction.IsPressed();
 
-        if (_jumpAction.IsPressed() && isGrounded && !isJumping)
+        if (_jumpAction.WasPressedThisFrame() && isGrounded && !isJumping)
         {
+            jumpRequested = true;
             animator.SetTrigger("Jump");
-            StartCoroutine(DelayedJump(0.3f));
         }
     }
+
+    void FixedUpdate()
+    {
+        Vector3 feetPos = rb.position + Vector3.up;
+        bool hitGround = Physics.Raycast(
+                            feetPos, Vector3.down,
+                            out RaycastHit hit, maxAcceptableDistToGround,
+                            groundLayer, QueryTriggerInteraction.Ignore);
+
+        isGrounded = hitGround;
+        groundNormal = hitGround ? hit.normal : Vector3.up;
+        print(isGrounded);
+        animator.SetBool("Grounded", isGrounded);
+
+        Move(cachedH, cachedV, cachedSprint);
+
+        if (jumpRequested)
+        {
+            StartCoroutine(DelayedJump(0.3f));
+            jumpRequested = false;
+        }
+    }
+
 
     public void Move(float horizontal, float vertical, bool isSprint)
     {
@@ -57,7 +90,10 @@ public class ThirdPersonController : MonoBehaviour
         camForward.Normalize();
         camRight.Normalize();
 
-        Vector3 moveDir = camForward * vertical + camRight * horizontal;
+        Vector3 rawMove = camForward * vertical + camRight * horizontal;
+
+        Vector3 moveDir = Vector3.ProjectOnPlane(rawMove, groundNormal).normalized;
+        //Vector3 moveDir = camForward * vertical + camRight * horizontal;
         float currentSpeed = speed * (isSprint ? sprintMultiplier : 1f);
         if (moveDir.magnitude > 0.1f)
         {
@@ -69,6 +105,9 @@ public class ThirdPersonController : MonoBehaviour
         else
         {
             animator.SetFloat("Speed", 0f);
+
+            if (isGrounded)
+                rb.linearVelocity = Vector3.Project(rb.linearVelocity, groundNormal);
         }
     }
 
@@ -79,14 +118,6 @@ public class ThirdPersonController : MonoBehaviour
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         isGrounded = false;
         isJumping = false;
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Floor"))
-        {
-            isGrounded = true;
-        }
     }
     void OnTriggerEnter(Collider other)
     {
