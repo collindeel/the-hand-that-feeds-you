@@ -3499,9 +3499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d03bfabbd90414793415cdf71fd2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objective: {fileID: 526531200}
+  objective: {fileID: 1805318819}
   flatOnY: 0
-  keepUpright: 1
+  keepUpright: 0
 --- !u!1 &1109931820
 GameObject:
   m_ObjectHideFlags: 0
