@@ -1,10 +1,14 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public Canvas pauseMenu;
     public Canvas optionsMenu;
+    public Button resumeButton;
     public bool isPaused = false;
     public bool storyMode = false;
 
@@ -26,11 +30,28 @@ public class GameManager : MonoBehaviour
         if (doesEscapeTriggerMenu && Keyboard.current.escapeKey.wasPressedThisFrame) TogglePauseGame();
     }
 
-    public void TogglePauseGame() {
+    public void TogglePauseGame()
+    {
         isPaused ^= true;
-        Time.timeScale = isPaused ? 0f : 1f;
-        pauseMenu.enabled = isPaused;
-        optionsMenu.enabled = false;
-        Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            pauseMenu.gameObject.SetActive(true);
+            optionsMenu.gameObject.SetActive(false);
+            Cursor.lockState = CursorLockMode.None;
+
+            EventSystem.current.SetSelectedGameObject(resumeButton.gameObject);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            pauseMenu.gameObject.SetActive(false);
+            optionsMenu.gameObject.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+        
     }
 }

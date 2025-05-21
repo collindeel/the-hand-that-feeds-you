@@ -16,7 +16,7 @@ public class TextSettings : MonoBehaviour
     bool currentDyslexiaFriendlyFontSetting = false;
     bool currentAdhdFriendlyTextSetting = false;
 
-    void Start()
+    void Awake()
     {
         textComponent = GetComponent<TextMeshProUGUI>();
         defaultText = textComponent.text;
