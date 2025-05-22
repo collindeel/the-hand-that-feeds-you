@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     public bool storyMode = false;
 
-    public GameObject objectivePrefab;
+    public GameObject questPrefab;
     public GameObject unityChan;
     public GameObject speechBubblePrefab;
     public bool doesEscapeTriggerMenu = true;
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         var dialogueManager = GetComponent<DialogueManager>();
-        Tutorial.Initialize(objectivePrefab, unityChan, speechBubblePrefab, dialogueManager);
+        Tutorial.Initialize(questPrefab, unityChan, dialogueManager);
     }
 
     void Update()

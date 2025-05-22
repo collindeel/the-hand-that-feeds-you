@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class Tutorial : Objective
 {
-    public GameObject speechBubblePrefab;
     public DialogueManager dialogueManager;
-
-    GameObject _speechBubbleObject;
 
     readonly (string, string)[] _tutorialDialogue = {
             ($"Hey there! You must be Misaki! I'm Unity-Chan. It's so nice to meet you!", "Unity-Chan"),
@@ -22,25 +19,20 @@ public class Tutorial : Objective
     void Start()
     {
         gameObject.name = "Tutorial Objective";
-        _speechBubbleObject = Instantiate(speechBubblePrefab, transform);
-        var speechBubble = _speechBubbleObject.GetComponent<SpeechBubble>();
-        speechBubble.SetText("Hi!");
-        gameObject.layer = LayerMask.NameToLayer("Objective");
     }
 
-    public static void Initialize(GameObject objectivePrefab, GameObject unityChan, GameObject speechBubblePrefab, DialogueManager dialogueManager)
+    public static void Initialize(GameObject questPrefab, GameObject unityChan, DialogueManager dialogueManager)
     {
-        var objectiveObject = Instantiate(objectivePrefab, unityChan.transform);
+        var objectiveObject = Instantiate(questPrefab, unityChan.transform);
         var tutorial = objectiveObject.AddComponent<Tutorial>();
-        tutorial.speechBubblePrefab = speechBubblePrefab;
         tutorial.dialogueManager = dialogueManager;
     }
 
     public override void Trigger()
     {
         gameObject.layer = LayerMask.NameToLayer("Default");
-        Destroy(_speechBubbleObject);
-
         dialogueManager.PlayDialogue(_tutorialDialogue);
+
+        Destroy(gameObject);
     }
 }
