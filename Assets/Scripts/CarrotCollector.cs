@@ -29,6 +29,7 @@ public class CarrotCollector : MonoBehaviour
                 if (distance <= pickupRadius)
                 {
                     inventory.AddCarrot();
+                    EpisodeEvents.RaiseCarrotCollected();
                     audioSource.clip = collectClip;
                     audioSource.Play();
                     Destroy(carrot);

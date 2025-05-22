@@ -10,6 +10,7 @@ TagManager:
   - Oga
   - Carrot
   - ThrownCarrot
+  - Rabbit
   layers:
   - Default
   - TransparentFX

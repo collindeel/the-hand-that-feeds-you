@@ -1,28 +1,105 @@
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ObjectiveAndTimerController : MonoBehaviour
 {
     public TMP_Text objective;
     public float displayTime = 2f;
     public float fadeDuration = 1f;
+    public ArrowPointer arrowPointer;
+    public Transform player;
+    public CarrotInventory carrotInventory;
+    public string carrotTag = "Carrot";
+    public string rabbitTag = "Rabbit";
+    public float searchRadius = 200f;
+    bool episodeTutorial = false;
+    bool trackingRabbit = false;
+    float refreshTimer = 0f;
+    const float REFRESH_DT = 0.25f;
 
-    void OnEnable() => EpisodeEvents.OnEpisodeChangeComplete += HandleEpisodeChangeComplete;
-    void OnDisable() => EpisodeEvents.OnEpisodeChangeComplete -= HandleEpisodeChangeComplete;
+    void OnEnable()
+    {
+        EpisodeEvents.OnEpisodeChangeComplete += HandleEpisodeChangeComplete;
+        EpisodeEvents.OnCarrotCollected += HandleCarrotCollected;
+        EpisodeEvents.OnCarrotThrown += HandleCarrotThrown;
+        EpisodeEvents.OnRabbitFed += HandleRabbitFed;
+    }
+    void OnDisable()
+    {
+        EpisodeEvents.OnEpisodeChangeComplete -= HandleEpisodeChangeComplete;
+        EpisodeEvents.OnCarrotCollected -= HandleCarrotCollected;
+        EpisodeEvents.OnCarrotThrown -= HandleCarrotThrown;
+        EpisodeEvents.OnRabbitFed -= HandleRabbitFed;
+    }
+    void Update()
+    {
+        if (!episodeTutorial) return;
+
+        refreshTimer -= Time.deltaTime;
+        if (refreshTimer > 0f) return;
+        refreshTimer = REFRESH_DT;
+
+        if (trackingRabbit)
+        {
+            arrowPointer.objective = GetNearestObject(rabbitTag);
+        }
+        else
+        {
+            arrowPointer.objective = GetNearestObject(carrotTag);
+        }
+    }
+    void HandleRabbitFed()
+    {
+        episodeTutorial = false;
+        arrowPointer.gameObject.SetActive(false);
+        ShowPopup("Feed the rabbits!");
+    }
+    void HandleCarrotThrown()
+    {
+        if (!episodeTutorial || !trackingRabbit) return;
+
+        string ft = "Oops! You need to get close enough to a rabbit!";
+        if (carrotInventory.CarrotCount < 1)
+        {
+            ft += "\nHarvest another carrot!";
+            trackingRabbit = false;
+            arrowPointer.objective = GetNearestObject(carrotTag);
+        }
+        ShowPopup(ft);
+    }
+
+    void HandleCarrotCollected()
+    {
+        if (!episodeTutorial || trackingRabbit) return;
+
+        trackingRabbit = true;
+        arrowPointer.objective = GetNearestObject(rabbitTag);
+        ShowPopup("Find a rabbit!");
+    }
 
     void HandleEpisodeChangeComplete(EpisodeChangedArgs args)
     {
-        if (args.episode == 1)
+        episodeTutorial = (args.episode == 1);
+        trackingRabbit = false;
+
+        if (episodeTutorial)
         {
-            ShowPopup();
+            ShowPopup("Objective updated!");
+            arrowPointer.objective = GetNearestObject(carrotTag);
+        }
+        else
+        {
+            arrowPointer.objective = null;
         }
 
     }
     private Coroutine currentFadeRoutine;
 
-    public void ShowPopup()
+    public void ShowPopup(string text)
     {
+        objective.text = text;
         if (currentFadeRoutine != null)
             StopCoroutine(currentFadeRoutine);
 
@@ -42,5 +119,28 @@ public class ObjectiveAndTimerController : MonoBehaviour
             yield return null;
         }
         objective.alpha = 0f;
+    }
+    static readonly List<GameObject> cache = new List<GameObject>(64);
+    Transform GetNearestObject(string tag)
+    {
+        cache.Clear();
+        GameObject[] objs = GameObject.FindGameObjectsWithTag(tag);
+        cache.AddRange(objs);
+
+        Transform nearest = null;
+        float minSqr = (searchRadius <= 0f) ? float.PositiveInfinity
+                                            : searchRadius * searchRadius;
+
+        Vector3 pos = player.position;
+        foreach (var go in cache)
+        {
+            float sqr = (go.transform.position - pos).sqrMagnitude;
+            if (sqr < minSqr)
+            {
+                minSqr = sqr;
+                nearest = go.transform;
+            }
+        }
+        return nearest;
     }
 }

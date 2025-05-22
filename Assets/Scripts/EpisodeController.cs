@@ -23,6 +23,8 @@ public class EpisodeController : MonoBehaviour
     const Key nextKey = Key.Period;
     const Key skipKey = Key.Space;
     Coroutine currentRoutine;
+    void OnEnable() => CountdownTimer.OnTimerFinished += StartNextEpisode;
+    void OnDisable() => CountdownTimer.OnTimerFinished -= StartNextEpisode;
     void Start() => currentRoutine = StartCoroutine(EpisodeRoutine());
     void Update()
     {
@@ -32,6 +34,7 @@ public class EpisodeController : MonoBehaviour
         {
             KillOverlayRoutine();
             HideOverlayInstant();
+            EpisodeEvents.RaiseEpisodeChangeComplete(episode, getLevelByEpisode());
             busy = false;
             return;
         }
@@ -41,6 +44,14 @@ public class EpisodeController : MonoBehaviour
         {
             StartNextEpisode();
         }
+    }
+    RabbitBehaviorLevel getLevelByEpisode()
+    {
+        RabbitBehaviorLevel level = RabbitBehaviorLevel.Heuristic;
+        if (episode == 1) level = RabbitBehaviorLevel.Timid;
+        else if (episode == 2) level = RabbitBehaviorLevel.Medium;
+        else if (episode >= 3) level = RabbitBehaviorLevel.Aggressive;
+        return level;
     }
     public void StartNextEpisode()
     {
@@ -71,10 +82,7 @@ public class EpisodeController : MonoBehaviour
     {
         busy = true;
 
-        RabbitBehaviorLevel level = RabbitBehaviorLevel.Heuristic;
-        if (episode == 1) level = RabbitBehaviorLevel.Timid;
-        else if (episode == 2) level = RabbitBehaviorLevel.Medium;
-        else if (episode >= 3) level = RabbitBehaviorLevel.Aggressive;
+        RabbitBehaviorLevel level = getLevelByEpisode();
 
         var rabbits = FindObjectsByType<RabbitModelSwitcher>(FindObjectsSortMode.None);
 
@@ -93,7 +101,7 @@ public class EpisodeController : MonoBehaviour
         {
             HideOverlayInstant();
             busy = false;
-            EpisodeEvents.RaiseEpisodeChangeComplete(episode, level);
+            //EpisodeEvents.RaiseEpisodeChangeComplete(episode, level); // Forget why this was here but it breaks the tutorial
             yield break;
         }
 

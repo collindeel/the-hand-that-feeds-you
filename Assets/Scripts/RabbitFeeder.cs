@@ -70,6 +70,7 @@ public class RabbitFeeder : MonoBehaviour
             if (!trainingMode) inventory.RemoveCarrot();
             audioSource.clip = twinkleClip;
             audioSource.Play();
+            EpisodeEvents.RaiseRabbitFed();
             RabbitReaction reaction = rabbits[0].GetComponent<RabbitReaction>();
             if (reaction != null)
             {
@@ -81,6 +82,7 @@ public class RabbitFeeder : MonoBehaviour
         {
             //Debug.Log("No rabbits nearby... tossing a carrot.");
             if (!trainingMode) inventory.RemoveCarrot();
+            EpisodeEvents.RaiseCarrotThrown();
             ThrowCarrot();
             audioSource.clip = tossClip;
             audioSource.Play();

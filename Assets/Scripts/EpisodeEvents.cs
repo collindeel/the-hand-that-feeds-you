@@ -4,7 +4,22 @@ public static class EpisodeEvents
 {
     public static event Action<EpisodeChangedArgs> OnEpisodeChanged;
     public static event Action<EpisodeChangedArgs> OnEpisodeChangeComplete;
+    public static event Action OnRabbitFed;
 
+    public static event Action OnCarrotCollected;
+    public static event Action OnCarrotThrown;
+    public static void RaiseCarrotThrown()
+    {
+        OnCarrotThrown?.Invoke();
+    }
+    public static void RaiseCarrotCollected()
+    {
+        OnCarrotCollected?.Invoke();
+    }
+    public static void RaiseRabbitFed()
+    {
+        OnRabbitFed?.Invoke();
+    }
     public static void RaiseEpisodeChanged(int episode,
                                            RabbitBehaviorLevel level)
     {
