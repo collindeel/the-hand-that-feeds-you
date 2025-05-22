@@ -3,35 +3,40 @@ using UnityEngine;
 
 public class DialogueBox : MonoBehaviour
 {
-    public GameObject textbox;
-    public GameObject namebox;
+    public GameObject textboxNormal;
+    public GameObject textboxDyslexiaFriendly;
+    public GameObject nameboxNormal;
+    public GameObject nameboxDyslexiaFriendly;
+    GameObject _textbox;
+    GameObject _namebox;
     TextMeshProUGUI _textboxText;
     TextMeshProUGUI _nameboxText;
     TextSettings _textboxTextSettings;
     TextSettings _nameboxTextSettings;
+    string _currentSpeaker;
+    string _currentText;
+    bool _displaying = false;
 
     void Awake()
     {
-        _nameboxText = namebox.GetComponentInChildren<TextMeshProUGUI>();
-        _nameboxTextSettings = _nameboxText.GetComponent<TextSettings>();
-        _textboxText = textbox.GetComponentInChildren<TextMeshProUGUI>();
-        _textboxTextSettings = _textboxText.GetComponent<TextSettings>();
+        UpdateTextSettings();
     }
 
     public void DisplayText(string text, string speaker = null)
     {
-        textbox.SetActive(true);
+        _displaying = true;
+        _currentSpeaker = speaker;
+        _currentText = text;
+        _textbox.SetActive(true);
         _textboxText.text = text;
         _textboxTextSettings.ReinitializeDefaultText();
 
         if (speaker != null)
         {
-            namebox.SetActive(true);
+            _namebox.SetActive(true);
             _nameboxText.text = speaker;
             _nameboxTextSettings.ReinitializeDefaultText();
         }
-
-        UpdateTextSettings();
     }
 
     public void DisplayText((string text, string speaker) line)
@@ -41,26 +46,33 @@ public class DialogueBox : MonoBehaviour
 
     public void Hide()
     {
-        textbox.SetActive(false);
-        namebox.SetActive(false);
+        _textbox.SetActive(false);
+        _namebox.SetActive(false);
+        _displaying = false;
     }
 
     void UpdateTextSettings()
     {
+        _textbox?.SetActive(false);
+        _namebox?.SetActive(false);
+
         if (PlayerPrefs.GetInt("Dyslexia-friendly Font", 0) == 1)
         {
-            ((RectTransform)textbox.transform).sizeDelta = new Vector2(1225f, 255f);
-            ((RectTransform)namebox.transform).position = new Vector3(450f, 263f, 0f);
-            ((RectTransform)_textboxText.transform).offsetMin = new Vector2(42f, 30f);
-            ((RectTransform)_textboxText.transform).offsetMax = new Vector2(-42f, -30f);
+            _textbox = textboxDyslexiaFriendly;
+            _namebox = nameboxDyslexiaFriendly;
         }
         else
         {
-
-            ((RectTransform)textbox.transform).sizeDelta = new Vector2(1225f, 220f);
-            ((RectTransform)namebox.transform).position = new Vector3(450f, 228f, 0f);
-            ((RectTransform)_textboxText.transform).offsetMin = new Vector2(56f, 40f);
-            ((RectTransform)_textboxText.transform).offsetMax = new Vector2(-56f, -40f);
+            _textbox = textboxNormal;
+            _namebox = nameboxNormal;
         }
+
+        _nameboxText = _namebox.GetComponentInChildren<TextMeshProUGUI>();
+        _nameboxTextSettings = _nameboxText.GetComponent<TextSettings>();
+        _textboxText = _textbox.GetComponentInChildren<TextMeshProUGUI>();
+        _textboxTextSettings = _textboxText.GetComponent<TextSettings>();
+
+        if (_displaying)
+            DisplayText(_currentText, _currentSpeaker);
     }
 }
