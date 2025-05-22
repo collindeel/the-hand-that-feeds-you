@@ -11,6 +11,7 @@ public class ThirdPersonController : MonoBehaviour
     public float jumpForce = 5f;
 
     [Header("Refs")]
+    public GameManager gameManager;
     public Transform cameraTransform;
 
     Rigidbody rb;
@@ -42,7 +43,7 @@ public class ThirdPersonController : MonoBehaviour
 
     void Update()
     {
-        if (bot.isEnabled) return;
+        if (bot.isEnabled || gameManager.storyMode) return;
 
         cachedH = Input.GetAxisRaw("Horizontal");
         cachedV = Input.GetAxisRaw("Vertical");

@@ -3361,6 +3361,7 @@ MonoBehaviour:
   rotationSpeed: 10
   sprintMultiplier: 2
   jumpForce: 5
+  gameManager: {fileID: 1310173824}
   cameraTransform: {fileID: 75406037}
   maxAcceptableDistToGround: 1.5
   groundLayer:
