@@ -916,15 +916,15 @@ MonoBehaviour:
     stoppingDistance: 0.2
     speed: 8
   mediumStats:
-    acceleration: 50
+    acceleration: 25
     moveDistance: 60
     stoppingDistance: 0.1
     speed: 14
   aggressiveStats:
-    acceleration: 100
-    moveDistance: 200
-    stoppingDistance: 1
-    speed: 48
+    acceleration: 50
+    moveDistance: 100
+    stoppingDistance: 0.2
+    speed: 28
   rms: {fileID: 1605611087331199228}
   satiationDuration: 5
   stationaryPenaltyRate: -0.01
@@ -1226,7 +1226,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987778546906186}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
