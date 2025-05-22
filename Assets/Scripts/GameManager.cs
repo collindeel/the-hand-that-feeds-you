@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject questPrefab;
     public GameObject unityChan;
-    public GameObject speechBubblePrefab;
+    public DialogueBox dialogueBox;
     public bool doesEscapeTriggerMenu = true;
 
     void Start()
@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
 
             EventSystem.current.SetSelectedGameObject(null);
+
+            if (storyMode) dialogueBox.BroadcastMessage("UpdateTextSettings");
         }
         
     }

@@ -459,7 +459,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -510, y: 228}
-  m_SizeDelta: {x: 252, y: 59}
+  m_SizeDelta: {x: 320, y: 59}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &120541397
 MonoBehaviour:
@@ -697,6 +697,7 @@ GameObject:
   - component: {fileID: 203668102}
   - component: {fileID: 203668104}
   - component: {fileID: 203668103}
+  - component: {fileID: 203668105}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -822,6 +823,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203668101}
   m_CullTransparentMesh: 1
+--- !u!114 &203668105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203668101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!4 &271440993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8542029119846644628, guid: 370ae9c4633674d44af69d2b2e11dba5, type: 3}
@@ -3907,7 +3922,7 @@ MonoBehaviour:
   storyMode: 0
   questPrefab: {fileID: 8711581490627097798, guid: fbccecd080e3cf98ab64d8856e7cba19, type: 3}
   unityChan: {fileID: 1805318816}
-  speechBubblePrefab: {fileID: 9025243718374139723, guid: 967accf3097f5b26babf41e1880f0124, type: 3}
+  dialogueBox: {fileID: 1004936259}
   doesEscapeTriggerMenu: 1
 --- !u!4 &1310173825
 Transform:
@@ -4502,6 +4517,7 @@ GameObject:
   - component: {fileID: 1697263809}
   - component: {fileID: 1697263811}
   - component: {fileID: 1697263810}
+  - component: {fileID: 1697263812}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -4627,6 +4643,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697263808}
   m_CullTransparentMesh: 1
+--- !u!114 &1697263812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697263808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1 &1721810110
 GameObject:
   m_ObjectHideFlags: 0
