@@ -16,6 +16,8 @@ public class EpisodeController : MonoBehaviour
     [SerializeField] float preholdDuration = 1f;
     [SerializeField] float postholdDuration = 1.5f;
 
+    public ArrowPointer arrowPointer;
+
     [Header("Rabbit Switching")]
     int episode = 0;
     bool busy = false;
@@ -64,6 +66,8 @@ public class EpisodeController : MonoBehaviour
     }
     public void StartNextEpisode()
     {
+        if(episode == 1)
+            arrowPointer.gameObject.SetActive(false);
         if (!busy)
         {
             episode++;

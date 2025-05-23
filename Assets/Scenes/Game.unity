@@ -2882,6 +2882,7 @@ MonoBehaviour:
   holdDuration: 2
   preholdDuration: 1
   postholdDuration: 2
+  arrowPointer: {fileID: 1095513303}
 --- !u!4 &866432623
 Transform:
   m_ObjectHideFlags: 0

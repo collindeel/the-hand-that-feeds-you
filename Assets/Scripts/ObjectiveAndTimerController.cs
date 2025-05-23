@@ -61,6 +61,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
         {
             ShowPopup("Talk to Unity-chan!");
             arrowPointer.objective = unityChan;
+            arrowPointer.gameObject.SetActive(true);
         }
         else if (episodeController.GetEpisode() == 2)
         {
