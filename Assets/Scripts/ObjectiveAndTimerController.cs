@@ -107,16 +107,21 @@ public class ObjectiveAndTimerController : MonoBehaviour
         episodeTutorial = (args.episode == 1);
         trackingRabbit = false;
 
-        if (episodeTutorial)
+        if (args.episode == 1)
         {
             ShowPopup("Objective updated!");
             arrowPointer.objective = GetNearestObject(carrotTag);
+        }
+        else if (args.episode == 3)
+        {
+            ShowPopup("Find Unity-chan.");
+            arrowPointer.objective = unityChan;
+            arrowPointer.gameObject.SetActive(true);
         }
         else
         {
             arrowPointer.objective = null;
         }
-
     }
     private Coroutine currentFadeRoutine;
 

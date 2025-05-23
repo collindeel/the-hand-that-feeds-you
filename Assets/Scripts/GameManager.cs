@@ -17,7 +17,11 @@ public class GameManager : MonoBehaviour
     public EpisodeController episodeController;
     public bool doesEscapeTriggerMenu = true;
 
-    void OnEnable() => CountdownTimer.OnTimerFinished += HandleTimerFinished;
+    void OnEnable()
+    {
+        CountdownTimer.OnTimerFinished += HandleTimerFinished;
+        EpisodeEvents.OnEpisodeChangeComplete += HandleEpisodeChangeComplete;
+    }
 
     void Start()
     {
@@ -27,6 +31,15 @@ public class GameManager : MonoBehaviour
         Tutorial.Initialize(questPrefab, unityChan, dialogueManager);
     }
 
+    void HandleEpisodeChangeComplete(EpisodeChangedArgs args)
+    {
+        if (args.episode == 3)
+        {
+            var dialogueManager = GetComponent<DialogueManager>();
+            Episode3AfterStart.Initialize(questPrefab, unityChan, dialogueManager);
+        }
+
+    }
     void HandleTimerFinished()
     {
         if (episodeController.GetEpisode() == 1)

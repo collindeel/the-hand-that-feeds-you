@@ -195,6 +195,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4483587913382847095, guid: 234a458d2bc9de040834a24c42610268, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1805318817}
+    - targetCorrespondingSourceObject: {fileID: 4483587913382847095, guid: 234a458d2bc9de040834a24c42610268, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1805318822}
   m_SourcePrefab: {fileID: 100100000, guid: 234a458d2bc9de040834a24c42610268, type: 3}
 --- !u!1 &75406036
 GameObject:
@@ -3494,7 +3497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de0208e5bf0c041a081816bfceefaaed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  speed: 5
   rotationSpeed: 10
   sprintMultiplier: 2
   jumpForce: 5
@@ -4230,8 +4233,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   happyClip: {fileID: 8300000, guid: 393e863dd3c9a4e1dbb3e52742892bf3, type: 3}
-  actionClip: {fileID: 8300000, guid: f7debb99c04eb45d9b5430f1265d730d, type: 3}
+  activeClip: {fileID: 8300000, guid: f7debb99c04eb45d9b5430f1265d730d, type: 3}
   darkClip: {fileID: 8300000, guid: e289378daa75e4a6a9a1816e16be410d, type: 3}
+  actionClip: {fileID: 8300000, guid: 1dcc3837e90f441dca5a9912c56e6c4b, type: 3}
 --- !u!82 &1211643723
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5564,6 +5568,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3851483538773457101, guid: 234a458d2bc9de040834a24c42610268, type: 3}
   m_PrefabInstance: {fileID: 71294848}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1805318822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805318816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3eb5e164336452dada7bdef5d83456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetX: 46.65
+  offsetZ: 37.07
+  absoluteY: 0
+  player: {fileID: 1048538230}
 --- !u!1 &1868522944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8858927678321062700, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}

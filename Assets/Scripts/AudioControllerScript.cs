@@ -3,8 +3,9 @@ using UnityEngine;
 public class AudioControllerScript : MonoBehaviour
 {
     public AudioClip happyClip;
-    public AudioClip actionClip;
+    public AudioClip activeClip;
     public AudioClip darkClip;
+    public AudioClip actionClip;
     AudioSource music;
     void Awake() => music = GetComponent<AudioSource>();
     void OnEnable() =>
@@ -14,8 +15,9 @@ public class AudioControllerScript : MonoBehaviour
             {
                 0 => null,
                 1 => happyClip,
-                2 => actionClip,
+                2 => activeClip,
                 3 => darkClip,
+                4 => actionClip,
                 _ => null
             };
             if (music.clip == null)

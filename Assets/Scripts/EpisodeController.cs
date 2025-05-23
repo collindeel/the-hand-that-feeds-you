@@ -61,7 +61,7 @@ public class EpisodeController : MonoBehaviour
     }
     public void StartNextEpisodeIfApplicable()
     {
-        if (episode == 0 || episode == 1)
+        if (episode == 0 || episode == 1 || episode == 3)
             StartNextEpisode();
     }
     public void StartNextEpisode()
