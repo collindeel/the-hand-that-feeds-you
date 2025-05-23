@@ -15,6 +15,7 @@ public class RabbitFeeder : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip tossClip;
     public AudioClip twinkleClip;
+    public AudioClip takeClip;
     bool trainingMode = false;
     public float thrownCarrotScale = 0.25f;
     public float feedRange = 2f;
@@ -69,7 +70,7 @@ public class RabbitFeeder : MonoBehaviour
         {
             //print($"in range, length {rabbits.Length}");
             if (!trainingMode) inventory.RemoveCarrot();
-            audioSource.clip = twinkleClip;
+            audioSource.clip = doThrow ? twinkleClip : takeClip;
             audioSource.Play();
             EpisodeEvents.RaiseRabbitFed();
             RabbitReaction reaction = rabbits[0].GetComponent<RabbitReaction>();

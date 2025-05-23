@@ -1794,7 +1794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rabbitPrefab: {fileID: 1588090451174212, guid: c737dd230724d61469e1c672cf47ed9e, type: 3}
-  rabbitCount: 300
+  rabbitCount: 200
   terrain: {fileID: 1645785104}
 --- !u!4 &460238112
 Transform:
@@ -3530,6 +3530,7 @@ MonoBehaviour:
   scorePC: {fileID: 1599467268}
   tossClip: {fileID: 8300000, guid: b0fc79a56c2d84c619316c5eb47c033e, type: 3}
   twinkleClip: {fileID: 8300000, guid: ecce20ef771044969ae247e20af9667a, type: 3}
+  takeClip: {fileID: 8300000, guid: 44a8cf035d50b4eb2a0d75056e678d9b, type: 3}
   thrownCarrotScale: 0.25
   feedRange: 2
   tossForce: 5
