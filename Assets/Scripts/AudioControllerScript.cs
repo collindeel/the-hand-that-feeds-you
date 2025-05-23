@@ -10,12 +10,12 @@ public class AudioControllerScript : MonoBehaviour
     void OnEnable() =>
         EpisodeEvents.OnEpisodeChanged += e =>
         {
-            music.clip = e.level switch
+            music.clip = e.episode switch
             {
-                RabbitBehaviorLevel.Heuristic => null,
-                RabbitBehaviorLevel.Timid => happyClip,
-                RabbitBehaviorLevel.Medium => actionClip,
-                RabbitBehaviorLevel.Aggressive => darkClip,
+                0 => null,
+                1 => happyClip,
+                2 => actionClip,
+                3 => darkClip,
                 _ => null
             };
             if (music.clip == null)

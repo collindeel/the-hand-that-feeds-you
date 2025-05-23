@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -15,7 +14,10 @@ public class GameManager : MonoBehaviour
     public GameObject questPrefab;
     public GameObject unityChan;
     public DialogueBox dialogueBox;
+    public EpisodeController episodeController;
     public bool doesEscapeTriggerMenu = true;
+
+    void OnEnable() => CountdownTimer.OnTimerFinished += HandleTimerFinished;
 
     void Start()
     {
@@ -23,6 +25,15 @@ public class GameManager : MonoBehaviour
 
         var dialogueManager = GetComponent<DialogueManager>();
         Tutorial.Initialize(questPrefab, unityChan, dialogueManager);
+    }
+
+    void HandleTimerFinished()
+    {
+        if (episodeController.GetEpisode() == 1)
+        {
+            var dialogueManager = GetComponent<DialogueManager>();
+            Episode2Prelude.Initialize(questPrefab, unityChan, dialogueManager);
+        }
     }
 
     void Update()

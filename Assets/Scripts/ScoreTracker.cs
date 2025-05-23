@@ -1,4 +1,21 @@
+
 public static class ScoreTracker
 {
-    public static int Score { get; set; } = 0;
+    public static int GetScore()
+    {
+        return score;
+    }
+    public static void SetScore(int score)
+    {
+        if (!isScoreDisabled)
+            ScoreTracker.score = score;
+    }
+    public static void AddScore(int scoreToAdd)
+    {
+        if (!isScoreDisabled)
+            score += scoreToAdd;
+    }
+
+    public static bool isScoreDisabled { get; set; } = true;
+    static int score = 0;
 }

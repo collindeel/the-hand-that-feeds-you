@@ -10,7 +10,9 @@ public class ObjectiveAndTimerController : MonoBehaviour
     public float fadeDuration = 1f;
     public ArrowPointer arrowPointer;
     public Transform player;
+    public Transform unityChan;
     public CarrotInventory carrotInventory;
+    public EpisodeController episodeController;
     public string carrotTag = "Carrot";
     public string rabbitTag = "Rabbit";
     public float searchRadius = 200f;
@@ -25,6 +27,8 @@ public class ObjectiveAndTimerController : MonoBehaviour
         EpisodeEvents.OnCarrotCollected += HandleCarrotCollected;
         EpisodeEvents.OnCarrotThrown += HandleCarrotThrown;
         EpisodeEvents.OnRabbitFed += HandleRabbitFed;
+        CountdownTimer.OnTimerFinished += HandleTimerFinished;
+        
     }
     void OnDisable()
     {
@@ -32,6 +36,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
         EpisodeEvents.OnCarrotCollected -= HandleCarrotCollected;
         EpisodeEvents.OnCarrotThrown -= HandleCarrotThrown;
         EpisodeEvents.OnRabbitFed -= HandleRabbitFed;
+        CountdownTimer.OnTimerFinished -= HandleTimerFinished;
     }
     void Update()
     {
@@ -50,11 +55,28 @@ public class ObjectiveAndTimerController : MonoBehaviour
             arrowPointer.objective = GetNearestObject(carrotTag);
         }
     }
+    void HandleTimerFinished()
+    {
+        if (episodeController.GetEpisode() == 1)
+        {
+            ShowPopup("Talk to Unity-chan!");
+            arrowPointer.objective = unityChan;
+        }
+        else if (episodeController.GetEpisode() == 2)
+        {
+            episodeController.StartNextEpisode();
+        }
+    }
+    bool shown = false;
     void HandleRabbitFed()
     {
         episodeTutorial = false;
         arrowPointer.gameObject.SetActive(false);
-        ShowPopup("Feed the rabbits!");
+        if (!shown)
+        {
+            ShowPopup("Feed the rabbits!");
+            shown = true;
+        }
     }
     void HandleCarrotThrown()
     {

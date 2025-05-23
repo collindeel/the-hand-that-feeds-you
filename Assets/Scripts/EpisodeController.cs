@@ -23,8 +23,7 @@ public class EpisodeController : MonoBehaviour
     const Key nextKey = Key.Period;
     const Key skipKey = Key.Space;
     Coroutine currentRoutine;
-    void OnEnable() => CountdownTimer.OnTimerFinished += StartNextEpisode;
-    void OnDisable() => CountdownTimer.OnTimerFinished -= StartNextEpisode;
+
     void Start() => currentRoutine = StartCoroutine(EpisodeRoutine());
     void Update()
     {
@@ -45,13 +44,23 @@ public class EpisodeController : MonoBehaviour
             StartNextEpisode();
         }
     }
+    public int GetEpisode()
+    {
+        return episode;
+    }
     RabbitBehaviorLevel getLevelByEpisode()
     {
-        RabbitBehaviorLevel level = RabbitBehaviorLevel.Heuristic;
+        RabbitBehaviorLevel level = RabbitBehaviorLevel.Heuristic; // ep "0" but no overlay
         if (episode == 1) level = RabbitBehaviorLevel.Timid;
         else if (episode == 2) level = RabbitBehaviorLevel.Medium;
-        else if (episode >= 3) level = RabbitBehaviorLevel.Aggressive;
+        else if (episode == 3) level = RabbitBehaviorLevel.Heuristic; // Start ep 3 with rabbits at idle
+        else if (episode == 4) level = RabbitBehaviorLevel.Aggressive; // ep "4" but no overlay
         return level;
+    }
+    public void StartNextEpisodeIfApplicable()
+    {
+        if (episode == 0 || episode == 1)
+            StartNextEpisode();
     }
     public void StartNextEpisode()
     {
@@ -89,7 +98,11 @@ public class EpisodeController : MonoBehaviour
         foreach (var r in rabbits)
         {
             if (level == RabbitBehaviorLevel.Heuristic)
+            {
                 r.HeuristicOnly();
+                if (episode == 3)
+                    r.isIdleOnly = true;
+            }
             else
                 r.HeuristicOnly(false);
             r.SetLevel(level);
@@ -97,7 +110,8 @@ public class EpisodeController : MonoBehaviour
 
         EpisodeEvents.RaiseEpisodeChanged(episode, level);
 
-        if (level == RabbitBehaviorLevel.Heuristic)
+        // For all "episodes" where we don't want overlay
+        if (episode == 0 || episode > 3)
         {
             HideOverlayInstant();
             busy = false;
@@ -110,13 +124,14 @@ public class EpisodeController : MonoBehaviour
         {
             case 1:
                 ft = "Give carrots to the sweet rabbits";
+                ScoreTracker.isScoreDisabled = false;
                 break;
             case 2:
-                ft = "Don't let the rabbits take your carrots";
+                ft = "Don't let the rabbits take your carrots!";
                 break;
             case 3:
             default:
-                ft = "Fucking run";
+                ft = "...";
                 break;
         }
         label.text = $"Episode {episode}\n\n{ft}";

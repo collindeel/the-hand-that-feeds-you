@@ -34,8 +34,9 @@ public class RabbitFeeder : MonoBehaviour
             bool wasFed = TryFeedRabbit();
             if (wasFed)
             {
-                ScoreTracker.Score += 50;
-                scorePC.ShowPopup(ScoreTracker.Score);
+                ScoreTracker.AddScore(50);
+                if(!ScoreTracker.isScoreDisabled)
+                    scorePC.ShowPopup(ScoreTracker.GetScore());
             }
         }
     }

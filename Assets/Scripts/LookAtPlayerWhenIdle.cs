@@ -32,8 +32,8 @@ public class LookAtPlayerWhenIdle : MonoBehaviour
 
     void LateUpdate()   // after navmesh has updated this frame
     {
-        if (player == null) return;
-        if (rms != null && rms.level != RabbitBehaviorLevel.Aggressive) return;
+        if (player == null || rms == null) return;
+        if (rms.level != RabbitBehaviorLevel.Aggressive && !rms.isIdleOnly) return;
 
         // Is the agent basically stopped?
         if (agent.velocity.sqrMagnitude > idleThreshold * idleThreshold) return;

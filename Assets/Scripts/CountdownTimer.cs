@@ -19,11 +19,11 @@ public class CountdownTimer : MonoBehaviour
 
     void OnEnable()
     {
-        EpisodeEvents.OnRabbitFed += HandleTutorialDone;
+        EpisodeEvents.OnRabbitFed += StartClockIfNotStarted;
     }
     void OnDisable()
     {
-        EpisodeEvents.OnRabbitFed -= HandleTutorialDone;
+        EpisodeEvents.OnRabbitFed -= StartClockIfNotStarted;
     }
 
     void Update()
@@ -36,6 +36,7 @@ public class CountdownTimer : MonoBehaviour
             timeRemaining = 0f;
             running = false;
             UpdateLabel(0f);
+            ScoreTracker.isScoreDisabled = true;
             // pause?
             timerLabel.alpha = 0f;
             OnTimerFinished?.Invoke();
@@ -44,8 +45,10 @@ public class CountdownTimer : MonoBehaviour
         UpdateLabel(timeRemaining);
     }
 
-    void HandleTutorialDone()
+    void StartClockIfNotStarted()
     {
+        if (running) return; // Or let them reset clock every time they feed a rabbit and remove this line
+        ScoreTracker.isScoreDisabled = false;
         timeRemaining = totalTime;
         running = true;
         UpdateLabel(timeRemaining);

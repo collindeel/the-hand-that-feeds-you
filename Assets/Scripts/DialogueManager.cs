@@ -26,7 +26,8 @@ public class DialogueManager : MonoBehaviour
             {
                 dialogueBox.Hide();
                 _gameManager.storyMode = false;
-                episodeController.StartNextEpisode();
+                _currentLine = -1;
+                episodeController.StartNextEpisodeIfApplicable();
             }
     }
 

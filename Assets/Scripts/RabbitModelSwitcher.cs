@@ -13,7 +13,10 @@ public class RabbitModelSwitcher : MonoBehaviour
     [Tooltip("Current temperament shown in the Inspector")]
     public RabbitBehaviorLevel level = RabbitBehaviorLevel.Timid;
 
+    public bool isIdleOnly = false;
+
     BehaviorParameters bp;
+    
 
     void Awake()
     {

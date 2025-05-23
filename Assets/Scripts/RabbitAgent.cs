@@ -175,8 +175,13 @@ public class RabbitAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
-        int choice = UnityEngine.Random.Range(0, 1);
-        discreteActionsOut[0] = choice == 0 ? 3 : 4;
+        if (rms.isIdleOnly)
+            discreteActionsOut[0] = 4;
+        else
+        {
+            int choice = UnityEngine.Random.Range(0, 1);
+            discreteActionsOut[0] = choice == 0 ? 3 : 4;
+        }
     }
 
     private float CountRabbitsNearPlayer()
@@ -620,8 +625,9 @@ public class RabbitAgent : Agent
                             popupController.ShowPopup();
                         }
                         ScorePopupController scorePC = playerHudTransform.GetComponent<ScorePopupController>();
-                        ScoreTracker.Score -= 50;
-                        scorePC.ShowPopup(ScoreTracker.Score);
+                        ScoreTracker.AddScore(-50);
+                        if(!ScoreTracker.isScoreDisabled)
+                            scorePC.ShowPopup(ScoreTracker.GetScore());
                     }
                     SatiateRabbit();
                 }
