@@ -4325,7 +4325,9 @@ MonoBehaviour:
   immunityDuration: 2
   hbc: {fileID: 1599467266}
   damageSound: {fileID: 8300000, guid: e4f692d273597426583f8e9e216d729d, type: 3}
+  jumpScareSound: {fileID: 8300000, guid: f9357def286cf4b9c8ee00a8d65974f0, type: 3}
   cs: {fileID: 330585549}
+  acs: {fileID: 1211643722}
   fillImage: {fileID: 1087819765}
   cg: {fileID: 925397860}
 --- !u!114 &1048538254
@@ -6321,6 +6323,7 @@ MonoBehaviour:
   offsetX: 46.65
   offsetZ: 37.07
   absoluteY: 0
+  bloodPrefab: {fileID: 0}
   player: {fileID: 1048538230}
 --- !u!1 &1847287636
 GameObject:

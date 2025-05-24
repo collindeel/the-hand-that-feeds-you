@@ -25,4 +25,5 @@ public class AudioControllerScript : MonoBehaviour
             else
                 music.Play();
         };
+    public void Halt() => music.Stop();
 }

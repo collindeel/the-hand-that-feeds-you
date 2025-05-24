@@ -11,8 +11,10 @@ public class PlayerHealth : MonoBehaviour
     private float immunityTimer = 0f;
     public HealthBarController hbc;
     public AudioClip damageSound;
+    public AudioClip jumpScareSound;
     public CameraShake cs;
     private AudioSource audioSource;
+    public AudioControllerScript acs;
     public Image fillImage;
     public CanvasGroup cg;
 
@@ -64,7 +66,10 @@ public class PlayerHealth : MonoBehaviour
     public IEnumerator DoQuit()
     {
         Time.timeScale = 0f;
-        cg.alpha = 1;
+        cg.alpha = 1; // Show jumpscare overlay
+        acs.Halt();
+        audioSource.clip = jumpScareSound;
+        audioSource.Play();
         yield return new WaitForSecondsRealtime(3);
 
         Cursor.lockState = CursorLockMode.None;
