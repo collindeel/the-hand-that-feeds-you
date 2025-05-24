@@ -21,6 +21,7 @@ public class LieFlat : MonoBehaviour
     public Transform player;
 
     void OnEnable() => EpisodeEvents.OnEpisodeChanged += HandleEpisodeChanged;
+    void OnDisable() => EpisodeEvents.OnEpisodeChanged -= HandleEpisodeChanged;
 
     void Start()
     {
