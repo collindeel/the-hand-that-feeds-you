@@ -8,9 +8,10 @@ public class CaveEntryTrigger : MonoBehaviour
     [SerializeField] string playerTag = "Player";
     [SerializeField] float slowMoFactor = 0.1f;
     [SerializeField] float slowMoTime = 0.6f;         // realtime seconds
-    [SerializeField] float fadeDuration = 1.2f;        // realtime
-    [SerializeField] float holdWhiteTime = 0.8f;       // realtime
-    private AudioSource audioSource;
+    [SerializeField] float fadeDuration = 3f;        // realtime
+    [SerializeField] float holdWhiteTime = 3f;       // realtime
+    public AudioSource audioSource;
+    public AudioClip intoLightSound;
     public AudioControllerScript acs;
     public CanvasGroup finalScoreOverlay;
     public FSPopupController fspc;
@@ -31,7 +32,7 @@ public class CaveEntryTrigger : MonoBehaviour
 
         fadeGroup = fadeImg.GetComponent<CanvasGroup>()
                    ?? fadeImg.gameObject.AddComponent<CanvasGroup>();
-        fadeGroup.alpha = 0;    
+        fadeGroup.alpha = 0;
     }
 
     void Start()
@@ -56,6 +57,10 @@ public class CaveEntryTrigger : MonoBehaviour
         var input = player.GetComponent<MonoBehaviour>(); // Cease player input here
         if (input) input.enabled = false;
 
+        acs.Halt();
+        audioSource.clip = intoLightSound;
+        audioSource.Play();
+
         //-------------------------------------------------
         // 2. Slow-mo ramp
         //-------------------------------------------------
@@ -68,6 +73,7 @@ public class CaveEntryTrigger : MonoBehaviour
             yield return null;
         }
         Time.timeScale = slowMoFactor;
+
 
         //-------------------------------------------------
         // 3. Fade to white (using realtime so it ignores timeScale)
@@ -88,8 +94,8 @@ public class CaveEntryTrigger : MonoBehaviour
         //-------------------------------------------------
         yield return new WaitForSecondsRealtime(holdWhiteTime);
         Time.timeScale = 0f;
-        
-        acs.Halt();
+
+
         DontDestroyOnLoad(acs.gameObject);
         acs.PlayEndWon();
         finalScoreOverlay.alpha = 1f;

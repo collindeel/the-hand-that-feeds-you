@@ -5314,7 +5314,7 @@ MonoBehaviour:
   darkClip: {fileID: 8300000, guid: e289378daa75e4a6a9a1816e16be410d, type: 3}
   actionClip: {fileID: 8300000, guid: 1dcc3837e90f441dca5a9912c56e6c4b, type: 3}
   endDiedClip: {fileID: 8300000, guid: bef50127189eb433d94a28d3d552b9d9, type: 3}
-  endWonClip: {fileID: 8300000, guid: 14657130ef0744af1a06cfa442481bb6, type: 3}
+  endWonClip: {fileID: 8300000, guid: c147569f39e4844dabf892d2d69dc53e, type: 3}
 --- !u!82 &1211643723
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6831,9 +6831,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTag: Player
   slowMoFactor: 0.1
-  slowMoTime: 0.6
-  fadeDuration: 1.2
-  holdWhiteTime: 0.8
+  slowMoTime: 1
+  fadeDuration: 3
+  holdWhiteTime: 3
+  audioSource: {fileID: 1048538255}
+  intoLightSound: {fileID: 8300000, guid: b87424856bfeb41e4bcce4b6266a03c3, type: 3}
   acs: {fileID: 1211643722}
   finalScoreOverlay: {fileID: 460388107}
   fspc: {fileID: 1599467271}
