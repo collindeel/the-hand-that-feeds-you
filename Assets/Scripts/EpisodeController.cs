@@ -136,6 +136,7 @@ public class EpisodeController : MonoBehaviour
             case 3:
             default:
                 ft = "...";
+                RabbitEyeController.SetEyesAll(true);
                 break;
         }
         label.text = $"Episode {episode}\n\n{ft}";

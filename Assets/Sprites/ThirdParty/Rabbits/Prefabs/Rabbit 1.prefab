@@ -557,7 +557,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 4300002, guid: 0962bdca27eaca34aaa15f7fdf608faf, type: 3}
   m_Bones:
@@ -735,6 +735,7 @@ GameObject:
   - component: {fileID: 413612722703055492}
   - component: {fileID: 1605611087331199228}
   - component: {fileID: 6367743590938643926}
+  - component: {fileID: 6707929855688869996}
   m_Layer: 6
   m_Name: Rabbit 1
   m_TagString: Rabbit
@@ -975,6 +976,7 @@ MonoBehaviour:
   mediumModel: {fileID: 5022602860645237092, guid: 429cc6aa724184ca1b31703896a24a78, type: 3}
   aggressiveModel: {fileID: 5022602860645237092, guid: 3d1aaa8a36c8f4b28a7526247e5606c4, type: 3}
   level: 0
+  isIdleOnly: 0
 --- !u!114 &6367743590938643926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -991,6 +993,21 @@ MonoBehaviour:
   eyePivot: {fileID: 0}
   turnSpeed: 360
   idleThreshold: 0.2
+--- !u!114 &6707929855688869996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588090451174212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3666132344144aec81959874a257564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eyeRenderer: {fileID: 137485845215741518}
+  normalMat: {fileID: 2100000, guid: d63f66543778067409d35df0810847bf, type: 2}
+  evilMat: {fileID: 2100000, guid: f6692f7b426ca499b8ccdba81664b3e1, type: 2}
 --- !u!1 &1593323770353162
 GameObject:
   m_ObjectHideFlags: 0
