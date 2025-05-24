@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
     private AudioSource audioSource;
     public AudioControllerScript acs;
     public CanvasGroup finalScoreOverlay;
-    public TMP_Text finalScore;
+    public FSPopupController fspc;
     public Image fillImage;
     public CanvasGroup cg;
 
@@ -77,8 +77,8 @@ public class PlayerHealth : MonoBehaviour
         cg.alpha = 0f;
         DontDestroyOnLoad(acs.gameObject);
         acs.PlayEndDied();
-        finalScore.text = ScoreTracker.GetScore().ToString();
         finalScoreOverlay.alpha = 1f;
+        fspc.ShowPopup(ScoreTracker.GetScore());
         yield return new WaitForSecondsRealtime(5);
         Cursor.lockState = CursorLockMode.None;
         _globalVariables.gameCompleted = true;

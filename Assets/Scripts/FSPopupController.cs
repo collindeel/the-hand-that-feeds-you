@@ -5,7 +5,7 @@ using System.Collections;
 public class FSPopupController : MonoBehaviour
 {
     public TMP_Text scoreText;
-    public float displayTime = 2f;
+    public float beforeShown = .5f;
     public float fadeDuration = 1f;
 
     private Coroutine currentFadeRoutine;
@@ -21,15 +21,17 @@ public class FSPopupController : MonoBehaviour
     private IEnumerator FadeIn(int score)
     {
         scoreText.text = score.ToString();
+        scoreText.fontSize = 48f;
         scoreText.alpha = 0f;
 
-        yield return new WaitForSeconds(displayTime);
+        yield return new WaitForSecondsRealtime(beforeShown);
 
         float elapsed = 0f;
         while (elapsed < fadeDuration)
         {
             scoreText.alpha = Mathf.Lerp(0f, 1f, elapsed / fadeDuration);
-            elapsed += Time.deltaTime;
+            scoreText.fontSize = Mathf.Lerp(48f, 100f, elapsed / fadeDuration);
+            elapsed += Time.unscaledDeltaTime;
             yield return null;
         }
 
