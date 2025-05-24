@@ -12,6 +12,7 @@ TagManager:
   - ThrownCarrot
   - Rabbit
   - GlobalVariables
+  - DialogBox
   layers:
   - Default
   - TransparentFX

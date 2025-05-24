@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
     public CameraShake cs;
     private AudioSource audioSource;
     public AudioControllerScript acs;
+    public CanvasGroup finalScoreOverlay;
+    public TMP_Text finalScore;
     public Image fillImage;
     public CanvasGroup cg;
 
@@ -66,12 +69,17 @@ public class PlayerHealth : MonoBehaviour
     public IEnumerator DoQuit()
     {
         Time.timeScale = 0f;
-        cg.alpha = 1; // Show jumpscare overlay
+        cg.alpha = 1f; // Show jumpscare overlay
         acs.Halt();
         audioSource.clip = jumpScareSound;
         audioSource.Play();
         yield return new WaitForSecondsRealtime(3);
-
+        cg.alpha = 0f;
+        DontDestroyOnLoad(acs.gameObject);
+        acs.PlayEndDied();
+        finalScore.text = ScoreTracker.GetScore().ToString();
+        finalScoreOverlay.alpha = 1f;
+        yield return new WaitForSecondsRealtime(5);
         Cursor.lockState = CursorLockMode.None;
         _globalVariables.gameCompleted = true;
         SceneManager.LoadScene("Main Menu");
