@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
         CountdownTimer.OnTimerFinished += HandleTimerFinished;
         EpisodeEvents.OnEpisodeChangeComplete += HandleEpisodeChangeComplete;
     }
+    void OnDisable()
+    {
+        CountdownTimer.OnTimerFinished -= HandleTimerFinished;
+        EpisodeEvents.OnEpisodeChangeComplete -= HandleEpisodeChangeComplete;
+    }
 
     void Awake()
     {
