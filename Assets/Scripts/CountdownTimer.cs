@@ -17,13 +17,18 @@ public class CountdownTimer : MonoBehaviour
     float timeRemaining;
     bool running = false;
 
-    void OnEnable()
+    // void OnEnable()
+    // {
+    //     EpisodeEvents.OnRabbitFed += StartClockIfNotStarted;
+    // }
+    // void OnDisable()
+    // {
+    //     EpisodeEvents.OnRabbitFed -= StartClockIfNotStarted;
+    // }
+
+    public void EnableTrigger()
     {
         EpisodeEvents.OnRabbitFed += StartClockIfNotStarted;
-    }
-    void OnDisable()
-    {
-        EpisodeEvents.OnRabbitFed -= StartClockIfNotStarted;
     }
 
     void Update()
@@ -53,6 +58,7 @@ public class CountdownTimer : MonoBehaviour
         running = true;
         UpdateLabel(timeRemaining);
         timerLabel.gameObject.SetActive(true);
+        EpisodeEvents.OnRabbitFed -= StartClockIfNotStarted;
     }
 
     void UpdateLabel(float seconds)

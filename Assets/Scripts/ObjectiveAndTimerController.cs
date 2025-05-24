@@ -20,6 +20,12 @@ public class ObjectiveAndTimerController : MonoBehaviour
     bool trackingRabbit = false;
     float refreshTimer = 0f;
     const float REFRESH_DT = 0.25f;
+    CountdownTimer _countdownTimer;
+
+    void Awake()
+    {
+        _countdownTimer = GetComponent<CountdownTimer>();
+    }
 
     void OnEnable()
     {
@@ -28,7 +34,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
         EpisodeEvents.OnCarrotThrown += HandleCarrotThrown;
         EpisodeEvents.OnRabbitFed += HandleRabbitFed;
         CountdownTimer.OnTimerFinished += HandleTimerFinished;
-        
+
     }
     void OnDisable()
     {
@@ -71,6 +77,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
     bool shown = false;
     void HandleRabbitFed()
     {
+        if (!episodeTutorial) return;
         episodeTutorial = false;
         arrowPointer.gameObject.SetActive(false);
         if (!shown)
@@ -100,6 +107,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
         trackingRabbit = true;
         arrowPointer.objective = GetNearestObject(rabbitTag);
         ShowPopup("Find a rabbit!");
+        _countdownTimer.EnableTrigger();
     }
 
     void HandleEpisodeChangeComplete(EpisodeChangedArgs args)
@@ -107,20 +115,24 @@ public class ObjectiveAndTimerController : MonoBehaviour
         episodeTutorial = (args.episode == 1);
         trackingRabbit = false;
 
-        if (args.episode == 1)
+        switch (args.episode)
         {
-            ShowPopup("Objective updated!");
-            arrowPointer.objective = GetNearestObject(carrotTag);
-        }
-        else if (args.episode == 3)
-        {
-            ShowPopup("Find Unity-chan.");
-            arrowPointer.objective = unityChan;
-            arrowPointer.gameObject.SetActive(true);
-        }
-        else
-        {
-            arrowPointer.objective = null;
+            case 1:
+                ShowPopup("Objective updated!");
+                arrowPointer.objective = GetNearestObject(carrotTag);
+                break;
+            case 2:
+                arrowPointer.objective = null;
+                _countdownTimer.EnableTrigger();
+                break;
+            case 3:
+                ShowPopup("Find Unity-chan.");
+                arrowPointer.objective = unityChan;
+                arrowPointer.gameObject.SetActive(true);
+                break;
+            default:
+                arrowPointer.objective = null;
+                break;
         }
     }
     private Coroutine currentFadeRoutine;
