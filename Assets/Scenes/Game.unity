@@ -5156,14 +5156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee298832c7e3c3c09f4a04f311734d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 935977621}
-  optionsMenu: {fileID: 1445104420}
-  resumeButton: {fileID: 1368756559}
   isPaused: 0
   storyMode: 0
   questPrefab: {fileID: 8711581490627097798, guid: fbccecd080e3cf98ab64d8856e7cba19, type: 3}
   unityChan: {fileID: 1805318816}
-  dialogueBox: {fileID: 1004936259}
   episodeController: {fileID: 866432622}
   doesEscapeTriggerMenu: 1
   globalVariablesPrefab: {fileID: 47677050336490609, guid: e3356791e7cebf864be6a49bdf47671e, type: 3}
@@ -5237,17 +5233,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   caveIceParent: {fileID: 1298856090}
---- !u!114 &1368756559 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2133384328723413757, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
-  m_PrefabInstance: {fileID: 1605114444}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1423167977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5604,17 +5589,25 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: SetSelectedGameObject
       objectReference: {fileID: 0}
+    - target: {fileID: 933050395158383301, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
+      propertyPath: dialogueBox
+      value: 
+      objectReference: {fileID: 1004936259}
+    - target: {fileID: 933050395158383301, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1310173824}
     - target: {fileID: 2133384328723413757, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1310173824}
+      objectReference: {fileID: 1605114446}
     - target: {fileID: 2133384328723413757, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: TogglePauseGame
       objectReference: {fileID: 0}
     - target: {fileID: 2133384328723413757, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
+      value: PauseMenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2133384328723413757, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -5697,6 +5690,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
+--- !u!114 &1605114446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 933050395158383301, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
+  m_PrefabInstance: {fileID: 1605114444}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83e472caa0f5d552a2d7fc577e6fcaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1645785102
 GameObject:
   m_ObjectHideFlags: 0

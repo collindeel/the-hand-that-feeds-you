@@ -5,15 +5,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public Canvas pauseMenu;
-    public Canvas optionsMenu;
-    public Button resumeButton;
     public bool isPaused = false;
     public bool storyMode = false;
 
     public GameObject questPrefab;
     public GameObject unityChan;
-    public DialogueBox dialogueBox;
     public EpisodeController episodeController;
     public bool doesEscapeTriggerMenu = true;
     public GameObject globalVariablesPrefab;
@@ -59,37 +55,5 @@ public class GameManager : MonoBehaviour
             var dialogueManager = GetComponent<DialogueManager>();
             Episode2Prelude.Initialize(questPrefab, unityChan, dialogueManager);
         }
-    }
-
-    void Update()
-    {
-        if (doesEscapeTriggerMenu && Keyboard.current.escapeKey.wasPressedThisFrame) TogglePauseGame();
-    }
-
-    public void TogglePauseGame()
-    {
-        isPaused ^= true;
-
-        if (isPaused)
-        {
-            Time.timeScale = 0f;
-            pauseMenu.gameObject.SetActive(true);
-            optionsMenu.gameObject.SetActive(false);
-            Cursor.lockState = CursorLockMode.None;
-
-            EventSystem.current.SetSelectedGameObject(resumeButton.gameObject);
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            pauseMenu.gameObject.SetActive(false);
-            optionsMenu.gameObject.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-
-            EventSystem.current.SetSelectedGameObject(null);
-
-            if (storyMode) dialogueBox.BroadcastMessage("UpdateTextSettings");
-        }
-        
     }
 }
