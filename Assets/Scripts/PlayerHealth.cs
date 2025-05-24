@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -13,7 +14,6 @@ public class PlayerHealth : MonoBehaviour
     public CameraShake cs;
     private AudioSource audioSource;
     public Image fillImage;
-    public MenuManager mm;
     public CanvasGroup cg;
 
     GlobalVariables _globalVariables;
@@ -67,7 +67,9 @@ public class PlayerHealth : MonoBehaviour
         cg.alpha = 1;
         yield return new WaitForSecondsRealtime(3);
 
-        mm.ReturnToMainMenu();
+        Cursor.lockState = CursorLockMode.None;
+        _globalVariables.gameCompleted = true;
+        SceneManager.LoadScene("Main Menu");
     }
 
     public bool IsImmune()
