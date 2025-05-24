@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cdab8a1ee74554025a2b15cbeb4335cb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 20201
+  packageName: Caves Entrance
+  packageVersion: 1.0
+  assetPath: Assets/Environment/Caves/Materials/texture cave ice.mat
+  uploadId: 9344
