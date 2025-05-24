@@ -401,9 +401,9 @@ public class RabbitAgent : Agent
                 StayStill();
                 break;
         }
-        return; // Uncomment this for training
+        return;
 #if UNITY_EDITOR
-        switch (rms.level)
+        /*switch (rms.level)
         {
             case RabbitBehaviorLevel.Timid:
                 ActionTimid(action);
@@ -414,7 +414,7 @@ public class RabbitAgent : Agent
             case RabbitBehaviorLevel.Aggressive:
                 ActionAggressive(action);
                 break;
-        }
+        }*/
 #endif
     }
 
