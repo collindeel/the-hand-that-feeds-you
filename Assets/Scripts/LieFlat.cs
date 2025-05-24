@@ -13,6 +13,9 @@ public class LieFlat : MonoBehaviour
     [SerializeField]
     float absoluteY;
 
+    [SerializeField] GameObject bloodPrefab;
+    private GameObject blood;
+
     Vector3 initPos;
 
     public Transform player;
@@ -43,6 +46,15 @@ public class LieFlat : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
             transform.position += new Vector3(offsetX, 0f, offsetZ);
+
+            // Blood prefab
+            if (bloodPrefab != null && blood == null)
+            {
+                Vector3 bloodPos = transform.position;
+                bloodPos.y -= 0.01f;
+
+                blood = Instantiate(bloodPrefab, bloodPos, Quaternion.identity);
+            }
         }
     }
 #if UNITY_EDITOR
