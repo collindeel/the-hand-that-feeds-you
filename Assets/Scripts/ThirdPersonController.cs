@@ -106,7 +106,7 @@ public class ThirdPersonController : MonoBehaviour
         {
             animator.SetFloat("Speed", 0f);
 
-            if (isGrounded)
+            if (isGrounded && !rb.isKinematic)
                 rb.linearVelocity = Vector3.Project(rb.linearVelocity, groundNormal);
         }
     }
