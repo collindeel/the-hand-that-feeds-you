@@ -89,7 +89,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
             shown = true;
         }
     }
-    void HandleCarrotThrown()
+    void HandleCarrotThrown(Vector3 pos)
     {
         if (!episodeTutorial || !trackingRabbit) return;
 

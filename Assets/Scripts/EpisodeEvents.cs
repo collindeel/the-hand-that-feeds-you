@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public static class EpisodeEvents
 {
@@ -7,10 +8,10 @@ public static class EpisodeEvents
     public static event Action OnRabbitFed;
 
     public static event Action OnCarrotCollected;
-    public static event Action OnCarrotThrown;
-    public static void RaiseCarrotThrown()
+    public static event Action<Vector3> OnCarrotThrown;
+    public static void RaiseCarrotThrown(Vector3 pos)
     {
-        OnCarrotThrown?.Invoke();
+        OnCarrotThrown?.Invoke(pos);
     }
     public static void RaiseCarrotCollected()
     {

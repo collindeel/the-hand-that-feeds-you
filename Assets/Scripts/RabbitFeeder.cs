@@ -83,7 +83,6 @@ public class RabbitFeeder : MonoBehaviour
         {
             //Debug.Log("No rabbits nearby... tossing a carrot.");
             if (!trainingMode) inventory.RemoveCarrot();
-            EpisodeEvents.RaiseCarrotThrown();
             ThrowCarrot();
             audioSource.clip = tossClip;
             audioSource.Play();
@@ -119,6 +118,7 @@ public class RabbitFeeder : MonoBehaviour
         rb.linearDamping = 0.5f;
         rb.angularDamping = 2.0f;
         rb.isKinematic = false;
+        EpisodeEvents.RaiseCarrotThrown(spawnPosition);
         rb.AddForce(transform.forward * tossForce, ForceMode.Impulse);
     }
 

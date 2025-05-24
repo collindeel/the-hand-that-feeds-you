@@ -1,7 +1,6 @@
 using UnityEngine;
 using Unity.Sentis;                 // ModelAsset
 using Unity.MLAgents.Policies;
-using Unity.Animations.SpringBones.GameObjectExtensions;      // BehaviorParameters
 
 [RequireComponent(typeof(BehaviorParameters))]
 public class RabbitModelSwitcher : MonoBehaviour
