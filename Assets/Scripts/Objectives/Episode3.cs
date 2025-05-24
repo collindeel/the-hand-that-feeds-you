@@ -5,10 +5,13 @@ public class Episode3AfterStart : Objective
     public DialogueManager dialogueManager;
 
     readonly (string, string)[] _dialogue = {
-            ("i am dying omg it seems i have underestimated the rabbits", "Unity-Chan"),
-            ("what a world what a world", "Unity-Chan"),
-            ("you maniacs you blew it all up", "Unity-Chan"),
-            ("omg what is happening", "You"),
+            ("...", "Misaki"),
+            ("... U-Unity-Chan?", "Misaki"),
+            ("Mi...Sa...Ki...", "Unity-Chan"),
+            ("It... Seems... I have... Underestimated the rabbits..", "Unity-Chan"),
+            ("Go... While... You still can...", "Unity-Chan"),
+            ("...", "Unity-Chan"),
+            ("<i><b><color=red>Run.</color></b></i>", "Unity-Chan")
         };
 
 

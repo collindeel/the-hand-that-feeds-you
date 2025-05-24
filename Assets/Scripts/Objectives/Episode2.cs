@@ -5,7 +5,11 @@ public class Episode2Prelude : Objective
     public DialogueManager dialogueManager;
 
     readonly (string, string)[] _dialogue = {
-            ("omg the rabbits have loved carrots so much be careful or they will steal them lorem ipsum etc etc etc", "Unity-Chan")
+            ("Misaki-Chan! You're doing so well! All of the rabbits love you! (u/w/u) ", "Unity-Chan"),
+            ("Let's see... You've earned $" + + ScoreTracker.GetScore() + " on your first day!!", "Unity-Chan"),
+            ($"Sugoi... That's amazing, Misaki-Chan!! (*0*)/ ","Unity-Chan"),
+            ("Anyway! For today, do the same as normal! (uwu)", "Unity-Chan"),
+            ("But be careful though... The rabbits are a little fiesty today hehe. They stole some of my carrots! (._.;)>", "Unity-Chan")
         };
 
 
