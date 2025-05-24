@@ -11,6 +11,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
     public ArrowPointer arrowPointer;
     public Transform player;
     public Transform unityChan;
+    public Transform exitObject;
     public CarrotInventory carrotInventory;
     public EpisodeController episodeController;
     public string carrotTag = "Carrot";
@@ -30,6 +31,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
     void OnEnable()
     {
         EpisodeEvents.OnEpisodeChangeComplete += HandleEpisodeChangeComplete;
+        EpisodeEvents.OnEpisodeChanged += HandleEpisodeChanged;
         EpisodeEvents.OnCarrotCollected += HandleCarrotCollected;
         EpisodeEvents.OnCarrotThrown += HandleCarrotThrown;
         EpisodeEvents.OnRabbitFed += HandleRabbitFed;
@@ -110,6 +112,16 @@ public class ObjectiveAndTimerController : MonoBehaviour
         _countdownTimer.EnableTrigger();
     }
 
+    void HandleEpisodeChanged(EpisodeChangedArgs args)
+    {
+        // No overlay for 4
+        if (args.episode == 4)
+        {
+            ShowPopup("Get to safety!!");
+            arrowPointer.objective = exitObject;
+        }
+
+    }
     void HandleEpisodeChangeComplete(EpisodeChangedArgs args)
     {
         episodeTutorial = (args.episode == 1);
