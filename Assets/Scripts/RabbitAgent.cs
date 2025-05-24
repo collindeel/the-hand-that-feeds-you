@@ -82,6 +82,12 @@ public class RabbitAgent : Agent
     private float satiationTimeRemaining = 0f;
     public float satiationDuration = 5f;
 
+    const float idleCutoff = 0.3f;
+    const float runBlendStart = 0.6f;
+    const float runNaturalSpeed = 12f / 11f;
+    const float idleCutoffSq = idleCutoff * idleCutoff;
+    const float runBlendRange = runNaturalSpeed - runBlendStart;
+
     void Update()
     {
         timeSinceLastMeal += Time.deltaTime;
@@ -91,15 +97,19 @@ public class RabbitAgent : Agent
         }
         if (animator != null)
         {
-            bool isMoving = agent.velocity.magnitude > .3f;
-            animator.SetBool("IsMoving", isMoving);
-            if (isMoving)
-            {
-                animator.speed = Mathf.Max(agent.velocity.magnitude / 4.0f, 1f);
-            }
+            float sq = agent.velocity.sqrMagnitude;
+            float v = sq > idleCutoffSq ? Mathf.Sqrt(sq) : 0f;
+
+            float param = (v <= runBlendStart) ? 0f
+                        : Mathf.Clamp01((v - runBlendStart) / runBlendRange);
+
+            animator.SetFloat("Speed", param);
+
+            if (v > runNaturalSpeed)
+                animator.speed = v / runNaturalSpeed;
+            else
+                animator.speed = 1f;
         }
-        //float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        //Debug.Log($"Step {StepCount} | Distance to Player: {distanceToPlayer}");
 
     }
     public void ApplyStats(RabbitBehaviorLevel level)
@@ -391,7 +401,8 @@ public class RabbitAgent : Agent
                 StayStill();
                 break;
         }
-
+        return; // Uncomment this for training
+#if UNITY_EDITOR
         switch (rms.level)
         {
             case RabbitBehaviorLevel.Timid:
@@ -404,6 +415,7 @@ public class RabbitAgent : Agent
                 ActionAggressive(action);
                 break;
         }
+#endif
     }
 
     private float stationaryTime = 0f;
@@ -473,7 +485,7 @@ public class RabbitAgent : Agent
             agent.SetDestination(dest);
             CancelSmallDestination();
 
-            if (agent.velocity.sqrMagnitude > 0.1f)
+            if (agent.velocity.sqrMagnitude > 0.1f) // ~.316 m/s
             {
                 Quaternion lookRotation = Quaternion.LookRotation(agent.velocity.normalized);
                 float maxRotationPerFrame = agent.angularSpeed * Time.deltaTime;
@@ -591,7 +603,9 @@ public class RabbitAgent : Agent
         if (other.CompareTag("ThrownCarrot"))
         {
             //print("A rabbit got a *thrown* carrot!");
+#if UNITY_EDITOR
             AddReward(1.0f);
+#endif
             Destroy(other.gameObject);
             SatiateRabbit();
         }
@@ -599,7 +613,10 @@ public class RabbitAgent : Agent
         {
             if (rms.level == RabbitBehaviorLevel.Aggressive)
             {
+                if (agent.velocity.sqrMagnitude < 0.01f) return; // sqrMagnitude for performance, do not alter
+#if UNITY_EDITOR
                 AddReward(10f);
+#endif
                 PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
                 if (playerHealth != null && !playerHealth.IsImmune() && !playerBot.isEnabled)
                 {
@@ -609,7 +626,10 @@ public class RabbitAgent : Agent
             }
             else if (rms.level == RabbitBehaviorLevel.Medium)
             {
+                if (agent.velocity.magnitude < 0.1f) return;
+#if UNITY_EDITOR
                 AddReward(2f);
+#endif
                 PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
                 playerHealth.TakeDamage(0);
                 bool wasCarrotTaken = TakeCarrot(other.GetComponent<RabbitFeeder>());
@@ -626,7 +646,7 @@ public class RabbitAgent : Agent
                         }
                         ScorePopupController scorePC = playerHudTransform.GetComponent<ScorePopupController>();
                         ScoreTracker.AddScore(-50);
-                        if(!ScoreTracker.isScoreDisabled)
+                        if (!ScoreTracker.isScoreDisabled)
                             scorePC.ShowPopup(ScoreTracker.GetScore());
                     }
                     SatiateRabbit();
