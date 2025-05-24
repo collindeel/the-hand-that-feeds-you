@@ -7,6 +7,7 @@ public class AudioControllerScript : MonoBehaviour
     public AudioClip darkClip;
     public AudioClip actionClip;
     public AudioClip endDiedClip;
+    public AudioClip endWonClip;
     AudioSource music;
     void Awake() => music = GetComponent<AudioSource>();
     void OnEnable() =>
@@ -30,6 +31,11 @@ public class AudioControllerScript : MonoBehaviour
     public void PlayEndDied()
     {
         music.clip = endDiedClip;
+        music.Play();
+    }
+    public void PlayEndWon()
+    {
+        music.clip = endWonClip;
         music.Play();
     }
 }

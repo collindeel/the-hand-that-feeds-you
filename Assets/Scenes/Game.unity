@@ -4683,7 +4683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6629d85f411bf4d69b8cb1d6e83eb06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
   immunityDuration: 2
   hbc: {fileID: 1599467266}
   damageSound: {fileID: 8300000, guid: e4f692d273597426583f8e9e216d729d, type: 3}
@@ -5314,6 +5314,7 @@ MonoBehaviour:
   darkClip: {fileID: 8300000, guid: e289378daa75e4a6a9a1816e16be410d, type: 3}
   actionClip: {fileID: 8300000, guid: 1dcc3837e90f441dca5a9912c56e6c4b, type: 3}
   endDiedClip: {fileID: 8300000, guid: bef50127189eb433d94a28d3d552b9d9, type: 3}
+  endWonClip: {fileID: 8300000, guid: 14657130ef0744af1a06cfa442481bb6, type: 3}
 --- !u!82 &1211643723
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5955,7 +5956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 724445577}
-  displayTime: 2
+  beforeShown: 0.5
   fadeDuration: 1
 --- !u!1001 &1605114444
 PrefabInstance:
@@ -6833,7 +6834,9 @@ MonoBehaviour:
   slowMoTime: 0.6
   fadeDuration: 1.2
   holdWhiteTime: 0.8
-  txToSceneName: Main Menu
+  acs: {fileID: 1211643722}
+  finalScoreOverlay: {fileID: 460388107}
+  fspc: {fileID: 1599467271}
   fadeImg: {fileID: 326083306}
 --- !u!1 &1868522944 stripped
 GameObject:

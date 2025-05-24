@@ -10,7 +10,10 @@ public class CaveEntryTrigger : MonoBehaviour
     [SerializeField] float slowMoTime = 0.6f;         // realtime seconds
     [SerializeField] float fadeDuration = 1.2f;        // realtime
     [SerializeField] float holdWhiteTime = 0.8f;       // realtime
-    [SerializeField] string txToSceneName = "Main Menu";
+    private AudioSource audioSource;
+    public AudioControllerScript acs;
+    public CanvasGroup finalScoreOverlay;
+    public FSPopupController fspc;
     [SerializeField] Image fadeImg;
     GlobalVariables _globalVariables;
 
@@ -84,7 +87,16 @@ public class CaveEntryTrigger : MonoBehaviour
         // 4. Hold, then load Credits
         //-------------------------------------------------
         yield return new WaitForSecondsRealtime(holdWhiteTime);
-        Time.timeScale = 1f;                    // restore for next scene
-        SceneManager.LoadScene(txToSceneName);
+        Time.timeScale = 0f;
+        
+        acs.Halt();
+        DontDestroyOnLoad(acs.gameObject);
+        acs.PlayEndWon();
+        finalScoreOverlay.alpha = 1f;
+        fspc.ShowPopup(ScoreTracker.GetScore());
+        yield return new WaitForSecondsRealtime(5);
+        Cursor.lockState = CursorLockMode.None;
+        _globalVariables.gameCompleted = true;
+        SceneManager.LoadScene("Main Menu");
     }
 }
