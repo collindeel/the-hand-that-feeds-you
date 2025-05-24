@@ -75,7 +75,6 @@ public class PlayerHealth : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSecondsRealtime(3);
         cg.alpha = 0f;
-        DontDestroyOnLoad(acs.gameObject);
         acs.PlayEndDied();
         finalScoreOverlay.alpha = 1f;
         fspc.ShowPopup(ScoreTracker.GetScore());

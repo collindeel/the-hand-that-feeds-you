@@ -94,9 +94,6 @@ public class CaveEntryTrigger : MonoBehaviour
         //-------------------------------------------------
         yield return new WaitForSecondsRealtime(holdWhiteTime);
         Time.timeScale = 0f;
-
-
-        DontDestroyOnLoad(acs.gameObject);
         acs.PlayEndWon();
         finalScoreOverlay.alpha = 1f;
         fspc.ShowPopup(ScoreTracker.GetScore());

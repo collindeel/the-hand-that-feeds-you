@@ -41,6 +41,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
     void OnDisable()
     {
         EpisodeEvents.OnEpisodeChangeComplete -= HandleEpisodeChangeComplete;
+        EpisodeEvents.OnEpisodeChanged -= HandleEpisodeChanged;
         EpisodeEvents.OnCarrotCollected -= HandleCarrotCollected;
         EpisodeEvents.OnCarrotThrown -= HandleCarrotThrown;
         EpisodeEvents.OnRabbitFed -= HandleRabbitFed;
