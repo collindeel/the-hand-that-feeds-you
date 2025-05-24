@@ -41,10 +41,12 @@ public class EpisodeController : MonoBehaviour
         }
         if (busy) return;
 
+#if UNITY_EDITOR
         if (kb[nextKey].wasPressedThisFrame)
         {
             StartNextEpisode();
         }
+#endif
     }
     public int GetEpisode()
     {
