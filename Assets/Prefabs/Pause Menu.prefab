@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7465957982217515401}
   - component: {fileID: 5637909181534712340}
   - component: {fileID: 2133384328723413757}
+  - component: {fileID: 8245830992520506276}
   m_Layer: 5
   m_Name: Resume Button
   m_TagString: Untagged
@@ -133,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8245830992520506276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71780887541633040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8a020115da78b91a2e5c13f4888473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2299471653940405537
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,6 +835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6022519200126238116}
   - component: {fileID: 943331582102548584}
+  - component: {fileID: 933050395158383301}
   m_Layer: 0
   m_Name: Pause Menu
   m_TagString: Untagged
@@ -858,6 +872,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d3148d2d1602496a3d795c64a1baaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &933050395158383301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899175064714770808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83e472caa0f5d552a2d7fc577e6fcaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  pauseMenuCanvas: {fileID: 7554980836130591983}
+  optionsCanvas: {fileID: 7199443791228581660}
+  resumeButton: {fileID: 2133384328723413757}
+  dialogueBox: {fileID: 0}
 --- !u!1 &5433970065789355799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,6 +1054,7 @@ GameObject:
   - component: {fileID: 2393239232017003919}
   - component: {fileID: 8618559038957823201}
   - component: {fileID: 8829204621658716801}
+  - component: {fileID: 5491823697573638511}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -1144,6 +1176,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5491823697573638511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378213837094275199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8a020115da78b91a2e5c13f4888473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7044810889765751508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,6 +1304,7 @@ GameObject:
   - component: {fileID: 4910415113147186473}
   - component: {fileID: 8088482561977665559}
   - component: {fileID: 8660984171602207917}
+  - component: {fileID: 2570949924895961693}
   m_Layer: 5
   m_Name: Main Menu Button
   m_TagString: Untagged
@@ -1381,6 +1426,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2570949924895961693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320394773513705180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8a020115da78b91a2e5c13f4888473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7870470664506984665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,6 +1489,7 @@ GameObject:
   - component: {fileID: 2690337412249145994}
   - component: {fileID: 2100634228604219370}
   - component: {fileID: 889621101674011438}
+  - component: {fileID: 5306253147804900855}
   m_Layer: 5
   m_Name: Options Button
   m_TagString: Untagged
@@ -1589,6 +1647,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5306253147804900855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8858927678321062700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8a020115da78b91a2e5c13f4888473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6712431972592471328
 PrefabInstance:
   m_ObjectHideFlags: 0

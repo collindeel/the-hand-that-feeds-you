@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Dialog : MonoBehaviour
@@ -10,17 +11,32 @@ public class Dialog : MonoBehaviour
     public Button okButton;
 
     GameObject previousSelectedGameObject;
+    InputAction _navigateAction;
+    InputAction _pointAction;
 
     void Start()
     {
+        tag = "DialogBox";
+
+        _navigateAction = InputSystem.actions.FindAction("Navigate");
+        _pointAction = InputSystem.actions.FindAction("Point");
+
         previousSelectedGameObject = EventSystem.current.currentSelectedGameObject;
         EventSystem.current.SetSelectedGameObject(okButton.gameObject);
     }
 
     void Update()
     {
-        if (EventSystem.current.currentSelectedGameObject != okButton.gameObject)
+        if (_navigateAction.WasPressedThisFrame())
+        {
+            Cursor.visible = false;
             EventSystem.current.SetSelectedGameObject(okButton.gameObject);
+        }
+        else if (_pointAction.WasPerformedThisFrame())
+        {
+            Cursor.visible = true;
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     public void SetContent(string title, string text)

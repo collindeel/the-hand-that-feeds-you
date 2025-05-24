@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class OptionsManager : MonoBehaviour
@@ -7,11 +9,57 @@ public class OptionsManager : MonoBehaviour
     public AudioMixer audioMixer;
     public GameObject audioSettings;
     public GameObject textSettings;
+    public Button backButton;
+
+
+    InputAction _navigateAction;
+    InputAction _pointAction;
 
     void Start()
     {
+        SetColorsOfSelectables();
         LoadVolumeSettings();
         LoadTextSettings();
+
+        _navigateAction = InputSystem.actions.FindAction("Navigate");
+        _pointAction = InputSystem.actions.FindAction("Point");
+    }
+
+    void Update()
+    {
+        if (_navigateAction.WasPressedThisFrame())
+        {
+            if (GameObject.FindWithTag("DialogBox") == null)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                if (EventSystem.current.currentSelectedGameObject == null)
+                    EventSystem.current.SetSelectedGameObject(backButton.gameObject);
+            }
+        }
+        else if (_pointAction.WasPerformedThisFrame())
+        {
+            if (GameObject.FindWithTag("DialogBox") == null)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+        }
+    }
+
+    void SetColorsOfSelectables()
+    {
+        var colors = backButton.colors;
+        colors.normalColor = Color.lightPink;
+        colors.selectedColor = colors.highlightedColor = Color.hotPink;
+        colors.pressedColor = Color.white;
+
+        backButton.colors = colors;
+
+        var sliders = audioSettings.GetComponentsInChildren<Slider>();
+        var toggles = textSettings.GetComponentsInChildren<Toggle>();
+
+        foreach (var slider in sliders) slider.colors = colors;
+        foreach (var toggle in toggles) toggle.colors = colors;
     }
 
     public void LoadVolumeSettings()
