@@ -4450,6 +4450,7 @@ MonoBehaviour:
   dialogueBox: {fileID: 1004936259}
   episodeController: {fileID: 866432622}
   doesEscapeTriggerMenu: 1
+  globalVariablesPrefab: {fileID: 47677050336490609, guid: e3356791e7cebf864be6a49bdf47671e, type: 3}
 --- !u!4 &1310173825
 Transform:
   m_ObjectHideFlags: 0

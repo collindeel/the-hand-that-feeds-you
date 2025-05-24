@@ -11,6 +11,7 @@ TagManager:
   - Carrot
   - ThrownCarrot
   - Rabbit
+  - GlobalVariables
   layers:
   - Default
   - TransparentFX

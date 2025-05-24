@@ -8,6 +8,11 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
     public void QuitGame()
     {
 #if UNITY_STANDALONE

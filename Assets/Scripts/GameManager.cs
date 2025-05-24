@@ -16,11 +16,23 @@ public class GameManager : MonoBehaviour
     public DialogueBox dialogueBox;
     public EpisodeController episodeController;
     public bool doesEscapeTriggerMenu = true;
+    public GameObject globalVariablesPrefab;
 
     void OnEnable()
     {
         CountdownTimer.OnTimerFinished += HandleTimerFinished;
         EpisodeEvents.OnEpisodeChangeComplete += HandleEpisodeChangeComplete;
+    }
+
+    void Awake()
+    {
+        var globalVariablesObject = GameObject.FindWithTag("GlobalVariables");
+        if (globalVariablesObject == null)
+        {
+            globalVariablesObject = Instantiate(globalVariablesPrefab);
+            globalVariablesObject.tag = "GlobalVariables";
+            DontDestroyOnLoad(globalVariablesObject);
+        }
     }
 
     void Start()

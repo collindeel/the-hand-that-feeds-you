@@ -16,10 +16,14 @@ public class PlayerHealth : MonoBehaviour
     public MenuManager mm;
     public CanvasGroup cg;
 
+    GlobalVariables _globalVariables;
+
     void Start()
     {
         currentHealth = maxHealth;
         audioSource = GetComponent<AudioSource>();
+
+        _globalVariables = GameObject.FindWithTag("GlobalVariables").GetComponent<GlobalVariables>();
     }
 
     void Update()
@@ -62,7 +66,8 @@ public class PlayerHealth : MonoBehaviour
         Time.timeScale = 0f;
         cg.alpha = 1;
         yield return new WaitForSecondsRealtime(3);
-        mm.QuitGame();
+
+        mm.ReturnToMainMenu();
     }
 
     public bool IsImmune()

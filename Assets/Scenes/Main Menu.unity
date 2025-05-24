@@ -644,6 +644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358c433194fdb8fce9f521a06584ffdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  globalVariablesPrefab: {fileID: 47677050336490609, guid: e3356791e7cebf864be6a49bdf47671e, type: 3}
   startButton: {fileID: 1549151283}
 --- !u!1 &580510186
 GameObject:
