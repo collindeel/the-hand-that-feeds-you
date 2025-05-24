@@ -4683,7 +4683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6629d85f411bf4d69b8cb1d6e83eb06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
   immunityDuration: 2
   hbc: {fileID: 1599467266}
   damageSound: {fileID: 8300000, guid: e4f692d273597426583f8e9e216d729d, type: 3}

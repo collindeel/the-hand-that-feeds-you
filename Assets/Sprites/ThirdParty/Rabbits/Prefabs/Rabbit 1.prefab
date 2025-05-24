@@ -923,7 +923,7 @@ MonoBehaviour:
     speed: 14
   aggressiveStats:
     acceleration: 50
-    moveDistance: 100
+    moveDistance: 20
     stoppingDistance: 0.2
     speed: 28
   rms: {fileID: 1605611087331199228}
