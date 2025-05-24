@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AudioControllerScript : MonoBehaviour
 {
+    public AudioClip forestClip;
     public AudioClip happyClip;
     public AudioClip activeClip;
     public AudioClip darkClip;
@@ -15,7 +16,7 @@ public class AudioControllerScript : MonoBehaviour
         {
             music.clip = e.episode switch
             {
-                0 => null,
+                0 => forestClip,
                 1 => happyClip,
                 2 => activeClip,
                 3 => darkClip,

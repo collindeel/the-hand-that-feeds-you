@@ -5309,6 +5309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f2b5c86e4a6a4ae28a7943a3ed7b02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forestClip: {fileID: 8300000, guid: 3c4ff3c83a6dc4368b9e1f0e8394c572, type: 3}
   happyClip: {fileID: 8300000, guid: 393e863dd3c9a4e1dbb3e52742892bf3, type: 3}
   activeClip: {fileID: 8300000, guid: f7debb99c04eb45d9b5430f1265d730d, type: 3}
   darkClip: {fileID: 8300000, guid: e289378daa75e4a6a9a1816e16be410d, type: 3}
@@ -5327,10 +5328,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4844439001557319570, guid: 872d06cd26e5bba70afefdab791ab0a7, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
