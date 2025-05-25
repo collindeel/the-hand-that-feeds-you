@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.56256676, g: 0.9245283, b: 0.9208713, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.006
+  m_FogDensity: 0.002
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -687,7 +687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5362025121098124061, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 25
+      value: 21.19
       objectReference: {fileID: 0}
     - target: {fileID: 5362025121098124061, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5612,6 +5612,7 @@ GameObject:
   - component: {fileID: 1310173827}
   - component: {fileID: 1310173828}
   - component: {fileID: 1310173829}
+  - component: {fileID: 1310173830}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5708,6 +5709,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   caveIceParent: {fileID: 1298856090}
+--- !u!114 &1310173830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310173823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e077932d25584634a0679fc201aaa64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skyboxMaterials:
+  - {fileID: 2100000, guid: 33ab377b49aa14f6fae6e5bac230a5d4, type: 2}
+  - {fileID: 2100000, guid: 33ab377b49aa14f6fae6e5bac230a5d4, type: 2}
+  - {fileID: 2100000, guid: 0d5771081eb9abb43b1792b52260d914, type: 2}
+  - {fileID: 2100000, guid: 6eecb3bb77b3f7a43a504fceda3b0b5f, type: 2}
+  - {fileID: 2100000, guid: 56c9ed5ee739a324e8d8bdb9613f4890, type: 2}
+  defaultSkybox: {fileID: 2100000, guid: 33ab377b49aa14f6fae6e5bac230a5d4, type: 2}
+  directionalLight: {fileID: 410087040}
+  darkFogColor: {r: 0.101960786, g: 0.0627451, b: 0.09411765, a: 1}
+  darkFogDensity: 0.03
+  darkLightIntensity: 0.3
+  darkSkyColor: {r: 0.3647059, g: 0.23137255, b: 0.49803922, a: 1}
+  darkEquatorColor: {r: 0.30980393, g: 0.26666668, b: 0.6, a: 1}
+  darkGroundColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &1423167977
 PrefabInstance:
   m_ObjectHideFlags: 0
