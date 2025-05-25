@@ -16,6 +16,8 @@ public class RabbitFeeder : MonoBehaviour
     public AudioClip tossClip;
     public AudioClip twinkleClip;
     public AudioClip takeClip;
+    public CountdownTimer countdownTimer;
+    public ObjectiveAndTimerController otc;
     bool trainingMode = false;
     public float thrownCarrotScale = 0.25f;
     public float feedRange = 2f;
@@ -66,7 +68,11 @@ public class RabbitFeeder : MonoBehaviour
 
         Collider[] rabbits = Physics.OverlapSphere(transform.position, feedRadius, rabbitLayer);
 
-        if (rabbits.Length > 0)
+        if (rabbits.Length > 0 &&
+            (countdownTimer.IsTimerRunning() ||
+                otc.IsTutorialRabbit()
+            )
+        )
         {
             //print($"in range, length {rabbits.Length}");
             if (!trainingMode) inventory.RemoveCarrot();

@@ -56,7 +56,12 @@ public class CountdownTimer : MonoBehaviour
         UpdateLabel(timeRemaining);
     }
 
-    void StartClockIfNotStarted()
+    public bool IsTimerRunning()
+    {
+        return running;
+    }
+
+    public void StartClockIfNotStarted()
     {
         if (running) return; // Or let them reset clock every time they feed a rabbit and remove this line
         ScoreTracker.isScoreDisabled = false;

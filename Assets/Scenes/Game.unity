@@ -4704,6 +4704,8 @@ MonoBehaviour:
   tossClip: {fileID: 8300000, guid: b0fc79a56c2d84c619316c5eb47c033e, type: 3}
   twinkleClip: {fileID: 8300000, guid: ecce20ef771044969ae247e20af9667a, type: 3}
   takeClip: {fileID: 8300000, guid: 44a8cf035d50b4eb2a0d75056e678d9b, type: 3}
+  countdownTimer: {fileID: 1599467270}
+  otc: {fileID: 1599467269}
   thrownCarrotScale: 0.25
   feedRange: 2
   tossForce: 5
@@ -4739,6 +4741,9 @@ MonoBehaviour:
     m_Bits: 8
   inventory: {fileID: 1048538233}
   collectClip: {fileID: 8300000, guid: 31defa291ab394ecf8d6ec210245b786, type: 3}
+  countdownTimer: {fileID: 1599467270}
+  episodeController: {fileID: 866432622}
+  otc: {fileID: 1599467269}
 --- !u!114 &1048538239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6072,7 +6077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7330de4c20d14accb8a2171639696f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 90
+  totalTime: 20
   timerLabel: {fileID: 197984294}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   last10sColor: {r: 1, g: 0, b: 0, a: 1}

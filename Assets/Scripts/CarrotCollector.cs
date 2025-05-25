@@ -7,6 +7,9 @@ public class CarrotCollector : MonoBehaviour
     public LayerMask carrotLayerMask;
     public CarrotInventory inventory;
     public AudioClip collectClip;
+    public CountdownTimer countdownTimer;
+    public EpisodeController episodeController;
+    public ObjectiveAndTimerController otc;
     AudioSource audioSource;
 
     InputAction _interactAction;
@@ -19,7 +22,12 @@ public class CarrotCollector : MonoBehaviour
 
     void Update()
     {
-        if (_interactAction.WasPressedThisFrame())
+        if (_interactAction.WasPressedThisFrame() &&
+            (countdownTimer.IsTimerRunning() ||
+              episodeController.GetEpisode() == 4 ||
+              otc.IsTutorialCarrot()
+            )
+        )
         {
             GameObject[] carrots = GameObject.FindGameObjectsWithTag("Carrot");
 

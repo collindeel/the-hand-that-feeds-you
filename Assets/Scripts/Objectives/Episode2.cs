@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Episode2Prelude : Objective
@@ -29,7 +30,6 @@ public class Episode2Prelude : Objective
     {
         gameObject.layer = LayerMask.NameToLayer("Default");
         dialogueManager.PlayDialogue(_dialogue);
-
         Destroy(gameObject);
     }
 }

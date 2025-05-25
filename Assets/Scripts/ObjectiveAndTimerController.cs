@@ -72,6 +72,17 @@ public class ObjectiveAndTimerController : MonoBehaviour
             arrowPointer.objective = GetNearestObject(carrotTag);
         }
     }
+    public bool IsTutorialCarrot()
+    {
+        // On the carrot-finding part of the tutorial ONLY
+        return episodeTutorial && !trackingRabbit;
+    }
+    public bool IsTutorialRabbit()
+    {
+        // On the rabbit-finding part of the tutorial ONLY
+        return episodeTutorial && trackingRabbit;
+    }
+
     void HandleTimerFinished()
     {
         if (episodeController.GetEpisode() == 1)
@@ -148,7 +159,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
                 break;
             case 2:
                 arrowPointer.objective = null;
-                _countdownTimer.EnableTrigger();
+                _countdownTimer.StartClockIfNotStarted();
                 break;
             case 3:
                 ShowPopup("Find Unity-chan.");
