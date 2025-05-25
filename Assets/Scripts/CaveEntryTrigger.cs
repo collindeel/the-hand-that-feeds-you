@@ -94,6 +94,7 @@ public class CaveEntryTrigger : MonoBehaviour
         yield return new WaitForSecondsRealtime(holdWhiteTime);
         Time.timeScale = 0f;
         AudioControllerScript.instance.PlayEndWon();
+        finalScoreOverlay.BroadcastMessage("UpdateTextSettings");
         finalScoreOverlay.alpha = 1f;
         fspc.ShowPopup(ScoreTracker.GetScore());
         yield return new WaitForSecondsRealtime(5);

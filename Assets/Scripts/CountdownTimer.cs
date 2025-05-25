@@ -8,7 +8,8 @@ public class CountdownTimer : MonoBehaviour
     public float totalTime = 90f;
 
     [Header("UI")]
-    public TMP_Text timerLabel;
+    public TextMeshProUGUI timerLabel;
+    TextSettings _timerLabelTextSettings;
     public Color normalColor = Color.white;
     public Color last10sColor = Color.red;
 
@@ -29,6 +30,11 @@ public class CountdownTimer : MonoBehaviour
     public void EnableTrigger()
     {
         EpisodeEvents.OnRabbitFed += StartClockIfNotStarted;
+    }
+
+    void Start()
+    {
+        _timerLabelTextSettings = timerLabel.GetComponent<TextSettings>();
     }
 
     void Update()
@@ -66,6 +72,7 @@ public class CountdownTimer : MonoBehaviour
         int m = Mathf.FloorToInt(seconds / 60);
         int s = Mathf.FloorToInt(seconds % 60);
         timerLabel.text = $"{m:00}:{s:00}";
+        _timerLabelTextSettings.ReinitializeDefaultText();
         timerLabel.color = (seconds <= 10f) ? last10sColor : normalColor;
     }
 }
