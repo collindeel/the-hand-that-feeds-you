@@ -6116,6 +6116,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1310173824}
+    - target: {fileID: 933050395158383301, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
+      propertyPath: audioController
+      value: 
+      objectReference: {fileID: 1211643722}
     - target: {fileID: 2133384328723413757, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

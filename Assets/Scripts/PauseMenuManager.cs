@@ -14,6 +14,9 @@ public class PauseMenuManager : MonoBehaviour
     InputAction _navigateAction;
     InputAction _pointAction;
 
+    // Pausing music
+    public AudioControllerScript audioController;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,6 +56,9 @@ public class PauseMenuManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
 
             EventSystem.current.SetSelectedGameObject(resumeButton.gameObject);
+
+            // Pause the music
+            audioController.GetComponent<AudioSource>().Pause();
         }
         else
         {
@@ -64,6 +70,9 @@ public class PauseMenuManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
 
             if (gameManager.storyMode) dialogueBox.BroadcastMessage("UpdateTextSettings");
+
+            // Resume the music
+            audioController.GetComponent<AudioSource>().UnPause();
         }
 
     }
