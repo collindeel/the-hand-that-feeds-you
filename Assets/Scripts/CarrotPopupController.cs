@@ -5,15 +5,22 @@ using System.Collections;
 public class CarrotPopupController : MonoBehaviour
 {
     public CanvasGroup canvasGroup;
-    public TMP_Text countText;
+    public TextMeshProUGUI countText;
+    TextSettings _countTextSettings;
     public float displayTime = 2f;
     public float fadeDuration = 1f;
 
     private Coroutine currentFadeRoutine;
 
+    void Start()
+    {
+        _countTextSettings = countText.GetComponent<TextSettings>();
+    }
+
     public void ShowPopup(int carrotCount)
     {
         countText.text = "x" + carrotCount;
+        _countTextSettings.ReinitializeDefaultText();
         if (currentFadeRoutine != null)
             StopCoroutine(currentFadeRoutine);
 
@@ -22,6 +29,7 @@ public class CarrotPopupController : MonoBehaviour
 
     private IEnumerator ShowAndFade()
     {
+        canvasGroup.BroadcastMessage("UpdateTextSettings");
         canvasGroup.alpha = 1f;
 
         yield return new WaitForSeconds(displayTime);

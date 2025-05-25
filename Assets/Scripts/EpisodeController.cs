@@ -7,7 +7,8 @@ public class EpisodeController : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] CanvasGroup overlay;
-    [SerializeField] TMP_Text label;
+    [SerializeField] TextMeshProUGUI label;
+    TextSettings _textSettings;
     [Header("Fade timings (seconds)")]
     [SerializeField] float fadeInDuration = 4f;
     [SerializeField] float fadeOutTextDuration = 2f;
@@ -26,7 +27,13 @@ public class EpisodeController : MonoBehaviour
     const Key skipKey = Key.Space;
     Coroutine currentRoutine;
 
-    void Start() => currentRoutine = StartCoroutine(EpisodeRoutine());
+    void Start()
+    {
+        _textSettings = label.GetComponent<TextSettings>();
+
+        currentRoutine = StartCoroutine(EpisodeRoutine());
+    }
+
     void Update()
     {
         var kb = Keyboard.current;
@@ -68,7 +75,7 @@ public class EpisodeController : MonoBehaviour
     }
     public void StartNextEpisode()
     {
-        if(episode == 1)
+        if (episode == 1)
             arrowPointer.gameObject.SetActive(false);
         if (!busy)
         {
@@ -142,6 +149,8 @@ public class EpisodeController : MonoBehaviour
                 break;
         }
         label.text = $"Episode {episode}\n\n{ft}";
+
+        _textSettings.ReinitializeDefaultText();
 
         yield return FadeInText();
         yield return new WaitForSecondsRealtime(holdDuration);

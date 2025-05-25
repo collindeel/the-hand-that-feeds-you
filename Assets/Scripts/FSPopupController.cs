@@ -4,11 +4,17 @@ using System.Collections;
 
 public class FSPopupController : MonoBehaviour
 {
-    public TMP_Text scoreText;
+    public TextMeshProUGUI scoreText;
+    TextSettings _scoreTextSettings;
     public float beforeShown = .5f;
     public float fadeDuration = 1f;
 
     private Coroutine currentFadeRoutine;
+
+    void Start()
+    {
+        _scoreTextSettings = scoreText.GetComponent<TextSettings>();
+    }
 
     public void ShowPopup(int score)
     {
@@ -21,6 +27,7 @@ public class FSPopupController : MonoBehaviour
     private IEnumerator FadeIn(int score)
     {
         scoreText.text = score.ToString();
+        _scoreTextSettings.ReinitializeDefaultText();
         scoreText.fontSize = 48f;
         scoreText.alpha = 0f;
 

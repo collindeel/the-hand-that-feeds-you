@@ -29,12 +29,13 @@ public class TextSettings : MonoBehaviour
     public void ReinitializeDefaultText()
     {
         defaultText = textComponent.text;
+        if (defaultIsBold && (textComponent.fontStyle & FontStyles.Bold) != FontStyles.Bold) textComponent.fontStyle ^= FontStyles.Bold;
         currentAdhdFriendlyTextSetting = false;
 
         UpdateTextSettings();
     }
 
-    void UpdateTextSettings()
+    public void UpdateTextSettings()
     {
         var newDyslexiaFriendlyFontSetting = PlayerPrefs.GetInt("Dyslexia-friendly Font", currentDyslexiaFriendlyFontSetting ? 1 : 0) == 1;
         if (newDyslexiaFriendlyFontSetting != currentDyslexiaFriendlyFontSetting)

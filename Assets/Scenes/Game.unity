@@ -513,6 +513,7 @@ GameObject:
   - component: {fileID: 124739119}
   - component: {fileID: 124739121}
   - component: {fileID: 124739120}
+  - component: {fileID: 124739122}
   m_Layer: 5
   m_Name: FinalScoreLabel
   m_TagString: Untagged
@@ -638,6 +639,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 124739118}
   m_CullTransparentMesh: 1
+--- !u!114 &124739122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124739118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1001 &138756001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -987,6 +1002,7 @@ GameObject:
   - component: {fileID: 197984293}
   - component: {fileID: 197984295}
   - component: {fileID: 197984294}
+  - component: {fileID: 197984296}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -1112,6 +1128,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197984292}
   m_CullTransparentMesh: 1
+--- !u!114 &197984296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197984292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1 &203668101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,6 +1504,7 @@ GameObject:
   - component: {fileID: 329038869}
   - component: {fileID: 329038871}
   - component: {fileID: 329038870}
+  - component: {fileID: 329038872}
   m_Layer: 5
   m_Name: DiedText
   m_TagString: Untagged
@@ -1599,6 +1630,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329038868}
   m_CullTransparentMesh: 1
+--- !u!114 &329038872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329038868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2625,6 +2670,7 @@ GameObject:
   - component: {fileID: 639413327}
   - component: {fileID: 639413329}
   - component: {fileID: 639413328}
+  - component: {fileID: 639413330}
   m_Layer: 5
   m_Name: CarrotCount
   m_TagString: Untagged
@@ -2750,6 +2796,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639413326}
   m_CullTransparentMesh: 1
+--- !u!114 &639413330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639413326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1001 &654268358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2818,6 +2878,7 @@ GameObject:
   - component: {fileID: 724445576}
   - component: {fileID: 724445578}
   - component: {fileID: 724445577}
+  - component: {fileID: 724445579}
   m_Layer: 5
   m_Name: FinalScore
   m_TagString: Untagged
@@ -2943,6 +3004,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724445575}
   m_CullTransparentMesh: 1
+--- !u!114 &724445579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724445575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1 &726299423
 GameObject:
   m_ObjectHideFlags: 0
@@ -3307,6 +3382,7 @@ GameObject:
   - component: {fileID: 768766526}
   - component: {fileID: 768766528}
   - component: {fileID: 768766527}
+  - component: {fileID: 768766529}
   m_Layer: 5
   m_Name: TookCarrotNotice
   m_TagString: Untagged
@@ -3432,6 +3508,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 768766525}
   m_CullTransparentMesh: 1
+--- !u!114 &768766529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768766525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1001 &818075230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4019,6 +4109,7 @@ GameObject:
   - component: {fileID: 995837943}
   - component: {fileID: 995837945}
   - component: {fileID: 995837944}
+  - component: {fileID: 995837946}
   m_Layer: 5
   m_Name: EpisodeText
   m_TagString: Untagged
@@ -4144,6 +4235,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995837942}
   m_CullTransparentMesh: 1
+--- !u!114 &995837946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995837942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1 &1004936254
 GameObject:
   m_ObjectHideFlags: 0
@@ -6451,6 +6556,7 @@ GameObject:
   - component: {fileID: 1752287428}
   - component: {fileID: 1752287430}
   - component: {fileID: 1752287429}
+  - component: {fileID: 1752287431}
   m_Layer: 5
   m_Name: ObjectiveUpdatedText
   m_TagString: Untagged
@@ -6576,6 +6682,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752287427}
   m_CullTransparentMesh: 1
+--- !u!114 &1752287431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752287427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1 &1775046906
 GameObject:
   m_ObjectHideFlags: 0
@@ -7140,6 +7260,7 @@ GameObject:
   - component: {fileID: 2023421019}
   - component: {fileID: 2023421021}
   - component: {fileID: 2023421020}
+  - component: {fileID: 2023421022}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -7265,6 +7386,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023421018}
   m_CullTransparentMesh: 1
+--- !u!114 &2023421022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023421018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1 &2039290446
 GameObject:
   m_ObjectHideFlags: 0

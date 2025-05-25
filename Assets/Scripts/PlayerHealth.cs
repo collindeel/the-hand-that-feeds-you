@@ -69,6 +69,8 @@ public class PlayerHealth : MonoBehaviour
     public IEnumerator DoQuit()
     {
         Time.timeScale = 0f;
+        
+        cg.BroadcastMessage("UpdateTextSettings");
         cg.alpha = 1f; // Show jumpscare overlay
         acs.Halt();
         audioSource.clip = jumpScareSound;
@@ -76,6 +78,7 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSecondsRealtime(3);
         cg.alpha = 0f;
         acs.PlayEndDied();
+        finalScoreOverlay.BroadcastMessage("UpdateTextSettings");
         finalScoreOverlay.alpha = 1f;
         fspc.ShowPopup(ScoreTracker.GetScore());
         yield return new WaitForSecondsRealtime(5);

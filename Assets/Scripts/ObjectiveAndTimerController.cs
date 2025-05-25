@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 public class ObjectiveAndTimerController : MonoBehaviour
 {
-    public TMP_Text objective;
+    public TextMeshProUGUI objective;
+    TextSettings _objectiveTextSettings;
     public float displayTime = 2f;
     public float fadeDuration = 1f;
     public ArrowPointer arrowPointer;
@@ -26,6 +27,11 @@ public class ObjectiveAndTimerController : MonoBehaviour
     void Awake()
     {
         _countdownTimer = GetComponent<CountdownTimer>();
+    }
+
+    void Start()
+    {
+        _objectiveTextSettings = objective.GetComponent<TextSettings>();
     }
 
     void OnEnable()
@@ -153,6 +159,8 @@ public class ObjectiveAndTimerController : MonoBehaviour
     public void ShowPopup(string text)
     {
         objective.text = text;
+        _objectiveTextSettings.ReinitializeDefaultText();
+
         if (currentFadeRoutine != null)
             StopCoroutine(currentFadeRoutine);
 
@@ -160,6 +168,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
     }
     private IEnumerator ShowAndFade()
     {
+        _objectiveTextSettings.UpdateTextSettings();
         objective.alpha = 1f;
 
         yield return new WaitForSeconds(displayTime);

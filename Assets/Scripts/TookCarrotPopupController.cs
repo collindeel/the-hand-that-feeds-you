@@ -4,7 +4,7 @@ using System.Collections;
 
 public class TookCarrotPopupController : MonoBehaviour
 {
-    public TMP_Text carrotText;
+    public TextMeshProUGUI carrotText;
     public float displayTime = 2f;
     public float fadeDuration = 1f;
 
