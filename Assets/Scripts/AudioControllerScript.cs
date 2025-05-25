@@ -11,9 +11,10 @@ public class AudioControllerScript : MonoBehaviour
     public AudioClip endWonClip;
     AudioSource music;
 
-    static AudioControllerScript instance;
+    public static AudioControllerScript instance { get; private set; }
     void Awake()
     {
+        music = GetComponent<AudioSource>(); 
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -21,8 +22,6 @@ public class AudioControllerScript : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
-
-        music = GetComponent<AudioSource>();
     }
 
     void OnEnable() => EpisodeEvents.OnEpisodeChanged += HandleEp;
@@ -43,7 +42,11 @@ public class AudioControllerScript : MonoBehaviour
         if (music.clip == null) music.Stop();
         else music.Play();
     }
-    public void Halt() => music.Stop();
+    public void Halt()
+    {
+        if (music)
+            music.Stop();
+    }
     public void PlayEndDied() => PlayClip(endDiedClip);
     public void PlayEndWon() => PlayClip(endWonClip);
 

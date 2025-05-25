@@ -15,7 +15,6 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip jumpScareSound;
     public CameraShake cs;
     private AudioSource audioSource;
-    public AudioControllerScript acs;
     public CanvasGroup finalScoreOverlay;
     public FSPopupController fspc;
     public Image fillImage;
@@ -76,12 +75,12 @@ public class PlayerHealth : MonoBehaviour
         
         cg.BroadcastMessage("UpdateTextSettings");
         cg.alpha = 1f; // Show jumpscare overlay
-        acs.Halt();
+        AudioControllerScript.instance.Halt();
         audioSource.clip = jumpScareSound;
         audioSource.Play();
         yield return new WaitForSecondsRealtime(3);
         cg.alpha = 0f;
-        acs.PlayEndDied();
+        AudioControllerScript.instance.PlayEndDied();
         finalScoreOverlay.BroadcastMessage("UpdateTextSettings");
         finalScoreOverlay.alpha = 1f;
         fspc.ShowPopup(ScoreTracker.GetScore());
