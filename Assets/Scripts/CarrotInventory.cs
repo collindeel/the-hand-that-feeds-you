@@ -30,4 +30,11 @@ public class CarrotInventory : MonoBehaviour
             popupController.ShowPopup(CarrotCount);
         }
     }
+    public void Remind()
+    {
+        if (popupController != null)
+        {
+            popupController.ShowPopup(CarrotCount);
+        }
+    }
 }

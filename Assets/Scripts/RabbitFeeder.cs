@@ -51,7 +51,7 @@ public class RabbitFeeder : MonoBehaviour
     {
         if (!trainingMode && inventory.CarrotCount <= 0)
         {
-            //Debug.Log("No carrots to feed.");
+            inventory.Remind();
             return false;
         }
 
