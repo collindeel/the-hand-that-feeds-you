@@ -12,7 +12,6 @@ public class CaveEntryTrigger : MonoBehaviour
     [SerializeField] float holdWhiteTime = 3f;       // realtime
     public AudioSource audioSource;
     public AudioClip intoLightSound;
-    public AudioControllerScript acs;
     public CanvasGroup finalScoreOverlay;
     public FSPopupController fspc;
     [SerializeField] Image fadeImg;
@@ -57,7 +56,7 @@ public class CaveEntryTrigger : MonoBehaviour
         var input = player.GetComponent<MonoBehaviour>(); // Cease player input here
         if (input) input.enabled = false;
 
-        acs.Halt();
+        AudioControllerScript.instance.Halt();
         audioSource.clip = intoLightSound;
         audioSource.Play();
 
@@ -94,7 +93,7 @@ public class CaveEntryTrigger : MonoBehaviour
         //-------------------------------------------------
         yield return new WaitForSecondsRealtime(holdWhiteTime);
         Time.timeScale = 0f;
-        acs.PlayEndWon();
+        AudioControllerScript.instance.PlayEndWon();
         finalScoreOverlay.alpha = 1f;
         fspc.ShowPopup(ScoreTracker.GetScore());
         yield return new WaitForSecondsRealtime(5);
