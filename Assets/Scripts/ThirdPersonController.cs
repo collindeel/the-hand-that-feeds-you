@@ -43,7 +43,14 @@ public class ThirdPersonController : MonoBehaviour
 
     void Update()
     {
-        if (bot.isEnabled || gameManager.storyMode) return;
+        if (bot.isEnabled || gameManager.storyMode)
+        {
+            // Stop player from walking during cutscene
+            cachedH = 0f;
+            cachedV = 0f;
+            cachedSprint = false;
+            return;
+        }
 
         cachedH = Input.GetAxisRaw("Horizontal");
         cachedV = Input.GetAxisRaw("Vertical");
