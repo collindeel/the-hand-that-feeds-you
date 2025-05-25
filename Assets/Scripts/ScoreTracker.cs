@@ -15,6 +15,11 @@ public static class ScoreTracker
         if (!isScoreDisabled)
             score += scoreToAdd;
     }
+    public static void Reset(int startValue = 0, bool disable = true)
+    {
+        score = startValue;
+        isScoreDisabled = disable;
+    }
 
     public static bool isScoreDisabled { get; set; } = true;
     static int score = 0;

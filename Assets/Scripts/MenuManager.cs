@@ -5,6 +5,7 @@ public class MenuManager : MonoBehaviour
 {
     public void StartGame()
     {
+        ScoreTracker.Reset();
         SceneManager.LoadScene("Game");
     }
 
