@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,7 +36,7 @@ public class RabbitFeeder : MonoBehaviour
             if (wasFed)
             {
                 ScoreTracker.AddScore(50);
-                if(!ScoreTracker.isScoreDisabled)
+                if (!ScoreTracker.isScoreDisabled)
                     scorePC.ShowPopup(ScoreTracker.GetScore());
             }
         }
@@ -90,6 +91,7 @@ public class RabbitFeeder : MonoBehaviour
         }
         return false;
     }
+    [SerializeField] float domeDisplayRad = .5f;
     void ThrowCarrot()
     {
         Vector3 spawnPosition = transform.position + transform.forward * 1.5f + Vector3.up * 1.5f;
@@ -119,6 +121,38 @@ public class RabbitFeeder : MonoBehaviour
         rb.angularDamping = 2.0f;
         rb.isKinematic = false;
         EpisodeEvents.RaiseCarrotThrown(spawnPosition);
+
+        var dome = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        var rend = dome.GetComponent<MeshRenderer>();
+        rend.enabled = false;
+        Destroy(dome.GetComponent<Collider>());
+        dome.transform.SetParent(carrotInstance.transform, false);
+        dome.transform.localScale = Vector3.one * domeDisplayRad * 2f;
+        dome.transform.localPosition = Vector3.zero;
+
+        var domeMesh = dome.GetComponent<MeshFilter>().mesh;
+        Vector3[] verts = domeMesh.vertices;
+        for (int i = 0; i < verts.Length; i++)
+            if (verts[i].y < 0) verts[i].y = 0;
+        domeMesh.vertices = verts;
+        domeMesh.RecalculateNormals();
+
+        var mat = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
+
+        mat.SetFloat("_Surface", 1);                               // 1 = Transparent
+        mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");            // keyword gate
+        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        mat.SetInt("_ZWrite", 0);                            // no depth write
+        mat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        mat.SetColor("_BaseColor", new Color(0f, 0.5f, 1f, 0.2f));
+        rend.sharedMaterial = mat;
+        rend.enabled = true; 
+
+        dome.AddComponent<FollowPosition>().Init(carrotInstance.transform);
+
+        // auto-destroy dome when carrot expires (optional)
+        Destroy(dome, 5f);
         rb.AddForce(transform.forward * tossForce, ForceMode.Impulse);
     }
 
@@ -137,5 +171,20 @@ public class RabbitFeeder : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, feedRadius);
+    }
+}
+public class FollowPosition : MonoBehaviour
+{
+    Transform target;
+    public void Init(Transform t) => target = t;
+
+    void LateUpdate()
+    {
+        if (target)
+        {
+            transform.position = target.position + new Vector3(0, -.5f, 0);
+            transform.rotation = Quaternion.identity;
+        }
+        else Destroy(gameObject);        // carrot got destroyed
     }
 }

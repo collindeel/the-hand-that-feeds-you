@@ -4602,6 +4602,8 @@ MonoBehaviour:
   thrownCarrotScale: 0.25
   feedRange: 2
   tossForce: 5
+  distractionRadius: 1
+  domeTint: {r: 0, g: 0.5, b: 1, a: 0.25}
 --- !u!114 &1048538233
 MonoBehaviour:
   m_ObjectHideFlags: 0
