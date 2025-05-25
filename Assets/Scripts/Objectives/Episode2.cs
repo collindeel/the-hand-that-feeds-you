@@ -10,7 +10,8 @@ public class Episode2Prelude : Objective
             ("Let's see... You've earned $" + + ScoreTracker.GetScore() + " on your first day!!", "Unity-Chan"),
             ($"Sugoi... That's amazing, Misaki-Chan!! (*0*)/ ","Unity-Chan"),
             ("Anyway! For today, do the same as normal! (uwu)", "Unity-Chan"),
-            ("But be careful though... The rabbits are a little feisty today hehe. They stole some of my carrots! (._.;)>", "Unity-Chan")
+            ("But be careful though... The rabbits are a little feisty today hehe. They stole some of my carrots! (._.;)>", "Unity-Chan"),
+            ("in fact i will pay you double but for some reason i'll steal ur money if they take carrots away", "Unity-Chan"),
         };
 
 

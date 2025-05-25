@@ -18,6 +18,7 @@ public class RabbitFeeder : MonoBehaviour
     public AudioClip takeClip;
     public CountdownTimer countdownTimer;
     public ObjectiveAndTimerController otc;
+    public EpisodeController episodeController;
     bool trainingMode = false;
     public float thrownCarrotScale = 0.25f;
     public float feedRange = 2f;
@@ -37,7 +38,11 @@ public class RabbitFeeder : MonoBehaviour
             bool wasFed = TryFeedRabbit();
             if (wasFed)
             {
-                ScoreTracker.AddScore(50);
+                if(episodeController.GetEpisode() == 2)
+                    ScoreTracker.AddScore(100);
+                else
+                    ScoreTracker.AddScore(50);
+                    
                 if (!ScoreTracker.isScoreDisabled)
                     scorePC.ShowPopup(ScoreTracker.GetScore());
             }

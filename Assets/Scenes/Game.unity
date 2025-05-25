@@ -4706,6 +4706,7 @@ MonoBehaviour:
   takeClip: {fileID: 8300000, guid: 44a8cf035d50b4eb2a0d75056e678d9b, type: 3}
   countdownTimer: {fileID: 1599467270}
   otc: {fileID: 1599467269}
+  episodeController: {fileID: 866432622}
   thrownCarrotScale: 0.25
   feedRange: 2
   tossForce: 5
