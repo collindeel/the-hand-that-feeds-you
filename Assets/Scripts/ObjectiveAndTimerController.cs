@@ -35,6 +35,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
         EpisodeEvents.OnCarrotCollected += HandleCarrotCollected;
         EpisodeEvents.OnCarrotThrown += HandleCarrotThrown;
         EpisodeEvents.OnRabbitFed += HandleRabbitFed;
+        EpisodeEvents.OnInitDamage += HandleInitDamage;
         CountdownTimer.OnTimerFinished += HandleTimerFinished;
 
     }
@@ -45,6 +46,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
         EpisodeEvents.OnCarrotCollected -= HandleCarrotCollected;
         EpisodeEvents.OnCarrotThrown -= HandleCarrotThrown;
         EpisodeEvents.OnRabbitFed -= HandleRabbitFed;
+        EpisodeEvents.OnInitDamage -= HandleInitDamage;
         CountdownTimer.OnTimerFinished -= HandleTimerFinished;
     }
     void Update()
@@ -78,6 +80,10 @@ public class ObjectiveAndTimerController : MonoBehaviour
         }
     }
     bool shown = false;
+    void HandleInitDamage()
+    {
+        ShowPopup("You were attacked!! Maybe throwing a carrot will distract them??");
+    }
     void HandleRabbitFed()
     {
         if (!episodeTutorial) return;
