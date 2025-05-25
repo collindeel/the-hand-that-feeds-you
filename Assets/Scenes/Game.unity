@@ -6828,7 +6828,7 @@ MonoBehaviour:
   offsetX: 46.65
   offsetZ: 37.07
   absoluteY: 0
-  bloodPrefab: {fileID: 0}
+  bloodPrefab: {fileID: 100000, guid: 358b75ea5451cf143ab19029a189097d, type: 3}
   player: {fileID: 1048538230}
 --- !u!1 &1847287636
 GameObject:
