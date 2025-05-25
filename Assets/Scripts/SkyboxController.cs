@@ -12,7 +12,7 @@ public class SkyboxController : MonoBehaviour
     [SerializeField] Light directionalLight; // Your main sun light
 
     [Header("Episode 3–4 Settings")]
-    [SerializeField] Color darkFogColor = new Color32(0x1A, 0x10, 0x18, 0xFF); // #1A1018
+    [SerializeField] Color darkFogColor = new Color(0.102f, 0.063f, 0.094f); // #1A1018
     [SerializeField] float darkFogDensity = 0.02f;
     [SerializeField] float darkLightIntensity = 0.1f;
     [SerializeField] Color darkSkyColor = new Color32(26, 11, 50, 255);
