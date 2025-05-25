@@ -3647,7 +3647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &857612463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4795,7 +4795,6 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: e4f692d273597426583f8e9e216d729d, type: 3}
   jumpScareSound: {fileID: 8300000, guid: f9357def286cf4b9c8ee00a8d65974f0, type: 3}
   cs: {fileID: 330585549}
-  acs: {fileID: 1211643722}
   finalScoreOverlay: {fileID: 460388107}
   fspc: {fileID: 1599467271}
   fillImage: {fileID: 1087819765}
@@ -6985,7 +6984,6 @@ MonoBehaviour:
   holdWhiteTime: 3
   audioSource: {fileID: 1048538255}
   intoLightSound: {fileID: 8300000, guid: b87424856bfeb41e4bcce4b6266a03c3, type: 3}
-  acs: {fileID: 1211643722}
   finalScoreOverlay: {fileID: 460388107}
   fspc: {fileID: 1599467271}
   fadeImg: {fileID: 326083306}
