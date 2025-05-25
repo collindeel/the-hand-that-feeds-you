@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 100;
     private int currentHealth;
     public float immunityDuration = 2f;  // 2 seconds of invincibility
-    private float immunityTimer = 0f;
+    private float immunityTimer = 2f; // Start off immune
     public HealthBarController hbc;
     public AudioClip damageSound;
     public AudioClip jumpScareSound;
@@ -49,6 +49,10 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth = Mathf.Max(0, currentHealth - damage);
             hbc.SetHealth(currentHealth);
+            if (currentHealth == 90)
+            {
+                EpisodeEvents.RaiseInitDamage();
+            }
             float dur = 0.1f + (90 - currentHealth) * 0.01f;
             float mag = 0.2f + (90 - currentHealth) * 0.01f;
             cs.Shake(dur, mag);
