@@ -24,16 +24,20 @@ public class RabbitFeeder : MonoBehaviour
     public float feedRange = 2f;
     public float tossForce = 5f;
 
+    InputAction _feedAction;
+
     void Start()
     {
         bot = GetComponent<PlayerBot>();
         audioSource = GetComponent<AudioSource>();
         trainingMode = bot.isEnabled;
+
+        _feedAction = InputSystem.actions.FindAction("Feed");
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) || (Gamepad.current?.buttonWest.wasPressedThisFrame ?? false))
+        if (_feedAction.WasPressedThisFrame())
         {
             bool wasFed = TryFeedRabbit();
             if (wasFed)

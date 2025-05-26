@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class DialogueManager : MonoBehaviour
     public EpisodeController episodeController;
 
     GameManager _gameManager;
+    InputAction _interactAction;
+    InputAction _jumpAction;
     int _currentLine = -1;
 
     (string text, string speaker)[] _dialogue;
@@ -13,13 +16,13 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         _gameManager = GetComponent<GameManager>();
+        _interactAction = InputSystem.actions.FindAction("Interact");
+        _jumpAction = InputSystem.actions.FindAction("Jump");
     }
 
     void Update()
     {
-        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && !_gameManager.isPaused && _gameManager.storyMode)
-            // if (isAnimating)
-            //     SkipAnimation();
+        if ((_interactAction.WasPressedThisFrame() || _jumpAction.WasPressedThisFrame()) && !_gameManager.isPaused && _gameManager.storyMode)
             if (_currentLine < _dialogue.Length - 1)
                 DisplayNextLine();
             else
