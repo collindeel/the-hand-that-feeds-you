@@ -250,7 +250,7 @@ MonoBehaviour:
   distance: 5
   height: 2.5
   mouseSensitivity: 3
-  controllerSensitivity: 3
+  controllerSensitivity: 8
   pitchLimits: {x: -15, y: 60}
   extraDownMargin: 5
   groundLayer:
