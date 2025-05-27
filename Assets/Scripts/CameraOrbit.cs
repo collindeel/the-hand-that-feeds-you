@@ -8,7 +8,7 @@ public class CameraOrbit : MonoBehaviour
     public float distance = 5f;
     public float height = 2.5f;
     public float mouseSensitivity = 2f;
-    public float controllerSensitivity = 3f;
+    public float controllerSensitivity = 8f;
 
     public Vector2 pitchLimits = new Vector2(-20, 60);
     public float extraDownMargin = 5f;

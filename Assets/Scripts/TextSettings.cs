@@ -61,7 +61,7 @@ public class TextSettings : MonoBehaviour
 
     string GenerateAdhdFriendlyText(string text)
     {
-        var regex = new Regex("[A-Za-z]+(?:'[A-Za-z]+)*");
+        var regex = new Regex("[A-Za-z]+(?:'[A-Za-z]+)*(?<!<[^>]*)");
         var adhdFriendlyText = string.Empty;
         var currentIndex = 0;
         foreach (Match match in regex.Matches(text))

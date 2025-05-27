@@ -11,7 +11,7 @@ public class Episode3AfterStart : Objective
             ("It... Seems... I have... Underestimated the rabbits..", "Unity-Chan"),
             ("Go... While... You still can...", "Unity-Chan"),
             ("...", "Unity-Chan"),
-            ("Run.", "Unity-Chan")
+            ("<i><b><color=red>Run.</color></b></i>", "Unity-Chan")
         };
 
 

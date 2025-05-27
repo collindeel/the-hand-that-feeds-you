@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,25 +24,29 @@ public class RabbitFeeder : MonoBehaviour
     public float feedRange = 2f;
     public float tossForce = 5f;
 
+    InputAction _feedAction;
+
     void Start()
     {
         bot = GetComponent<PlayerBot>();
         audioSource = GetComponent<AudioSource>();
         trainingMode = bot.isEnabled;
+
+        _feedAction = InputSystem.actions.FindAction("Feed");
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) || (Gamepad.current?.buttonWest.wasPressedThisFrame ?? false))
+        if (_feedAction.WasPressedThisFrame())
         {
             bool wasFed = TryFeedRabbit();
             if (wasFed)
             {
-                if(episodeController.GetEpisode() == 2)
+                if (episodeController.GetEpisode() == 2)
                     ScoreTracker.AddScore(100);
                 else
                     ScoreTracker.AddScore(50);
-                    
+
                 if (!ScoreTracker.isScoreDisabled)
                     scorePC.ShowPopup(ScoreTracker.GetScore());
             }
@@ -57,49 +60,49 @@ public class RabbitFeeder : MonoBehaviour
 
     public bool TryFeedRabbit(bool doThrow)
     {
-        if (!trainingMode && inventory.CarrotCount <= 0)
+        if (countdownTimer.IsTimerRunning() || otc.IsTutorialRabbit())
         {
-            inventory.Remind();
-            return false;
-        }
-
-        // Limit by range or LOS?
-        foreach (RabbitAgent rabbit in allRabbits)
-        {
-            rabbit.playerIsFeeding = true;
-        }
-
-        // Optionally reset after some time
-        StartCoroutine(ResetFeedingSignalAfterDelay(5f));
-
-        Collider[] rabbits = Physics.OverlapSphere(transform.position, feedRadius, rabbitLayer);
-
-        if (rabbits.Length > 0 &&
-            (countdownTimer.IsTimerRunning() ||
-                otc.IsTutorialRabbit()
-            )
-        )
-        {
-            //print($"in range, length {rabbits.Length}");
-            if (!trainingMode) inventory.RemoveCarrot();
-            audioSource.clip = doThrow ? twinkleClip : takeClip;
-            audioSource.Play();
-            EpisodeEvents.RaiseRabbitFed();
-            RabbitReaction reaction = rabbits[0].GetComponent<RabbitReaction>();
-            if (reaction != null)
+            if (!trainingMode && inventory.CarrotCount <= 0)
             {
-                reaction.ReactToFeeding();
+                inventory.Remind();
+                return false;
             }
-            return true;
-        }
-        else if (doThrow)
-        {
-            //Debug.Log("No rabbits nearby... tossing a carrot.");
-            if (!trainingMode) inventory.RemoveCarrot();
-            ThrowCarrot();
-            audioSource.clip = tossClip;
-            audioSource.Play();
-            return false;
+
+            // Limit by range or LOS?
+            foreach (RabbitAgent rabbit in allRabbits)
+            {
+                rabbit.playerIsFeeding = true;
+            }
+
+            // Optionally reset after some time
+            StartCoroutine(ResetFeedingSignalAfterDelay(5f));
+
+            Collider[] rabbits = Physics.OverlapSphere(transform.position, feedRadius, rabbitLayer);
+
+
+            if (rabbits.Length > 0)
+            {
+                //print($"in range, length {rabbits.Length}");
+                if (!trainingMode) inventory.RemoveCarrot();
+                audioSource.clip = doThrow ? twinkleClip : takeClip;
+                audioSource.Play();
+                EpisodeEvents.RaiseRabbitFed();
+                RabbitReaction reaction = rabbits[0].GetComponent<RabbitReaction>();
+                if (reaction != null)
+                {
+                    reaction.ReactToFeeding();
+                }
+                return true;
+            }
+            else if (doThrow)
+            {
+                //Debug.Log("No rabbits nearby... tossing a carrot.");
+                if (!trainingMode) inventory.RemoveCarrot();
+                ThrowCarrot();
+                audioSource.clip = tossClip;
+                audioSource.Play();
+                return false;
+            }
         }
         return false;
     }
@@ -160,7 +163,7 @@ public class RabbitFeeder : MonoBehaviour
         mat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
         mat.SetColor("_BaseColor", new Color(0f, 0.5f, 1f, 0.2f));
         rend.sharedMaterial = mat;
-        rend.enabled = true; 
+        rend.enabled = true;
 
         dome.AddComponent<FollowPosition>().Init(carrotInstance.transform);
 
