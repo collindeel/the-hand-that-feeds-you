@@ -19,6 +19,7 @@ public class RabbitFeeder : MonoBehaviour
     public CountdownTimer countdownTimer;
     public ObjectiveAndTimerController otc;
     public EpisodeController episodeController;
+    public Material thrownMat;
     bool trainingMode = false;
     public float thrownCarrotScale = 0.25f;
     public float feedRange = 2f;
@@ -102,12 +103,13 @@ public class RabbitFeeder : MonoBehaviour
         }
         return false;
     }
-    [SerializeField] float domeDisplayRad = .5f;
+    //[SerializeField] float domeDisplayRad = .5f;
     void ThrowCarrot()
     {
         Vector3 spawnPosition = transform.position + transform.forward * 1.5f + Vector3.up * 1.5f;
         GameObject carrotInstance = Instantiate(carrotPrefab, spawnPosition, Quaternion.identity);
         carrotInstance.tag = "ThrownCarrot";
+        carrotInstance.GetComponent<Renderer>().material = thrownMat;
         carrotInstance.layer = LayerMask.NameToLayer("ThrownCarrot");
         carrotInstance.transform.localScale *= thrownCarrotScale;
         SphereCollider col = carrotInstance.GetComponent<SphereCollider>();
@@ -133,7 +135,7 @@ public class RabbitFeeder : MonoBehaviour
         rb.isKinematic = false;
         EpisodeEvents.RaiseCarrotThrown(spawnPosition);
 
-        var dome = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        /*var dome = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         var rend = dome.GetComponent<MeshRenderer>();
         rend.enabled = false;
         Destroy(dome.GetComponent<Collider>());
@@ -163,7 +165,7 @@ public class RabbitFeeder : MonoBehaviour
         dome.AddComponent<FollowPosition>().Init(carrotInstance.transform);
 
         // auto-destroy dome when carrot expires (optional)
-        Destroy(dome, 5f);
+        Destroy(dome, 5f);*/
         rb.AddForce(transform.forward * tossForce, ForceMode.Impulse);
     }
 

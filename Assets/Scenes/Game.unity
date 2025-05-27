@@ -4707,10 +4707,10 @@ MonoBehaviour:
   countdownTimer: {fileID: 1599467270}
   otc: {fileID: 1599467269}
   episodeController: {fileID: 866432622}
+  thrownMat: {fileID: 2100000, guid: 852946a64aaf54411ae9e75009563f25, type: 2}
   thrownCarrotScale: 0.25
   feedRange: 2
   tossForce: 5
-  domeDisplayRad: 0.5
 --- !u!114 &1048538233
 MonoBehaviour:
   m_ObjectHideFlags: 0
