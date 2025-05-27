@@ -1,5 +1,9 @@
+using System;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class DialogueBox : MonoBehaviour
 {
@@ -7,6 +11,11 @@ public class DialogueBox : MonoBehaviour
     public GameObject textboxDyslexiaFriendly;
     public GameObject nameboxNormal;
     public GameObject nameboxDyslexiaFriendly;
+    public PlayerInput playerInput;
+    public TMP_SpriteAsset keyboardSprites;
+    public TMP_SpriteAsset playstationSprites;
+    public TMP_SpriteAsset xboxSprites;
+
     GameObject _textbox;
     GameObject _namebox;
     TextMeshProUGUI _textboxText;
@@ -24,6 +33,7 @@ public class DialogueBox : MonoBehaviour
 
     public void DisplayText(string text, string speaker = null)
     {
+        if (!_displaying) InputSystem.onActionChange += UpdateSpriteAsset;
         _displaying = true;
         _currentSpeaker = speaker;
         _currentText = text;
@@ -46,9 +56,15 @@ public class DialogueBox : MonoBehaviour
 
     public void Hide()
     {
+        InputSystem.onActionChange -= UpdateSpriteAsset;
         _textbox.SetActive(false);
         _namebox.SetActive(false);
         _displaying = false;
+    }
+
+    public void UpdateSpriteAsset(object obj, InputActionChange change)
+    {
+        _textboxText.spriteAsset = playerInput.currentControlScheme == "Gamepad" ? Gamepad.current.displayName.StartsWith("PS") ? playstationSprites : xboxSprites : keyboardSprites;
     }
 
     void UpdateTextSettings()
