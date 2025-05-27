@@ -3,6 +3,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine.AI;
 using UnityEngine;
+using System;
 
 [System.Serializable]
 public class RabbitStats
@@ -79,7 +80,8 @@ public class RabbitAgent : Agent
 
     }
 
-    private float satiationTimeRemaining = 0f;
+    [NonSerialized]
+    public float satiationTimeRemaining = 0f;
     public float satiationDuration = 5f;
 
     const float idleCutoff = 0.3f;
@@ -588,7 +590,7 @@ public class RabbitAgent : Agent
         else
             commitTimer -= Time.deltaTime;
     }
-    private void SatiateRabbit()
+    public void SatiateRabbit()
     {
         timeSinceLastMeal = 0f;
         satiationTimeRemaining = satiationDuration;

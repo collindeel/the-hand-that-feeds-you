@@ -6113,7 +6113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7330de4c20d14accb8a2171639696f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 20
+  totalTime: 90
   timerLabel: {fileID: 197984294}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   last10sColor: {r: 1, g: 0, b: 0, a: 1}

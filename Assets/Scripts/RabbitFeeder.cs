@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -78,16 +80,25 @@ public class RabbitFeeder : MonoBehaviour
             StartCoroutine(ResetFeedingSignalAfterDelay(5f));
 
             Collider[] rabbits = Physics.OverlapSphere(transform.position, feedRadius, rabbitLayer);
+            List<RabbitAgent> lr = new();
+            foreach (Collider r in rabbits)
+            {
+                RabbitAgent rabbit = r.GetComponent<RabbitAgent>();
+                if (rabbit != null && rabbit.satiationTimeRemaining <= 0f)
+                {
+                    lr.Add(rabbit);
+                }
+            }
 
-
-            if (rabbits.Length > 0)
+            if(lr.Count > 0)
             {
                 //print($"in range, length {rabbits.Length}");
                 if (!trainingMode) inventory.RemoveCarrot();
                 audioSource.clip = doThrow ? twinkleClip : takeClip;
                 audioSource.Play();
                 EpisodeEvents.RaiseRabbitFed();
-                RabbitReaction reaction = rabbits[0].GetComponent<RabbitReaction>();
+                lr[0].SatiateRabbit();
+                RabbitReaction reaction = lr[0].GetComponent<RabbitReaction>();
                 if (reaction != null)
                 {
                     reaction.ReactToFeeding();
