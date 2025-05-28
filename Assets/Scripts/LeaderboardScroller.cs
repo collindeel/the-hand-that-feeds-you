@@ -5,8 +5,8 @@ public class LeaderboardScroller : MonoBehaviour
     [SerializeField] private LeaderboardUI leaderboardUI;
     [SerializeField] private RectTransform contentContainer;
     [SerializeField] private RectTransform pinnedPlayerEntry;
-    [SerializeField] private float scrollSpeed = 50f;
-    [SerializeField] private float scrollDelay = 2f; // seconds
+    [SerializeField] private float scrollSpeed = 70f;
+    [SerializeField] private float scrollDelay = 1f; // seconds
     private float delayTimer = 0f;
     private bool hasStartedScrolling = false;
 

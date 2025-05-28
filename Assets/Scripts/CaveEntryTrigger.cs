@@ -111,11 +111,10 @@ public class CaveEntryTrigger : MonoBehaviour
         AudioControllerScript.instance.PlayEndWon();
         finalScoreOverlay.BroadcastMessage("UpdateTextSettings");
         finalScoreOverlay.alpha = 1f;
-        fspc.ShowPopup(ScoreTracker.GetScore());
 
         StartCoroutine(UploadThenDownload());
         
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(30);
         Cursor.lockState = CursorLockMode.None;
         _globalVariables.gameCompleted = true;
         SceneManager.LoadScene("Main Menu");

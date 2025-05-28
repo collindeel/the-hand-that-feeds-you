@@ -51,7 +51,11 @@ public class LeaderboardUI : MonoBehaviour
                 isAMatchFound = true;
                 playerScrollRow = rowObj.GetComponent<RectTransform>();
                 pinnedPlayerEntry.GetComponent<ScoreRow>().Init(entry.rank, entry.name, entry.score);
-                pinnedPlayerEntry.gameObject.SetActive(true);
+                if (entry.rank > 9)
+                {
+                    pinnedPlayerEntry.gameObject.SetActive(true);
+                }
+
                 ScoreRow scrollRow = playerScrollRow.GetComponent<ScoreRow>();
                 ScoreRow pinnedRow = pinnedPlayerEntry.GetComponent<ScoreRow>();
 

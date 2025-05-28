@@ -79,10 +79,10 @@ public class PlayerHealth : MonoBehaviour
         audioSource.clip = jumpScareSound;
         audioSource.Play();
         yield return new WaitForSecondsRealtime(3);
-        cg.alpha = 0f;
         AudioControllerScript.instance.PlayEndDied();
         finalScoreOverlay.BroadcastMessage("UpdateTextSettings");
         finalScoreOverlay.alpha = 1f;
+        cg.alpha = 0f;
         StartCoroutine(UploadThenDownload());
     
         yield return new WaitForSecondsRealtime(30);
