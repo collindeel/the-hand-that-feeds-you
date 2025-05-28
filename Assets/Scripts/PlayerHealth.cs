@@ -72,7 +72,7 @@ public class PlayerHealth : MonoBehaviour
     public IEnumerator DoQuit()
     {
         Time.timeScale = 0f;
-        
+
         cg.BroadcastMessage("UpdateTextSettings");
         cg.alpha = 1f; // Show jumpscare overlay
         AudioControllerScript.instance.Halt();
@@ -83,11 +83,20 @@ public class PlayerHealth : MonoBehaviour
         AudioControllerScript.instance.PlayEndDied();
         finalScoreOverlay.BroadcastMessage("UpdateTextSettings");
         finalScoreOverlay.alpha = 1f;
+
+        StartCoroutine(UploadThenDownload());
+
         fspc.ShowPopup(ScoreTracker.GetScore());
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(30);
         Cursor.lockState = CursorLockMode.None;
         _globalVariables.gameCompleted = true;
         SceneManager.LoadScene("Main Menu");
+    }
+
+    private IEnumerator UploadThenDownload()
+    {
+        yield return StartCoroutine(ScoreManager.instance.UploadScore(ScoreManager.instance.Score));
+        yield return StartCoroutine(ScoreManager.instance.DownloadScores());
     }
 
     public bool IsImmune()
