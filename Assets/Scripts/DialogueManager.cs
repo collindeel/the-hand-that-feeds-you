@@ -44,6 +44,7 @@ public class DialogueManager : MonoBehaviour
     {
         _dialogue = dialogue;
         _gameManager.storyMode = true;
+        dialogueBox.UpdateTextSettings();
         DisplayNextLine();
     }
 }
