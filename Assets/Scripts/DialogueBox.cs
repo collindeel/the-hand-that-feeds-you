@@ -67,7 +67,7 @@ public class DialogueBox : MonoBehaviour
         _textboxText.spriteAsset = playerInput.currentControlScheme == "Gamepad" ? Gamepad.current.displayName.StartsWith("PS") ? playstationSprites : xboxSprites : keyboardSprites;
     }
 
-    void UpdateTextSettings()
+    public void UpdateTextSettings()
     {
         _textbox?.SetActive(false);
         _namebox?.SetActive(false);
