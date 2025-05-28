@@ -28,21 +28,31 @@ public class MainMenuManager : MonoBehaviour
             DontDestroyOnLoad(globalVariablesObject);
         }
         _globalVariables = globalVariablesObject.GetComponent<GlobalVariables>();
-
-        if (_globalVariables.gameCompleted) titleImage.sprite = alternateTitleSprite;
+        if (_globalVariables.gameCompleted)
+            titleImage.sprite = alternateTitleSprite;
 
         EventSystem.current.SetSelectedGameObject(startButton.gameObject);
 
+
+        var dialogManager = GetComponent<DialogManager>();
         if (!_globalVariables.showedContentWarning)
         {
-            var dialogManager = GetComponent<DialogManager>();
-            dialogManager.CreateDialog("Notice", "Trigger warning info available at the bottom right of the main menu.");
+            dialogManager.CreateDialog("Notice", "Trigger warning info available at the bottom right of the main menu.", () => { _globalVariables.showedContentWarning = true; });
 
-            _globalVariables.showedContentWarning = true;
+            var menuManager = GetComponent<MenuManager>();
+            startButton.onClick.AddListener(() =>
+            {
+                dialogManager.CreateDialog("Player Name", "Please enter your name.", "Misaki", (name) =>
+                {
+                    _globalVariables.playerName = name == "" ? "Misaki" : name;
+                    menuManager.StartGame();
+                });
+            });
         }
 
         _navigateAction = InputSystem.actions.FindAction("Navigate");
         _pointAction = InputSystem.actions.FindAction("Point");
+
     }
 
     void Update()
