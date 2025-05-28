@@ -11,7 +11,7 @@ public class Episode2Prelude : Objective
             ($"Sugoi... That's amazing, Misaki-Chan!! (*0*)/ ","Unity-Chan"),
             ("Anyway! For today, do the same as normal! (uwu)", "Unity-Chan"),
             ("But be careful though... The rabbits are a little feisty today hehe. They stole some of my carrots! (._.;)>", "Unity-Chan"),
-            ("in fact i will pay you double but for some reason i'll steal ur money if they take carrots away", "Unity-Chan"),
+            ("Double pay this time! Isn't that nice? Just... try not to upset them. If they chase you... I'll, um, take some of your money. Sorry!! That's just the rule. Haha. Haha.", "Unity-Chan"),
         };
 
 
