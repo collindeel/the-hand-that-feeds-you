@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,7 +9,8 @@ public class Dialog : MonoBehaviour
 {
     public TextMeshProUGUI dialogTitle;
     public TextMeshProUGUI dialogText;
-    public Button okButton;
+    public TMP_InputField dialogInputField;
+    public Button dialogButton;
 
     GameObject previousSelectedGameObject;
     InputAction _navigateAction;
@@ -22,35 +24,61 @@ public class Dialog : MonoBehaviour
         _pointAction = InputSystem.actions.FindAction("Point");
 
         previousSelectedGameObject = EventSystem.current.currentSelectedGameObject;
-        EventSystem.current.SetSelectedGameObject(okButton.gameObject);
     }
 
     void Update()
     {
         if (_navigateAction.WasPressedThisFrame())
         {
-            Cursor.visible = false;
-            EventSystem.current.SetSelectedGameObject(okButton.gameObject);
+            Cursor.lockState = CursorLockMode.Locked;
+            if (EventSystem.current.currentSelectedGameObject == null)
+                if (dialogInputField.isActiveAndEnabled)
+                    EventSystem.current.SetSelectedGameObject(dialogInputField.gameObject);
+                else
+                    EventSystem.current.SetSelectedGameObject(dialogButton.gameObject);
+        }
+        else if (Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            EventSystem.current.SetSelectedGameObject(dialogButton.gameObject);
         }
         else if (_pointAction.WasPerformedThisFrame())
         {
-            Cursor.visible = true;
-            EventSystem.current.SetSelectedGameObject(null);
+            Cursor.lockState = CursorLockMode.None;
+            if (!dialogInputField.isFocused)
+                EventSystem.current.SetSelectedGameObject(null);
         }
     }
 
-    public void SetContent(string title, string text)
+    public void SetContent(string title, string text, Action callback = null)
     {
         dialogTitle.text = title;
         dialogText.text = text;
 
         dialogTitle.GetComponent<TextSettings>().ReinitializeDefaultText();
         dialogText.GetComponent<TextSettings>().ReinitializeDefaultText();
+
+        if(callback != null) dialogButton.onClick.AddListener(() => callback());
+        EventSystem.current.SetSelectedGameObject(dialogButton.gameObject);
+    }
+
+    public void SetContent(string title, string text, string inputPlaceholder, Action<string> callback)
+    {
+        dialogTitle.text = title;
+        dialogText.text = text;
+
+        dialogTitle.GetComponent<TextSettings>().ReinitializeDefaultText();
+        dialogText.GetComponent<TextSettings>().ReinitializeDefaultText();
+
+        dialogInputField.gameObject.SetActive(true);
+        dialogInputField.placeholder.GetComponent<TextMeshProUGUI>().text = inputPlaceholder;
+        dialogButton.onClick.AddListener(() => callback(dialogInputField.text));
+
+        dialogInputField.ActivateInputField();
     }
 
     public void Destroy()
     {
-        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(previousSelectedGameObject);
 
         Destroy(gameObject);
