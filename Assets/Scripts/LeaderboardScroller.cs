@@ -6,6 +6,9 @@ public class LeaderboardScroller : MonoBehaviour
     [SerializeField] private RectTransform contentContainer;
     [SerializeField] private RectTransform pinnedPlayerEntry;
     [SerializeField] private float scrollSpeed = 50f;
+    [SerializeField] private float scrollDelay = 2f; // seconds
+    private float delayTimer = 0f;
+    private bool hasStartedScrolling = false;
 
     private RectTransform playerEntryInScroll;
 
@@ -15,6 +18,12 @@ public class LeaderboardScroller : MonoBehaviour
         {
             playerEntryInScroll = leaderboardUI.PlayerScrollRow;
             if (playerEntryInScroll == null) return;
+        }
+        if (!hasStartedScrolling)
+        {
+            delayTimer += Time.unscaledDeltaTime;
+            if (delayTimer < scrollDelay) return;
+            hasStartedScrolling = true;
         }
         Vector3 playerWorldPos = playerEntryInScroll.position;
         Vector3 pinnedWorldPos = pinnedPlayerEntry.position;

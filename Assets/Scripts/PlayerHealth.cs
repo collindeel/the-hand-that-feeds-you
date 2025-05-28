@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
     public CameraShake cs;
     private AudioSource audioSource;
     public CanvasGroup finalScoreOverlay;
-    public FSPopupController fspc;
+    public TMP_Text scoreLabel;
     public Image fillImage;
     public CanvasGroup cg;
 
@@ -83,10 +83,8 @@ public class PlayerHealth : MonoBehaviour
         AudioControllerScript.instance.PlayEndDied();
         finalScoreOverlay.BroadcastMessage("UpdateTextSettings");
         finalScoreOverlay.alpha = 1f;
-
         StartCoroutine(UploadThenDownload());
-
-        fspc.ShowPopup(ScoreTracker.GetScore());
+    
         yield return new WaitForSecondsRealtime(30);
         Cursor.lockState = CursorLockMode.None;
         _globalVariables.gameCompleted = true;
@@ -95,8 +93,10 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator UploadThenDownload()
     {
-        yield return StartCoroutine(ScoreManager.instance.UploadScore(ScoreManager.instance.Score));
+        ScoreManager.instance.Score = ScoreTracker.GetScore();
+        yield return StartCoroutine(ScoreManager.instance.UploadScore(ScoreTracker.GetScore()));
         yield return StartCoroutine(ScoreManager.instance.DownloadScores());
+        scoreLabel.alpha = 1f;
     }
 
     public bool IsImmune()

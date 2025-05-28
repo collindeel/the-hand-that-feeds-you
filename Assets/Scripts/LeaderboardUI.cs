@@ -9,15 +9,25 @@ public class LeaderboardUI : MonoBehaviour
     [SerializeField] private RectTransform pinnedPlayerEntry;
     private RectTransform playerScrollRow;
     public RectTransform PlayerScrollRow => playerScrollRow;
+    public FSPopupController fspc;
+    public TMP_Text finalScoreLabel;
 
     void OnEnable()
     {
         scoreManager.OnScoresRetrieved += Populate;
+        scoreManager.OnNoConnect += ShowScore;
     }
 
     void OnDisable()
     {
         scoreManager.OnScoresRetrieved -= Populate;
+        scoreManager.OnNoConnect -= ShowScore;
+    }
+
+    void ShowScore()
+    {
+        fspc.ShowPopup(ScoreTracker.GetScore());
+        finalScoreLabel.text = "Final Score";
     }
 
     void Populate(ScoreManager.ScoreList scoreList)
@@ -39,7 +49,6 @@ public class LeaderboardUI : MonoBehaviour
             if (!isAMatchFound && entry.name == scoreList.activePlayerName && entry.score == scoreList.activePlayerScore)
             {
                 isAMatchFound = true;
-                print($"Assigned scroll row {entry.rank},{entry.name}, and {entry.score}");
                 playerScrollRow = rowObj.GetComponent<RectTransform>();
                 pinnedPlayerEntry.GetComponent<ScoreRow>().Init(entry.rank, entry.name, entry.score);
                 pinnedPlayerEntry.gameObject.SetActive(true);

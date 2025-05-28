@@ -11,6 +11,7 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager instance;
     private int score = -1;
     private string playerName = "Player";
+    GlobalVariables _globalVariables;
 
     void Awake()
     {
@@ -24,20 +25,22 @@ public class ScoreManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void Start()
+    {
+        _globalVariables = GameObject.FindWithTag("GlobalVariables").GetComponent<GlobalVariables>();
+        playerName = _globalVariables.playerName;
+    }
     public event Action<ScoreList> OnScoresRetrieved;
+    public event Action OnNoConnect;
 
-    public int Score => score;
+    public int Score
+    {
+        get { return score; }
+        set { score = value; }
+    }
     public void ResetScore()
     {
         score = 0;
-    }
-    public void SetPlayerName(string name)
-    {
-        if (!string.IsNullOrEmpty(name))
-        {
-            this.playerName = name;
-            Debug.Log("Player name set to: " + this.playerName);
-        }
     }
 
     public IEnumerator UploadScore(int score)
@@ -67,7 +70,7 @@ public class ScoreManager : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             string json = request.downloadHandler.text;
-            Debug.Log("Scores retrieved: " + json);
+            //Debug.Log("Scores retrieved: " + json);
 
             scoreList = JsonUtility.FromJson<ScoreList>("{\"scores\":" + json + "}");
 
@@ -77,7 +80,7 @@ public class ScoreManager : MonoBehaviour
         {
             scoreList = new ScoreList();
             Debug.LogWarning("Error retrieving scores: " + request.error);
-            OnScoresRetrieved?.Invoke(scoreList);
+            OnNoConnect?.Invoke();
         }
     }
 
@@ -107,17 +110,17 @@ public class ScoreManager : MonoBehaviour
             s.rank = GetRank(scoreList, s.score);
         }
 
-        /*if (score != -1 && lse.FindIndex(t => t.name == playerName && t.score == score) == -1)
+        if (score != -1 && lse.FindIndex(t => t.name == playerName && t.score == score) == -1)
         {
             ScoreEntry se = new ScoreEntry();
             se.name = playerName;
             se.rank = playerRank;
             se.score = score;
             lse.Add(se);
-        }*/
+        }
 
-        scoreList.activePlayerName = "tommy"; //playerName;
-        scoreList.activePlayerScore = 3;  //score;
+        scoreList.activePlayerName = playerName;
+        scoreList.activePlayerScore = score;
         scoreList.scores = lse;
         OnScoresRetrieved?.Invoke(scoreList);
     }
