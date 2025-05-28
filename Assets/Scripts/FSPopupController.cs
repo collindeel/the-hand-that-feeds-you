@@ -37,7 +37,7 @@ public class FSPopupController : MonoBehaviour
         while (elapsed < fadeDuration)
         {
             scoreText.alpha = Mathf.Lerp(0f, 1f, elapsed / fadeDuration);
-            scoreText.fontSize = Mathf.Lerp(48f, 100f, elapsed / fadeDuration);
+            scoreText.fontSize = Mathf.Lerp(48f, 120f, elapsed / fadeDuration);
             elapsed += Time.unscaledDeltaTime;
             yield return null;
         }

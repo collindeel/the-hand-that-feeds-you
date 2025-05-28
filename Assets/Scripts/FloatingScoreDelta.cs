@@ -41,5 +41,6 @@ public class FloatingScoreDelta : MonoBehaviour
         }
 
         deltaText.text = "";
+        deltaText.rectTransform.anchoredPosition = startPos;
     }
 }
