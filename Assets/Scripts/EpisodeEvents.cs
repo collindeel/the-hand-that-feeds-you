@@ -6,6 +6,7 @@ public static class EpisodeEvents
     public static event Action<EpisodeChangedArgs> OnEpisodeChanged;
     public static event Action<EpisodeChangedArgs> OnEpisodeChangeComplete;
     public static event Action OnRabbitFed;
+    public static event Action OnFedToFull;
 
     public static event Action OnCarrotCollected;
     public static event Action OnInitDamage;
@@ -25,6 +26,10 @@ public static class EpisodeEvents
     public static void RaiseRabbitFed()
     {
         OnRabbitFed?.Invoke();
+    }
+    public static void RaiseFedToFull()
+    {
+        OnFedToFull?.Invoke();
     }
     public static void RaiseEpisodeChanged(int episode,
                                            RabbitBehaviorLevel level)

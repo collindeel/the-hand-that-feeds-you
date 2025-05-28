@@ -42,6 +42,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
         EpisodeEvents.OnCarrotThrown += HandleCarrotThrown;
         EpisodeEvents.OnRabbitFed += HandleRabbitFed;
         EpisodeEvents.OnInitDamage += HandleInitDamage;
+        EpisodeEvents.OnFedToFull += HandleFedToFull;
         CountdownTimer.OnTimerFinished += HandleTimerFinished;
 
     }
@@ -53,6 +54,7 @@ public class ObjectiveAndTimerController : MonoBehaviour
         EpisodeEvents.OnCarrotThrown -= HandleCarrotThrown;
         EpisodeEvents.OnRabbitFed -= HandleRabbitFed;
         EpisodeEvents.OnInitDamage -= HandleInitDamage;
+        EpisodeEvents.OnFedToFull -= HandleFedToFull;
         CountdownTimer.OnTimerFinished -= HandleTimerFinished;
     }
     void Update()
@@ -111,6 +113,11 @@ public class ObjectiveAndTimerController : MonoBehaviour
             ShowPopup("Feed the rabbits!");
             shown = true;
         }
+    }
+    void HandleFedToFull()
+    {
+        string ft = "Oops! This rabbit's already full!";
+        ShowPopup(ft);
     }
     void HandleCarrotThrown(Vector3 pos)
     {

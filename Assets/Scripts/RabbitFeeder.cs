@@ -107,6 +107,9 @@ public class RabbitFeeder : MonoBehaviour
             }
             else if (doThrow)
             {
+                if (episodeController.GetEpisode() < 3 && rabbits.Length > 0)
+                    EpisodeEvents.RaiseFedToFull();
+                
                 //Debug.Log("No rabbits nearby... tossing a carrot.");
                 if (!trainingMode) inventory.RemoveCarrot();
                 ThrowCarrot();
