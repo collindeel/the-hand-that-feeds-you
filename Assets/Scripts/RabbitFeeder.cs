@@ -13,6 +13,7 @@ public class RabbitFeeder : MonoBehaviour
     public GameObject carrotPrefab;
     public PlayerBot bot;
     public ScorePopupController scorePC;
+    public FloatingScoreDelta fsd;
     private AudioSource audioSource;
     public AudioClip tossClip;
     public AudioClip twinkleClip;
@@ -41,16 +42,21 @@ public class RabbitFeeder : MonoBehaviour
     {
         if (_feedAction.WasPressedThisFrame())
         {
+            int delta = 0;
             bool wasFed = TryFeedRabbit();
             if (wasFed)
             {
                 if (episodeController.GetEpisode() == 2)
-                    ScoreTracker.AddScore(100);
+                    delta = 100;
                 else
-                    ScoreTracker.AddScore(50);
-
+                    delta = 50;
+                ScoreTracker.AddScore(delta);
                 if (!ScoreTracker.isScoreDisabled)
+                {
                     scorePC.ShowPopup(ScoreTracker.GetScore());
+                    fsd.Play(delta);
+
+                }
             }
         }
     }

@@ -35,6 +35,7 @@ public class CountdownTimer : MonoBehaviour
     void Start()
     {
         _timerLabelTextSettings = timerLabel.GetComponent<TextSettings>();
+        EpisodeEvents.OnEpisodeChanged += CancelTimer;
     }
 
     void Update()
@@ -54,6 +55,15 @@ public class CountdownTimer : MonoBehaviour
             return;
         }
         UpdateLabel(timeRemaining);
+    }
+
+    void CancelTimer(EpisodeChangedArgs args)
+    {
+        if (timeRemaining > 0f)
+        {
+            timeRemaining = 0f;
+        }
+
     }
 
     public bool IsTimerRunning()

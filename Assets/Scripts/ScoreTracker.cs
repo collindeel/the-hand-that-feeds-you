@@ -1,4 +1,3 @@
-
 public static class ScoreTracker
 {
     public static int GetScore()

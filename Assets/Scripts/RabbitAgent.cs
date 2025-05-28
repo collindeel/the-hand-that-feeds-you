@@ -647,9 +647,14 @@ public class RabbitAgent : Agent
                             popupController.ShowPopup();
                         }
                         ScorePopupController scorePC = playerHudTransform.GetComponent<ScorePopupController>();
-                        ScoreTracker.AddScore(-50);
+                        FloatingScoreDelta fsd = playerHudTransform.GetComponent<FloatingScoreDelta>();
+                        int delta = -50;
+                        ScoreTracker.AddScore(delta);
                         if (!ScoreTracker.isScoreDisabled)
+                        {
                             scorePC.ShowPopup(ScoreTracker.GetScore());
+                            fsd.Play(delta);
+                        }
                     }
                     SatiateRabbit();
                 }
