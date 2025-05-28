@@ -581,8 +581,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 387}
-  m_SizeDelta: {x: 751.9973, y: 152.5138}
+  m_AnchoredPosition: {x: 0, y: 316}
+  m_SizeDelta: {x: 1073.4417, y: 285.6836}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &124739120
 MonoBehaviour:
@@ -5451,7 +5451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6629d85f411bf4d69b8cb1d6e83eb06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 10
   immunityDuration: 2
   hbc: {fileID: 1599467266}
   damageSound: {fileID: 8300000, guid: ec51dc4c3fd0f4dd7b8b26b1ddd6208a, type: 3}

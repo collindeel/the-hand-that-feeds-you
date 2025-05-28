@@ -9,11 +9,13 @@ public class LeaderboardScroller : MonoBehaviour
     [SerializeField] private float scrollDelay = 1f; // seconds
     private float delayTimer = 0f;
     private bool hasStartedScrolling = false;
+    private bool hasFinishedScrolling = false;
 
     private RectTransform playerEntryInScroll;
 
     void Update()
     {
+        if (hasFinishedScrolling) return;
         if (playerEntryInScroll == null)
         {
             playerEntryInScroll = leaderboardUI.PlayerScrollRow;
@@ -25,15 +27,23 @@ public class LeaderboardScroller : MonoBehaviour
             if (delayTimer < scrollDelay) return;
             hasStartedScrolling = true;
         }
+
+        float contentBottomY = contentContainer.anchoredPosition.y;
+        float contentHeight = contentContainer.rect.height;
+        float viewportHeight = ((RectTransform)contentContainer.parent).rect.height;
+
+        if (contentBottomY + viewportHeight >= contentHeight - 1f)
+        {
+            hasFinishedScrolling = true;
+            return;
+        }
+        contentContainer.anchoredPosition += Vector2.up * scrollSpeed * Time.unscaledDeltaTime;
         Vector3 playerWorldPos = playerEntryInScroll.position;
         Vector3 pinnedWorldPos = pinnedPlayerEntry.position;
 
-        // When player scroll row visually overlaps pinned row
         if (playerWorldPos.y >= pinnedWorldPos.y)
         {
             pinnedPlayerEntry.gameObject.SetActive(false);
         }
-
-        contentContainer.anchoredPosition += Vector2.up * scrollSpeed * Time.unscaledDeltaTime;
     }
 }
