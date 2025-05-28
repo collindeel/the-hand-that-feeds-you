@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +18,9 @@ public class CaveEntryTrigger : MonoBehaviour
     public FSPopupController fspc;
     [SerializeField] Image fadeImg;
     GlobalVariables _globalVariables;
+    public ScorePopupController scorePC;
+    public FloatingScoreDelta fsd;
+    public TMP_Text scoreLabel;
 
     CanvasGroup fadeGroup;
     bool sequenceRunning;
@@ -86,6 +91,16 @@ public class CaveEntryTrigger : MonoBehaviour
         }
         fadeGroup.alpha = 1;
 
+        ScoreTracker.isScoreDisabled = false;
+        ScoreTracker.AddScore(500);
+        if (!ScoreTracker.isScoreDisabled)
+        {
+            scorePC.ShowPopup(ScoreTracker.GetScore());
+            fsd.Play(500);
+
+        }
+        ScoreTracker.isScoreDisabled = true;
+
         _globalVariables.gameCompleted = true;
 
         //-------------------------------------------------
@@ -97,9 +112,20 @@ public class CaveEntryTrigger : MonoBehaviour
         finalScoreOverlay.BroadcastMessage("UpdateTextSettings");
         finalScoreOverlay.alpha = 1f;
         fspc.ShowPopup(ScoreTracker.GetScore());
+
+        StartCoroutine(UploadThenDownload());
+        
         yield return new WaitForSecondsRealtime(5);
         Cursor.lockState = CursorLockMode.None;
         _globalVariables.gameCompleted = true;
         SceneManager.LoadScene("Main Menu");
+    }
+
+    private IEnumerator UploadThenDownload()
+    {
+        ScoreManager.instance.Score = ScoreTracker.GetScore();
+        yield return StartCoroutine(ScoreManager.instance.UploadScore(ScoreTracker.GetScore()));
+        yield return StartCoroutine(ScoreManager.instance.DownloadScores());
+        scoreLabel.alpha = 1f;
     }
 }

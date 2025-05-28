@@ -31,13 +31,13 @@ public class ScorePopupController : MonoBehaviour
         
         scoreText.alpha = 1f;
 
-        yield return new WaitForSeconds(displayTime);
+        yield return new WaitForSecondsRealtime(displayTime);
 
         float elapsed = 0f;
         while (elapsed < fadeDuration)
         {
             scoreText.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime;
             yield return null;
         }
 

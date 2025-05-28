@@ -26,7 +26,7 @@ public class FloatingScoreDelta : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime;
             float t = elapsed / duration;
 
             // Move upward

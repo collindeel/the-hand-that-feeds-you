@@ -5451,7 +5451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6629d85f411bf4d69b8cb1d6e83eb06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
   immunityDuration: 2
   hbc: {fileID: 1599467266}
   damageSound: {fileID: 8300000, guid: ec51dc4c3fd0f4dd7b8b26b1ddd6208a, type: 3}
@@ -6609,7 +6609,6 @@ RectTransform:
   - {fileID: 406954635}
   - {fileID: 368655893}
   - {fileID: 768766526}
-  - {fileID: 2023421019}
   - {fileID: 1109931821}
   - {fileID: 1752287428}
   - {fileID: 197984293}
@@ -6617,6 +6616,7 @@ RectTransform:
   - {fileID: 925397857}
   - {fileID: 460388106}
   - {fileID: 720187502}
+  - {fileID: 2023421019}
   m_Father: {fileID: 75406037}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7702,6 +7702,9 @@ MonoBehaviour:
   finalScoreOverlay: {fileID: 460388107}
   fspc: {fileID: 1599467271}
   fadeImg: {fileID: 326083306}
+  scorePC: {fileID: 1599467268}
+  fsd: {fileID: 1599467272}
+  scoreLabel: {fileID: 124739120}
 --- !u!1 &1868522944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8858927678321062700, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}
@@ -8017,7 +8020,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023421018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
