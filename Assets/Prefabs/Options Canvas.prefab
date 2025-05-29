@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 0.9411765}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 2282460666841924899}
   - component: {fileID: 3134618400474764546}
   - component: {fileID: 3605327540370504244}
+  - component: {fileID: 7777470202538994474}
   m_Layer: 5
   m_Name: Back Button
   m_TagString: Untagged
@@ -112,7 +113,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 100, y: 100}
-  m_SizeDelta: {x: 160, y: 75}
+  m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &2282460666841924899
 CanvasRenderer:
@@ -244,6 +245,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7777470202538994474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841673035292135082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8a020115da78b91a2e5c13f4888473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 1586225778, guid: dd83915940bebabd081c356badafcb33, type: 3}
+  - {fileID: 380312128, guid: dd83915940bebabd081c356badafcb33, type: 3}
+  - {fileID: 1733722632, guid: dd83915940bebabd081c356badafcb33, type: 3}
+  - {fileID: 1193043405, guid: dd83915940bebabd081c356badafcb33, type: 3}
 --- !u!1 &1869208070692809203
 GameObject:
   m_ObjectHideFlags: 0

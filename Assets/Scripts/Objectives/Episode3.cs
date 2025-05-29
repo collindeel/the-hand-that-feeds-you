@@ -25,24 +25,17 @@ public class Episode3AfterStart : Objective
         gameObject.name = "Episode 3 Objective";
 
         var globalVariablesObject = GameObject.FindWithTag("GlobalVariables");
-        if (globalVariablesObject == null)
-        {
-            globalVariablesObject = Instantiate(globalVariablesPrefab);
-            globalVariablesObject.tag = "GlobalVariables";
-            DontDestroyOnLoad(globalVariablesObject);
-        }
-        var playerName = globalVariablesObject.GetComponent<GlobalVariables>().playerName;
+        var globalVaiables = globalVariablesObject.GetComponent<GlobalVariables>();
 
         _dialogue = new (string, string)[] {
-            ("...", playerName),
-            ("... U-Unity-Chan?", playerName),
-            (playerName + "...", "Unity-Chan"),
+            ("...", globalVaiables.playerName),
+            ("... U-Unity-Chan?", globalVaiables.playerName),
+            ($"{globalVaiables.playerName}...", "Unity-Chan"),
             ("It... Seems... I have... Underestimated the rabbits..", "Unity-Chan"),
             ("Go... While... You still can...", "Unity-Chan"),
             ("...", "Unity-Chan"),
             ("<i><b><color=red>Run.</color></b></i>", "Unity-Chan")
         };
-
     }
 
     public static void Initialize(GameObject questPrefab, GameObject unityChan, DialogueManager dialogueManager)
