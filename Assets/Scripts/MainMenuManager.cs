@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
     InputAction _navigateAction;
     InputAction _pointAction;
 
-    void Start()
+    void Awake()
     {
         var globalVariablesObject = GameObject.FindWithTag("GlobalVariables");
         if (globalVariablesObject == null)
@@ -32,8 +32,10 @@ public class MainMenuManager : MonoBehaviour
             titleImage.sprite = alternateTitleSprite;
 
         EventSystem.current.SetSelectedGameObject(startButton.gameObject);
+    }
 
-
+    void Start()
+    {
         var dialogManager = GetComponent<DialogManager>();
         if (!_globalVariables.showedContentWarning)
         {
@@ -52,7 +54,6 @@ public class MainMenuManager : MonoBehaviour
 
         _navigateAction = InputSystem.actions.FindAction("Navigate");
         _pointAction = InputSystem.actions.FindAction("Point");
-
     }
 
     void Update()

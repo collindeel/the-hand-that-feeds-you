@@ -693,6 +693,7 @@ GameObject:
   - component: {fileID: 6885787520341759201}
   - component: {fileID: 369439323469541372}
   - component: {fileID: 1563469621755546974}
+  - component: {fileID: 1211362699066705465}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -829,8 +830,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 160
-  m_PreferredHeight: 75
+  m_PreferredWidth: 250
+  m_PreferredHeight: 100
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -846,6 +847,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8a020115da78b91a2e5c13f4888473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites: []
+--- !u!114 &1211362699066705465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814786919309646369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8a020115da78b91a2e5c13f4888473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 1586225778, guid: dd83915940bebabd081c356badafcb33, type: 3}
+  - {fileID: 380312128, guid: dd83915940bebabd081c356badafcb33, type: 3}
+  - {fileID: 1733722632, guid: dd83915940bebabd081c356badafcb33, type: 3}
+  - {fileID: 1193043405, guid: dd83915940bebabd081c356badafcb33, type: 3}
 --- !u!1 &4550227996054574549
 GameObject:
   m_ObjectHideFlags: 0
