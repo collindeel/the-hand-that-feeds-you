@@ -63,9 +63,6 @@ public class RabbitModelSwitcher : MonoBehaviour
 
         bp.Model = chosen;
         bp.BehaviorName = name;
-#if !UNITY_EDITOR
-        bp.BehaviorType = BehaviorType.InferenceOnly;
-#endif
     }
 
     /* ---------- static registry  ---------- */
