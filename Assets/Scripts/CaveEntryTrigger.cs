@@ -21,6 +21,7 @@ public class CaveEntryTrigger : MonoBehaviour
     public ScorePopupController scorePC;
     public FloatingScoreDelta fsd;
     public TMP_Text scoreLabel;
+    public GameManager gameManager;
 
     CanvasGroup fadeGroup;
     bool sequenceRunning;
@@ -108,23 +109,7 @@ public class CaveEntryTrigger : MonoBehaviour
         //-------------------------------------------------
         yield return new WaitForSecondsRealtime(holdWhiteTime);
         Time.timeScale = 0f;
-        AudioControllerScript.instance.PlayEndWon();
-        finalScoreOverlay.BroadcastMessage("UpdateTextSettings");
-        finalScoreOverlay.alpha = 1f;
 
-        StartCoroutine(UploadThenDownload());
-        
-        yield return new WaitForSecondsRealtime(30);
-        Cursor.lockState = CursorLockMode.None;
-        _globalVariables.gameCompleted = true;
-        SceneManager.LoadScene("Main Menu");
-    }
-
-    private IEnumerator UploadThenDownload()
-    {
-        ScoreManager.instance.Score = ScoreTracker.GetScore();
-        yield return StartCoroutine(ScoreManager.instance.UploadScore(ScoreTracker.GetScore()));
-        yield return StartCoroutine(ScoreManager.instance.DownloadScores());
-        scoreLabel.alpha = 1f;
+        StartCoroutine(gameManager.ShowAndExitFlow(true));
     }
 }

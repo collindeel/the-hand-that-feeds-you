@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class LeaderboardScroller : MonoBehaviour
@@ -9,7 +10,9 @@ public class LeaderboardScroller : MonoBehaviour
     [SerializeField] private float scrollDelay = 1f; // seconds
     private float delayTimer = 0f;
     private bool hasStartedScrolling = false;
-    private bool hasFinishedScrolling = false;
+
+    [NonSerialized]
+    public bool hasFinishedScrolling = false;
 
     private RectTransform playerEntryInScroll;
 

@@ -5458,10 +5458,10 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: ec51dc4c3fd0f4dd7b8b26b1ddd6208a, type: 3}
   jumpScareSound: {fileID: 8300000, guid: f9357def286cf4b9c8ee00a8d65974f0, type: 3}
   cs: {fileID: 330585549}
-  finalScoreOverlay: {fileID: 460388107}
   scoreLabel: {fileID: 124739120}
   fillImage: {fileID: 1087819765}
   cg: {fileID: 925397860}
+  gameManager: {fileID: 1310173824}
 --- !u!114 &1048538254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6302,6 +6302,11 @@ MonoBehaviour:
   episodeController: {fileID: 866432622}
   doesEscapeTriggerMenu: 1
   globalVariablesPrefab: {fileID: 47677050336490609, guid: e3356791e7cebf864be6a49bdf47671e, type: 3}
+  finalScoreOverlay: {fileID: 460388107}
+  leaderboardUI: {fileID: 460388111}
+  leaderboardScroller: {fileID: 460388110}
+  maxDisplayTimeForScrolling: 40
+  minDisplayTime: 5
 --- !u!4 &1310173825
 Transform:
   m_ObjectHideFlags: 0
@@ -7706,6 +7711,7 @@ MonoBehaviour:
   scorePC: {fileID: 1599467268}
   fsd: {fileID: 1599467272}
   scoreLabel: {fileID: 124739120}
+  gameManager: {fileID: 1310173824}
 --- !u!1 &1868522944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8858927678321062700, guid: d751c305cd1024ec3966da0340a1c8be, type: 3}

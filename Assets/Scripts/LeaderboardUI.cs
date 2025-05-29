@@ -12,25 +12,17 @@ public class LeaderboardUI : MonoBehaviour
     public FSPopupController fspc;
     public TMP_Text finalScoreLabel;
 
-    void OnEnable()
-    {
-        scoreManager.OnScoresRetrieved += Populate;
-        scoreManager.OnNoConnect += ShowScore;
-    }
-
-    void OnDisable()
-    {
-        scoreManager.OnScoresRetrieved -= Populate;
-        scoreManager.OnNoConnect -= ShowScore;
-    }
-
-    void ShowScore()
+    public void ShowScore()
     {
         fspc.ShowPopup(ScoreTracker.GetScore());
-        finalScoreLabel.text = "Final Score";
+    }
+    public void ShowScoreLabel(string text)
+    {
+        finalScoreLabel.text = text;
+        finalScoreLabel.alpha = 1f;
     }
 
-    void Populate(ScoreManager.ScoreList scoreList)
+    public void ShowLeaderboard(ScoreManager.ScoreList scoreList)
     {
         // Clear existing entries
         foreach (Transform child in contentContainer)

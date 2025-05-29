@@ -15,19 +15,15 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip jumpScareSound;
     public CameraShake cs;
     private AudioSource audioSource;
-    public CanvasGroup finalScoreOverlay;
     public TMP_Text scoreLabel;
     public Image fillImage;
     public CanvasGroup cg;
-
-    GlobalVariables _globalVariables;
+    public GameManager gameManager;
 
     void Start()
     {
         currentHealth = maxHealth;
         audioSource = GetComponent<AudioSource>();
-
-        _globalVariables = GameObject.FindWithTag("GlobalVariables").GetComponent<GlobalVariables>();
     }
 
     void Update()
@@ -79,26 +75,11 @@ public class PlayerHealth : MonoBehaviour
         audioSource.clip = jumpScareSound;
         audioSource.Play();
         yield return new WaitForSecondsRealtime(3);
-        AudioControllerScript.instance.PlayEndDied();
-        finalScoreOverlay.BroadcastMessage("UpdateTextSettings");
-        finalScoreOverlay.alpha = 1f;
-        cg.alpha = 0f;
-        StartCoroutine(UploadThenDownload());
-    
-        yield return new WaitForSecondsRealtime(30);
-        Cursor.lockState = CursorLockMode.None;
-        _globalVariables.gameCompleted = true;
-        SceneManager.LoadScene("Main Menu");
-    }
 
-    private IEnumerator UploadThenDownload()
-    {
-        ScoreManager.instance.Score = ScoreTracker.GetScore();
-        yield return StartCoroutine(ScoreManager.instance.UploadScore(ScoreTracker.GetScore()));
-        yield return StartCoroutine(ScoreManager.instance.DownloadScores());
-        scoreLabel.alpha = 1f;
-    }
+        StartCoroutine(gameManager.ShowAndExitFlow(false));
+        cg.alpha = 0f; // if necessary
 
+    }
     public bool IsImmune()
     {
         return immunityTimer > 0f;

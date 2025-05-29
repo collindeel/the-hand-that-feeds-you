@@ -30,8 +30,6 @@ public class ScoreManager : MonoBehaviour
         _globalVariables = GameObject.FindWithTag("GlobalVariables").GetComponent<GlobalVariables>();
         playerName = _globalVariables.playerName;
     }
-    public event Action<ScoreList> OnScoresRetrieved;
-    public event Action OnNoConnect;
 
     public int Score
     {
@@ -43,7 +41,7 @@ public class ScoreManager : MonoBehaviour
         score = 0;
     }
 
-    public IEnumerator UploadScore(int score)
+    public IEnumerator UploadScore(int score, Action<bool> callback)
     {
         string json = JsonUtility.ToJson(new ScoreData(playerName, score));
         UnityWebRequest request = new UnityWebRequest("http://XXXXXXXX      # literal IP → placeholder:3001/submit-score", "POST");
@@ -54,13 +52,11 @@ public class ScoreManager : MonoBehaviour
 
         yield return request.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.Success)
-            Debug.Log("Score uploaded successfully for: " + playerName);
-        else
-            Debug.LogWarning("Error uploading score: " + request.error);
+        bool success = request.result == UnityWebRequest.Result.Success;
+        callback?.Invoke(success);
     }
 
-    public IEnumerator DownloadScores()
+    public IEnumerator DownloadScores(Action<bool, ScoreList> callback)
     {
         UnityWebRequest request = UnityWebRequest.Get($"http://XXXXXXXX      # literal IP → placeholder:3001/get-scores");
 
@@ -74,17 +70,18 @@ public class ScoreManager : MonoBehaviour
 
             scoreList = JsonUtility.FromJson<ScoreList>("{\"scores\":" + json + "}");
 
-            FinalizeScoreListAndRaiseEvent(scoreList);
+            scoreList = FinalizeScoreList(scoreList);
+            callback?.Invoke(true, scoreList);
+            
         }
         else
         {
             scoreList = new ScoreList();
-            Debug.LogWarning("Error retrieving scores: " + request.error);
-            OnNoConnect?.Invoke();
+            callback?.Invoke(false, scoreList);
         }
     }
 
-    public void FinalizeScoreListAndRaiseEvent(ScoreList scoreList)
+    public ScoreList FinalizeScoreList(ScoreList scoreList)
     {
         //score = ScoreTracker.GetScore();
 
@@ -122,7 +119,7 @@ public class ScoreManager : MonoBehaviour
         scoreList.activePlayerName = playerName;
         scoreList.activePlayerScore = score;
         scoreList.scores = lse;
-        OnScoresRetrieved?.Invoke(scoreList);
+        return scoreList;
     }
 
     public int GetRank(ScoreList scoreList, int curScore)
