@@ -30,7 +30,7 @@ public class Dialog : MonoBehaviour
     {
         if (EventSystem.current.currentSelectedGameObject == dialogInputField.gameObject)
         {
-            if (Keyboard.current.tabKey.wasPressedThisFrame)
+            if (Keyboard.current.tabKey.wasPressedThisFrame || Gamepad.current.leftStick.down.wasPressedThisFrame || Gamepad.current.dpad.down.wasPressedThisFrame)
                 EventSystem.current.SetSelectedGameObject(dialogButton.gameObject);
             else if (Keyboard.current.enterKey.wasPressedThisFrame)
                 dialogButton.OnPointerClick(new PointerEventData(EventSystem.current));
@@ -50,6 +50,8 @@ public class Dialog : MonoBehaviour
                     EventSystem.current.SetSelectedGameObject(dialogInputField.gameObject);
                 else
                     EventSystem.current.SetSelectedGameObject(dialogButton.gameObject);
+            else if (EventSystem.current.currentSelectedGameObject != dialogInputField.gameObject && EventSystem.current.currentSelectedGameObject != dialogButton.gameObject)
+                EventSystem.current.SetSelectedGameObject(dialogButton.gameObject);
         }
         else if (_pointAction.WasPerformedThisFrame())
         {
