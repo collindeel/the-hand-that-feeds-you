@@ -28,7 +28,21 @@ public class Dialog : MonoBehaviour
 
     void Update()
     {
-        if (_navigateAction.WasPressedThisFrame())
+        if (EventSystem.current.currentSelectedGameObject == dialogInputField.gameObject)
+        {
+            if (Keyboard.current.tabKey.wasPressedThisFrame)
+                EventSystem.current.SetSelectedGameObject(dialogButton.gameObject);
+            else if (Keyboard.current.enterKey.wasPressedThisFrame)
+                dialogButton.OnPointerClick(new PointerEventData(EventSystem.current));
+        }
+        else if (dialogInputField.isActiveAndEnabled
+            && EventSystem.current.currentSelectedGameObject == dialogButton.gameObject
+            && Keyboard.current.shiftKey.isPressed
+            && Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            EventSystem.current.SetSelectedGameObject(dialogInputField.gameObject);
+        }
+        else if (_navigateAction.WasPressedThisFrame())
         {
             Cursor.lockState = CursorLockMode.Locked;
             if (EventSystem.current.currentSelectedGameObject == null)
@@ -36,11 +50,6 @@ public class Dialog : MonoBehaviour
                     EventSystem.current.SetSelectedGameObject(dialogInputField.gameObject);
                 else
                     EventSystem.current.SetSelectedGameObject(dialogButton.gameObject);
-        }
-        else if (Keyboard.current.tabKey.wasPressedThisFrame)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            EventSystem.current.SetSelectedGameObject(dialogButton.gameObject);
         }
         else if (_pointAction.WasPerformedThisFrame())
         {
@@ -58,7 +67,7 @@ public class Dialog : MonoBehaviour
         dialogTitle.GetComponent<TextSettings>().ReinitializeDefaultText();
         dialogText.GetComponent<TextSettings>().ReinitializeDefaultText();
 
-        if(callback != null) dialogButton.onClick.AddListener(() => callback());
+        if (callback != null) dialogButton.onClick.AddListener(() => callback());
         EventSystem.current.SetSelectedGameObject(dialogButton.gameObject);
     }
 
