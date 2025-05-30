@@ -4194,6 +4194,7 @@ MonoBehaviour:
   preholdDuration: 1
   postholdDuration: 2
   playerInput: {fileID: 1310173831}
+  _globalVariables: {fileID: 0}
   arrowPointer: {fileID: 1095513303}
 --- !u!4 &866432623
 Transform:
@@ -5333,6 +5334,7 @@ MonoBehaviour:
   jumpForce: 5
   gameManager: {fileID: 1310173824}
   cameraTransform: {fileID: 75406037}
+  _globalVariables: {fileID: 0}
   maxAcceptableDistToGround: 1.5
   groundLayer:
     serializedVersion: 2
@@ -5453,7 +5455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6629d85f411bf4d69b8cb1d6e83eb06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
   immunityDuration: 2
   hbc: {fileID: 1599467266}
   damageSound: {fileID: 8300000, guid: ec51dc4c3fd0f4dd7b8b26b1ddd6208a, type: 3}
@@ -6774,7 +6776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7330de4c20d14accb8a2171639696f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 90
+  totalTime: 120
   timerLabel: {fileID: 197984294}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   last10sColor: {r: 1, g: 0, b: 0, a: 1}
