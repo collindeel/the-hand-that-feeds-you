@@ -12,6 +12,8 @@ public class CountdownTimer : MonoBehaviour
     TextSettings _timerLabelTextSettings;
     public Color normalColor = Color.white;
     public Color last10sColor = Color.red;
+    private AudioSource audioSource;
+    public AudioClip whistle;
 
     public static event Action OnTimerFinished;
 
@@ -36,6 +38,7 @@ public class CountdownTimer : MonoBehaviour
     {
         _timerLabelTextSettings = timerLabel.GetComponent<TextSettings>();
         EpisodeEvents.OnEpisodeChanged += CancelTimer;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -47,6 +50,7 @@ public class CountdownTimer : MonoBehaviour
         {
             timeRemaining = 0f;
             running = false;
+            audioSource.PlayOneShot(whistle);
             UpdateLabel(0f);
             ScoreTracker.isScoreDisabled = true;
             // pause?
