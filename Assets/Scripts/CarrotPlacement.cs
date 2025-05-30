@@ -13,9 +13,23 @@ public class CarrotPlacement : MonoBehaviour
     bool trainingMode = false;
     public LayerMask foliageLayerMask;
     public float buryDepth = 1.2f;
-    //public List<Transform> spawnedCarrots = new List<Transform>();
 
+    //public List<Transform> spawnedCarrots = new List<Transform>();
+    void OnEnable() => EpisodeEvents.OnEpisodeChanged += HandleEpisodeChanged;
+    void OnDisable() => EpisodeEvents.OnEpisodeChanged -= HandleEpisodeChanged;
     void Start()
+    {
+        PlaceCarrots();
+    }
+    void HandleEpisodeChanged(EpisodeChangedArgs args)
+    {
+        if (args.episode == 2 || args.episode == 3)
+        {
+            PlaceCarrots();
+        }
+    }
+
+    void PlaceCarrots()
     {
         trainingMode = bot.isEnabled;
         if (trainingMode) return;
