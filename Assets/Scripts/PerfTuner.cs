@@ -25,11 +25,11 @@ public static class PerfTuner
                 urp.shadowDistance = 0;
                 urp.renderScale = 0.7f;
                 QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
-                Screen.SetResolution(
-                    Mathf.RoundToInt(nativeRes.width * 0.8f),
-                    Mathf.RoundToInt(nativeRes.height * 0.8f),
+                /*Screen.SetResolution(
+                    Mathf.RoundToInt(nativeRes.width * 0.7f),
+                    Mathf.RoundToInt(nativeRes.height * 0.7f),
                     FullScreenMode.ExclusiveFullScreen,
-                    nativeRes.refreshRateRatio);
+                    nativeRes.refreshRateRatio);*/
                 break;
 
             case PerfTier.High:
@@ -40,11 +40,11 @@ public static class PerfTuner
                 urp.renderScale = 1f;
                 QualitySettings.anisotropicFiltering =
                     AnisotropicFiltering.ForceEnable;
-                Screen.SetResolution(
+                /*Screen.SetResolution(
                     nativeRes.width,
                     nativeRes.height,
                     FullScreenMode.ExclusiveFullScreen,
-                    nativeRes.refreshRateRatio);
+                    nativeRes.refreshRateRatio);*/
                 break;
         }
     }
