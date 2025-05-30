@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public CanvasGroup finalScoreOverlay;
     public LeaderboardUI leaderboardUI;
     public LeaderboardScroller leaderboardScroller;
+    [SerializeField] PerfTier defaultTier = PerfTier.High;
 
     void OnEnable()
     {
@@ -32,6 +33,16 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        if (SystemInfo.graphicsMemorySize < 2000 ||
+            SystemInfo.graphicsDeviceName.Contains("Intel(R) HD"))
+        {
+            PerfTuner.Apply(PerfTier.Low);
+        }
+        else
+        {
+            PerfTuner.Apply(defaultTier);
+        }
+
         var globalVariablesObject = GameObject.FindWithTag("GlobalVariables");
         if (globalVariablesObject == null)
         {
@@ -57,6 +68,12 @@ public class GameManager : MonoBehaviour
         {
             skipRequested = true;
         }
+    }
+
+    public void SetPerfTier(bool isHigh)
+    {
+        int index = isHigh ? 1 : 0;
+        PerfTuner.Apply((PerfTier)index);
     }
 
     void HandleEpisodeChangeComplete(EpisodeChangedArgs args)
