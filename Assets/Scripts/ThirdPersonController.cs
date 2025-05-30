@@ -13,6 +13,7 @@ public class ThirdPersonController : MonoBehaviour
     [Header("Refs")]
     public GameManager gameManager;
     public Transform cameraTransform;
+    public GlobalVariables _globalVariables;
 
     Rigidbody rb;
     PlayerBot bot;
@@ -39,11 +40,12 @@ public class ThirdPersonController : MonoBehaviour
         bot = GetComponent<PlayerBot>();
         _sprintAction = InputSystem.actions.FindAction("Sprint");
         _jumpAction = InputSystem.actions.FindAction("Jump");
+        _globalVariables = GameObject.FindWithTag("GlobalVariables").GetComponent<GlobalVariables>();
     }
 
     void Update()
     {
-        if (bot.isEnabled || gameManager.storyMode)
+        if (bot.isEnabled || gameManager.storyMode || _globalVariables.isOverlay)
         {
             // Stop player from walking during cutscene
             cachedH = 0f;

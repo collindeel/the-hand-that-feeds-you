@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Collections;
 
 public enum RabbitBehaviorLevel { Heuristic, Timid, Medium, Aggressive }
 public class EpisodeController : MonoBehaviour
@@ -16,6 +17,8 @@ public class EpisodeController : MonoBehaviour
     [SerializeField] float holdDuration = 3f;
     [SerializeField] float preholdDuration = 1f;
     [SerializeField] float postholdDuration = 1.5f;
+    public PlayerInput playerInput;
+    public GlobalVariables _globalVariables;
 
     public ArrowPointer arrowPointer;
 
@@ -30,7 +33,7 @@ public class EpisodeController : MonoBehaviour
     void Start()
     {
         _textSettings = label.GetComponent<TextSettings>();
-
+        _globalVariables = GameObject.FindWithTag("GlobalVariables").GetComponent<GlobalVariables>();
         currentRoutine = StartCoroutine(EpisodeRoutine());
     }
 
@@ -40,10 +43,7 @@ public class EpisodeController : MonoBehaviour
         if (kb == null) return;
         if (kb[skipKey].wasPressedThisFrame && overlay.gameObject.activeSelf)
         {
-            KillOverlayRoutine();
-            HideOverlayInstant();
-            EpisodeEvents.RaiseEpisodeChangeComplete(episode, getLevelByEpisode());
-            busy = false;
+            StartCoroutine(HoldAndKillOverlay());
             return;
         }
         if (busy) return;
@@ -54,6 +54,16 @@ public class EpisodeController : MonoBehaviour
             StartNextEpisode();
         }
 #endif
+    }
+    IEnumerator HoldAndKillOverlay()
+    {
+        yield return null;
+        KillOverlayRoutine();
+        HideOverlayInstant();
+        EpisodeEvents.RaiseEpisodeChangeComplete(episode, getLevelByEpisode());
+        busy = false;
+        _globalVariables.isOverlay = false;
+
     }
     public int GetEpisode()
     {
@@ -132,6 +142,7 @@ public class EpisodeController : MonoBehaviour
             yield break;
         }
 
+        _globalVariables.isOverlay = true;
         string ft;
         switch (episode)
         {
@@ -150,14 +161,15 @@ public class EpisodeController : MonoBehaviour
         }
         label.text = $"Episode {episode}\n\n{ft}";
 
-        _textSettings.ReinitializeDefaultText();
 
+        _textSettings.ReinitializeDefaultText();
         yield return FadeInText();
         yield return new WaitForSecondsRealtime(holdDuration);
         yield return FadeOutText();
         yield return new WaitForSecondsRealtime(postholdDuration);
         yield return FadeOutCanvas();
         EpisodeEvents.RaiseEpisodeChangeComplete(episode, level);
+        _globalVariables.isOverlay = false;
         busy = false;
     }
 
