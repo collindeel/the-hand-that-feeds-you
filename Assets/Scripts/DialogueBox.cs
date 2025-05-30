@@ -65,9 +65,12 @@ public class DialogueBox : MonoBehaviour
     public void UpdateSpriteAsset(object obj, InputActionChange change)
     {
         if (playerInput.currentControlScheme == "Gamepad")
-            if (Gamepad.current.displayName.StartsWith("PS") || Gamepad.current.displayName.StartsWith("DualSense") || Gamepad.current.displayName.StartsWith("DualShock"))
+        {
+            var gamepadName = Gamepad.current.displayName.ToLower();
+            if (gamepadName.StartsWith("ps") || gamepadName.StartsWith("dualsense") || gamepadName.StartsWith("dualshock"))
                 _textboxText.spriteAsset = playstationSprites;
             else _textboxText.spriteAsset = xboxSprites;
+        }
         else _textboxText.spriteAsset = keyboardSprites;
     }
 
