@@ -36,12 +36,13 @@ public class MainMenuManager : MonoBehaviour
 
     void Start()
     {
+        var menuManager = GetComponent<MenuManager>();
         var dialogManager = GetComponent<DialogManager>();
+
         if (!_globalVariables.showedContentWarning)
         {
             dialogManager.CreateDialog("Notice", "Trigger warning info available at the bottom right of the main menu.", () => { _globalVariables.showedContentWarning = true; });
 
-            var menuManager = GetComponent<MenuManager>();
             startButton.onClick.AddListener(() =>
             {
                 dialogManager.CreateDialog("Player Name", "Please enter your name.", "Misaki", (name) =>
@@ -51,6 +52,7 @@ public class MainMenuManager : MonoBehaviour
                 });
             });
         }
+        else startButton.onClick.AddListener(menuManager.StartGame);
 
         _navigateAction = InputSystem.actions.FindAction("Navigate");
         _pointAction = InputSystem.actions.FindAction("Point");
