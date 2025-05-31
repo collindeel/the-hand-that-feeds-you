@@ -9,6 +9,7 @@ public class OptionsManager : MonoBehaviour
     public AudioMixer audioMixer;
     public GameObject audioSettings;
     public GameObject textSettings;
+    public GameObject resSettings;
     public Button backButton;
 
 
@@ -20,6 +21,7 @@ public class OptionsManager : MonoBehaviour
         SetColorsOfSelectables();
         LoadVolumeSettings();
         LoadTextSettings();
+        LoadResSettings();
 
         _navigateAction = InputSystem.actions.FindAction("Navigate");
         _pointAction = InputSystem.actions.FindAction("Point");
@@ -97,6 +99,22 @@ public class OptionsManager : MonoBehaviour
             var value = PlayerPrefs.GetInt(settingName, 0) == 1;
             toggle.SetIsOnWithoutNotify(value);
         }
+    }
+    public void LoadResSettings()
+    {
+        var toggles = resSettings.GetComponentsInChildren<Toggle>();
+        foreach (var toggle in toggles)
+        {
+            var settingName = toggle.transform.parent.name;
+            var value = PlayerPrefs.GetInt(settingName, 1) == 1;
+            toggle.SetIsOnWithoutNotify(value);
+        }
+    }
+    public void SaveResSetting(Toggle toggle)
+    {
+        var settingName = toggle.transform.parent.name;
+        var value = toggle.isOn ? 1 : 0;
+        PlayerPrefs.SetInt(settingName, value);
     }
 
     public void SaveTextSetting(Toggle toggle)

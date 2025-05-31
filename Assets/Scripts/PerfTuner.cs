@@ -6,18 +6,18 @@ public enum PerfTier { Low, High }
 public static class PerfTuner
 {
 
-    static Resolution nativeRes;
+    //static Resolution nativeRes;
 
-    static void CacheNative()
+    /*static void CacheNative()
     {
         if (nativeRes.width == 0)
             nativeRes = Screen.currentResolution;
-    }
+    }*/
 
     public static void Apply(PerfTier tier)
     {
         var urp = (UniversalRenderPipelineAsset)QualitySettings.renderPipeline;
-        CacheNative();
+        //CacheNative();
 
         switch (tier)
         {
