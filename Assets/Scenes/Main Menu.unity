@@ -1559,10 +1559,10 @@ MonoBehaviour:
   m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
-  m_Elasticity: 0.1
+  m_Elasticity: 1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_DecelerationRate: 0.405
+  m_ScrollSensitivity: 3
   m_Viewport: {fileID: 71849032}
   m_HorizontalScrollbar: {fileID: 1650085226}
   m_VerticalScrollbar: {fileID: 71059719}
@@ -1846,6 +1846,7 @@ GameObject:
   - component: {fileID: 1537676614}
   - component: {fileID: 1537676613}
   - component: {fileID: 1537676615}
+  - component: {fileID: 1537676616}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1941,15 +1942,52 @@ MonoBehaviour:
     Blood Border -- Pngtree
 
 
-    <size=48>Audio</size>
+    <size=48>Music</size>
 
-    Footsteps
-    -- MGWSoundDesign
+    White
+    Records - "Evening birds singing in spring"
+
+    BackgroundMusicForVideo - "Feel
+    Good Spring Music"
+
+    Magiksolo - "Swift Valkyrie"
+
+    Rockot - "Dark Drone
+    Intrigue"
+
+    SigmaMusicArt - "Cinematic Action Trailer"
+
+    SAMusic - "Sam
+    rock music"
+
+    RDreamStudios - "Follow The Light"
+
+
+    <size=48>Audio (SFX)</size>
+
+    Referee
+    whistle blow, gymnasium.wav by SpliceSound -- https://freesound.org/s/218318/
+    -- License: Creative Commons 0
 
     SE_refresh.aif by Chanhun -- https://freesound.org/s/161322/
     -- License: Attribution 3.0
 
     tossing-chip-bag by CosmicEmbers -- https://freesound.org/s/161416/
+    -- License: Attribution 3.0
+
+    Glass Bottle Pop by dreggsome -- https://freesound.org/s/751483/
+    -- License: Creative Commons 0
+
+    Cha Ching.wav by deleted_user_96253 -- https://freesound.org/s/351304/
+    -- License: Creative Commons 0
+
+    AHHHH by random_intruder -- https://freesound.org/s/392172/
+    -- License: Creative Commons 0
+
+    Scream1_Short.aif by RutgerMuller -- https://freesound.org/s/104028/
+    -- License: Creative Commons 0
+
+    Scream 02 by adriancalzon -- https://freesound.org/s/220619/
     -- License: Attribution 3.0
 
 
@@ -1958,7 +1996,11 @@ MonoBehaviour:
     Dr Chris
     Cain
 
-    Eastern Washington University'
+    Eastern Washington University
+
+
+    This game was made without the
+    use of generative AI.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2051,6 +2093,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &1537676616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537676611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ca24c74c7f7e24b01a6b7b4043e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dyslexiaFriendlyFont: {fileID: 11400000, guid: c3d205fb03687b21584b4348614ed830, type: 2}
+  alwaysAdhdFriendly: 0
 --- !u!1 &1549151281
 GameObject:
   m_ObjectHideFlags: 0
