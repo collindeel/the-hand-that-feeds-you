@@ -68,7 +68,7 @@ public class RabbitFeeder : MonoBehaviour
 
     public bool TryFeedRabbit(bool doThrow)
     {
-        if (countdownTimer.IsTimerRunning() || otc.IsTutorialRabbit())
+        if (countdownTimer.IsTimerRunning() || episodeController.GetEpisode() == 4 || otc.IsTutorialRabbit())
         {
             if (!trainingMode && inventory.CarrotCount <= 0)
             {
