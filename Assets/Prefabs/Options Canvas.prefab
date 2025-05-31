@@ -1609,7 +1609,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2494019191154542257, guid: 9b7ac7477b793dc1dac7f4735906e5bf, type: 3}
       propertyPath: m_text
-      value: High resolution
+      value: High-quality Rendering
       objectReference: {fileID: 0}
     - target: {fileID: 7167543505627238966, guid: 9b7ac7477b793dc1dac7f4735906e5bf, type: 3}
       propertyPath: m_Name
@@ -1813,6 +1813,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7495435510899256989, guid: 59b49137f7141e449893bd49c29e3599, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8915582680519945544, guid: 59b49137f7141e449893bd49c29e3599, type: 3}
       propertyPath: m_text
       value: Master
@@ -1835,6 +1839,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6616978926088611677}
     m_Modifications:
+    - target: {fileID: 1880490051169722508, guid: 59b49137f7141e449893bd49c29e3599, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3546826482070089890, guid: 59b49137f7141e449893bd49c29e3599, type: 3}
       propertyPath: m_Name
       value: SFX Volume
