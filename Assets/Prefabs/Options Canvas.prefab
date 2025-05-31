@@ -1232,7 +1232,7 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 872d06cd26e5bba70afefdab791ab0a7, type: 2}
   audioSettings: {fileID: 8160594654210108519}
   textSettings: {fileID: 5159774223464459027}
-  resSettings: {fileID: 0}
+  resSettings: {fileID: 3101399744310149865}
   backButton: {fileID: 3605327540370504244}
 --- !u!1 &8160594654210108519
 GameObject:
@@ -1613,11 +1613,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7167543505627238966, guid: 9b7ac7477b793dc1dac7f4735906e5bf, type: 3}
       propertyPath: m_Name
-      value: Text Toggle
+      value: IsHighRes
       objectReference: {fileID: 0}
     - target: {fileID: 8155442516629534967, guid: 9b7ac7477b793dc1dac7f4735906e5bf, type: 3}
       propertyPath: m_IsOn
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8155442516629534967, guid: 9b7ac7477b793dc1dac7f4735906e5bf, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5709404766568542055}
+    - target: {fileID: 8155442516629534967, guid: 9b7ac7477b793dc1dac7f4735906e5bf, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveTextSetting
       objectReference: {fileID: 0}
     - target: {fileID: 8812228285147300767, guid: 9b7ac7477b793dc1dac7f4735906e5bf, type: 3}
       propertyPath: m_Pivot.x
@@ -1805,10 +1813,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7495435510899256989, guid: 59b49137f7141e449893bd49c29e3599, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8915582680519945544, guid: 59b49137f7141e449893bd49c29e3599, type: 3}
       propertyPath: m_text
       value: Master
@@ -1831,10 +1835,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6616978926088611677}
     m_Modifications:
-    - target: {fileID: 1880490051169722508, guid: 59b49137f7141e449893bd49c29e3599, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3546826482070089890, guid: 59b49137f7141e449893bd49c29e3599, type: 3}
       propertyPath: m_Name
       value: SFX Volume

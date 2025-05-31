@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -58,10 +59,12 @@ public class OptionsManager : MonoBehaviour
         backButton.colors = colors;
 
         var sliders = audioSettings.GetComponentsInChildren<Slider>();
-        var toggles = textSettings.GetComponentsInChildren<Toggle>();
+        var textTtoggles = textSettings.GetComponentsInChildren<Toggle>();
+        var resToggles = resSettings.GetComponentsInChildren<Toggle>();
 
         foreach (var slider in sliders) slider.colors = colors;
-        foreach (var toggle in toggles) toggle.colors = colors;
+        foreach (var toggle in textTtoggles) toggle.colors = colors;
+        foreach (var toggle in resToggles) toggle.colors = colors;
     }
 
     public void LoadVolumeSettings()
