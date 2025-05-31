@@ -37,9 +37,10 @@ public class Tutorial : Objective
         };
     }
 
-    public static void Initialize(GameObject questPrefab, GameObject unityChan, DialogueManager dialogueManager)
+    public static void Initialize(GameObject questPrefab, GameObject floatingKeybindingPrefab, GameObject unityChan, DialogueManager dialogueManager)
     {
         var objectiveObject = Instantiate(questPrefab, unityChan.transform);
+        Instantiate(floatingKeybindingPrefab, objectiveObject.transform);
         var tutorial = objectiveObject.AddComponent<Tutorial>();
         tutorial.dialogueManager = dialogueManager;
     }

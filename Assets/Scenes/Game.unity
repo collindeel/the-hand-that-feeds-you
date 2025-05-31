@@ -4918,7 +4918,7 @@ GameObject:
   - component: {fileID: 1004936259}
   m_Layer: 5
   m_Name: Dialogue Box
-  m_TagString: Untagged
+  m_TagString: DialogueBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6301,6 +6301,7 @@ MonoBehaviour:
   isPaused: 0
   storyMode: 0
   questPrefab: {fileID: 8711581490627097798, guid: fbccecd080e3cf98ab64d8856e7cba19, type: 3}
+  floatingKeybindingPrefab: {fileID: 2972285584522134805, guid: 65968bf910c1cc23f8f3c3b891163671, type: 3}
   unityChan: {fileID: 1805318816}
   episodeController: {fileID: 866432622}
   doesEscapeTriggerMenu: 1

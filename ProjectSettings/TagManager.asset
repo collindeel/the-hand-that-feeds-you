@@ -13,6 +13,7 @@ TagManager:
   - Rabbit
   - GlobalVariables
   - DialogBox
+  - DialogueBox
   layers:
   - Default
   - TransparentFX

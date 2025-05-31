@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public bool storyMode = false;
 
     public GameObject questPrefab;
+    public GameObject floatingKeybindingPrefab;
     public GameObject unityChan;
     public EpisodeController episodeController;
     public bool doesEscapeTriggerMenu = true;
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         var dialogueManager = GetComponent<DialogueManager>();
-        Tutorial.Initialize(questPrefab, unityChan, dialogueManager);
+        Tutorial.Initialize(questPrefab, floatingKeybindingPrefab, unityChan, dialogueManager);
     }
 
     bool skipRequested = false;
