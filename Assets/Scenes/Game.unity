@@ -6085,7 +6085,7 @@ MonoBehaviour:
   activeClip: {fileID: 8300000, guid: f7debb99c04eb45d9b5430f1265d730d, type: 3}
   darkClip: {fileID: 8300000, guid: e289378daa75e4a6a9a1816e16be410d, type: 3}
   actionClip: {fileID: 8300000, guid: 1dcc3837e90f441dca5a9912c56e6c4b, type: 3}
-  endDiedClip: {fileID: 8300000, guid: bef50127189eb433d94a28d3d552b9d9, type: 3}
+  endDiedClip: {fileID: 8300000, guid: ac1676e3ba6fda211817fea3f05cf4d5, type: 3}
   endWonClip: {fileID: 8300000, guid: c147569f39e4844dabf892d2d69dc53e, type: 3}
 --- !u!82 &1211643723
 AudioSource:
