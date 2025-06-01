@@ -9,7 +9,9 @@ public class MainMenuManager : MonoBehaviour
     public Canvas optionsCanvas;
     public Canvas creditsCanvas;
     public GameObject globalVariablesPrefab;
+    public Image backgroundImage;
     public Image titleImage;
+    public Sprite alternateBackgroundSprite;
     public Sprite alternateTitleSprite;
     public Button startButton;
     public Button creditsBackButton;
@@ -29,7 +31,10 @@ public class MainMenuManager : MonoBehaviour
         }
         _globalVariables = globalVariablesObject.GetComponent<GlobalVariables>();
         if (_globalVariables.gameCompleted)
+        {
+            backgroundImage.sprite = alternateBackgroundSprite;
             titleImage.sprite = alternateTitleSprite;
+        }
 
         EventSystem.current.SetSelectedGameObject(startButton.gameObject);
     }
