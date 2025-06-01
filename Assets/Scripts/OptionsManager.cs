@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
