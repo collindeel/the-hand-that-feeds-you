@@ -7,6 +7,7 @@ The Hand That Feeds You is a cozy, slice of life game, perfect for those would l
 - **No Known Bugs:** N/A
 
 ## 🎮 Controls
+
 - **Moving:** WASD (W to move up, A to move left, D to move right, and S to move down).
 - **Running:** Press "shift" to run.
 - **Adjusting Camera:** You can adjust your camera position by moving the mouse.
@@ -43,7 +44,7 @@ The Hand That Feeds You is a cozy, slice of life game, perfect for those would l
   - Scream1_Short.aif by RutgerMuller -- https://freesound.org/s/104028/ -- License: Creative Commons 0
   - Scream 02 by adriancalzon -- https://freesound.org/s/220619/ -- License: Attribution 3.0
 
-3. Music
+- Music
   - White Records - "Evening birds singing in spring"
   - BackgroundMusicForVideo - "Feel Good Spring Music"
   - Magiksolo - "Swift Valkyrie"
@@ -79,4 +80,6 @@ The Hand That Feeds You is a cozy, slice of life game, perfect for those would l
 
 - Dr. Chris Cain
 - Eastern Washington University
+
+All code, except for that imported from external packages, is © Collin Deel, Rob Locke, and Mikayla Stewart. All other assets retain the copyright of their original copyright owners.
 
