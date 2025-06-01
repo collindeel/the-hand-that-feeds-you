@@ -67,7 +67,7 @@ The Hand That Feeds You is a cozy, slice of life game, perfect for those would l
 
 ### macOS (Intel)
 
-1. Download and unzip `THTFY_macOS.arm64.zip` from the Releases section
+1. Download and unzip `THTFY_macOS.x86_64.zip` from the Releases section
 2. Run `The Hand That Feeds You.app`
 
 ### Linux
