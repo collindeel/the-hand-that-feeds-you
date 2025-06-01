@@ -13,6 +13,9 @@ public class ScoreManager : MonoBehaviour
     private string playerName = "Player";
     GlobalVariables _globalVariables;
 
+    [SerializeField]
+    private string serverIP;
+
     void Awake()
     {
         if (instance == null)
@@ -44,7 +47,7 @@ public class ScoreManager : MonoBehaviour
     public IEnumerator UploadScore(int score, Action<bool> callback)
     {
         string json = JsonUtility.ToJson(new ScoreData(playerName, score));
-        UnityWebRequest request = new UnityWebRequest("http://XXXXXXXX      # literal IP → placeholder:3001/submit-score", "POST");
+        UnityWebRequest request = new UnityWebRequest($"http://{serverIP}:3001/submit-score", "POST");
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
@@ -58,7 +61,7 @@ public class ScoreManager : MonoBehaviour
 
     public IEnumerator DownloadScores(Action<bool, ScoreList> callback)
     {
-        UnityWebRequest request = UnityWebRequest.Get($"http://XXXXXXXX      # literal IP → placeholder:3001/get-scores");
+        UnityWebRequest request = UnityWebRequest.Get($"http://{serverIP}:3001/get-scores");
 
         yield return request.SendWebRequest();
 
