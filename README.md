@@ -1,4 +1,4 @@
-## 🐰 The Hand That Feeds You
+# 🐰 The Hand That Feeds You
 
 The Hand That Feeds You is a cozy, slice of life game, perfect for those would like the cute aesthetic! Join Misaki-chan as she takes on various tasks, meeting Unity-Chan, and feeding cute rabbits. ₍ᐢ. ̫.ᐢ₎
 
@@ -8,16 +8,39 @@ The Hand That Feeds You is a cozy, slice of life game, perfect for those would l
 
 ## 🎮 Controls
 
-- **Moving:** WASD (W to move up, A to move left, D to move right, and S to move down).
-- **Running:** Press "shift" to run.
-- **Adjusting Camera:** You can adjust your camera position by moving the mouse.
-- **Picking Up Carrot:** Press E to pick up carrots.
-- **Feeding Rabbits:** Press F to feed / throw carrots.
-- **Talking to NPCS:** To talk to Unity Chan, press E to interact and "space" to continue the conversation.
+### Keyboard & Mouse
+
+  - **Moving:** WASD (W to move up, A to move left, D to move right, and S to move down).
+  - **Running:** Hold "Shift" to run.
+  - **Jumping:** Press "Space" to jump.
+  - **Adjusting Camera:** You can adjust your camera position by moving the mouse.
+  - **Picking Up Carrot:** Press E to pick up carrots.
+  - **Feeding Rabbits:** Press F to feed / throw carrots.
+  - **Talking to NPCS:** To talk to Unity Chan, press E to interact and "Space" to continue the conversation.
+### DualShock 4 and DualSense Controllers
+
+  - **Moving:** Left analog stick
+  - **Running:** Hold R1 to run.
+  - **Jumping:** Press Cross (X) to jump.
+  - **Adjusting Camera:** You can adjust your camera position by using the right analog stick.
+  - **Picking Up Carrot:** Press Triangle to pick up carrots.
+  - **Feeding Rabbits:** Press Square to feed / throw carrots.
+  - **Talking to NPCS:** To talk to Unity Chan, press Triangle to interact and either Triangle or Cross (X) to continue the conversation.
+### Xbox One Controller
+
+*Note: Xbox One controller is not supported on Linux.*
+
+  - **Moving:** Left analog stick
+  - **Running:** Hold RB (Right bumper) to run.
+  - **Jumping:** Press A to jump.
+  - **Adjusting Camera:** You can adjust your camera position by using the right analog stick.
+  - **Picking Up Carrot:** Press Y to pick up carrots.
+  - **Feeding Rabbits:** Press X to feed / throw carrots.
+  - **Talking to NPCS:** To talk to Unity Chan, press Y to interact and either A or Y to continue the conversation.
 
 ## ❤️ Credit
 
-- Assets
+### Assets
   - Title image -- Basil Zero
   - Warning sign -- Google
   - Dyslexia-friendly font -- OpenDyslexic
@@ -33,8 +56,7 @@ The Hand That Feeds You is a cozy, slice of life game, perfect for those would l
   - Cave -- cinema4di
   - ML Agents -- Unity
   - Blood Border -- Pngtree
-
-- Audio (SFX)
+### Audio (SFX)
   - Referee whistle blow, gymnasium.wav by SpliceSound -- https://freesound.org/s/218318/ -- License: Creative Commons 0
   - SE_refresh.aif by Chanhun -- https://freesound.org/s/161322/ -- License: Attribution 3.0
   - tossing-chip-bag by CosmicEmbers -- https://freesound.org/s/161416/ -- License: Attribution 3.0
@@ -43,8 +65,7 @@ The Hand That Feeds You is a cozy, slice of life game, perfect for those would l
   - AHHHH by random_intruder -- https://freesound.org/s/392172/ -- License: Creative Commons 0
   - Scream1_Short.aif by RutgerMuller -- https://freesound.org/s/104028/ -- License: Creative Commons 0
   - Scream 02 by adriancalzon -- https://freesound.org/s/220619/ -- License: Attribution 3.0
-
-- Music
+### Music
   - White Records - "Evening birds singing in spring"
   - BackgroundMusicForVideo - "Feel Good Spring Music"
   - Magiksolo - "Swift Valkyrie"
