@@ -1,14 +1,14 @@
 using UnityEngine;
-using Unity.Sentis;                 // ModelAsset
+                 // ModelAsset
 using Unity.MLAgents.Policies;
 
 [RequireComponent(typeof(BehaviorParameters))]
 public class RabbitModelSwitcher : MonoBehaviour
 {
     [Header("Sentis ModelAssets generated from ONNX files")]
-    public ModelAsset timidModel;
-    public ModelAsset mediumModel;
-    public ModelAsset aggressiveModel;
+    public Unity.InferenceEngine.ModelAsset timidModel;
+    public Unity.InferenceEngine.ModelAsset mediumModel;
+    public Unity.InferenceEngine.ModelAsset aggressiveModel;
 
     [Tooltip("Current temperament shown in the Inspector")]
     public RabbitBehaviorLevel level = RabbitBehaviorLevel.Timid;
@@ -46,7 +46,7 @@ public class RabbitModelSwitcher : MonoBehaviour
     void ApplyModel()
     {
         // choose the correct ModelAsset and BehaviorName
-        ModelAsset chosen = timidModel;
+        Unity.InferenceEngine.ModelAsset chosen = timidModel;
         string name = "RabbitTimid";
 
         switch (level)
